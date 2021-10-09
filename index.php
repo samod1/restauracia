@@ -1,4 +1,5 @@
 <?php
-echo "Ahoj";
-echo "<a href='vkladanie_surovin.php'>Vkladanie surovin</a>";
+  include "header.php";
 ?>
+
+<a href="vkladanie_surovin.php">Vkladanie surovin</a>

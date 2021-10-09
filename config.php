@@ -4,10 +4,10 @@ $user = "restauracia_1";
 $pass = "Test1234";
 $db = "restauracia";
 
-$conn = mysqli_connect($server,$user,$pass);
+$conn = mysqli_connect($server,$user,$pass,$db);
 
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+/*if (!$conn) {
+    die("Spojenie neuspesne: " . mysqli_connect_error());
 }
-echo "Connected successfully";
+echo "Pripojenie prebehlo uspesne.";*/
 ?>
