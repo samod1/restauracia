@@ -1,6 +1,7 @@
 <?php
-$nazovSuboru="Tabulka surovin";
+$nazovSuboru="Prehlad surovin";
 include "widgets/header.php";
+$bc_nazov="Prehlad surovin";
 include "widgets/navbar.php";
 $conn = '';
 include "config.php";
@@ -21,7 +22,14 @@ if ($pocetRiadkov == 0) {
 }
 
 ?>
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8"></div>
+        <div class="col-4">
+            <a href="vkladanie_surovin.php" class="btn btn-primary"><i class="fas fa-plus"></i>Pridat novu surovinu</a>
+        </div>
+    </div>
+</div>
 <table class="table table-striped">
     <thead>
     <tr>

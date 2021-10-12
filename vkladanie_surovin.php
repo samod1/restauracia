@@ -1,27 +1,11 @@
 <?php
-    $nazovSuboru="Nazov";
-    include "header.php";
+    $nazovSuboru="Vkladanie surovin";
+    include "widgets/header.php";
+    $bc_nazov = "Vkladanie surovin";
+    include "widgets/navbar.php";
     $conn="";
     include "config.php";
 ?>
-    <div class="container-fluid">
-    <div class="jumbotron-fluid">
-        <h1 class="display-4" style="text-align: center">Restaurace</h1>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <ul class="navbar nav">
-                <li class="nav-item"><a class="nav-link" href="index.php">Domov</a></li>
-                <li class="nav-item"><a class="nav-link" href="vkladanie_surovin.php">Vkladanie surovin</a></li>
-                <li class="nav-item"><a class="nav-link" href="tbl_suroviny.php">Suroviny</a></li>
-                <li class="nav-item"><a class="nav-link" href="recept-component/zoznam_receptov.php">Zoznam receptov</a></li>
-            </ul>
-        </nav>
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Domov</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Vkladanie surovin</li>
-            </ol>
-        </nav>
-    </div>
 <div class="jumbotron-fluid">
     <h2>Vkladanie surovin</h2>
 </div>
@@ -67,7 +51,6 @@
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-
     $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny) VALUES (?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
