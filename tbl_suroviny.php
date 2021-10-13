@@ -24,11 +24,14 @@ if ($pocetRiadkov == 0) {
 ?>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-8"></div>
+        <div class="col-8">
+    <h2>Prehlad surovin</h2>
+        </div>
         <div class="col-4">
-            <a href="vkladanie_surovin.php" class="btn btn-primary"><i class="fas fa-plus"></i>Pridat novu surovinu</a>
+            <a href="vkladanie_surovin.php" class="btn btn-primary"><i class="fa fa-plus"></i> Pridat novu surovinu</a>
         </div>
     </div>
+</div>
 </div>
 <table class="table table-striped">
     <thead>
@@ -49,7 +52,43 @@ if ($pocetRiadkov == 0) {
 
 <?php
     }
-    mysqli_close($conn);
+    $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY id_kategorie ASC";
+    $resultKat = mysqli_query($conn,$queryKat);
+    $pocetRiadkovKat = mysqli_num_rows($resultKat);
+    if (!$result) {
+        echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
+        exit;
+    }
+    if ($pocetRiadkovKat == 0) {
+
+        echo "Nemam co zobrazit";
+
+    }
+
 ?>
 </table>
+<div class="row">
+    <div class="col-4">
+<h2>Kategorie surovin</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Kategoria</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php while ($row = mysqli_fetch_assoc($resultKat)) {
+
+    ?>
+        <tr>
+
+            <td><?php echo $row["nazov_kategorie"]?></td>
+        </tr>
+    <?php }?>
+    </tbody>
+</table>
+</div>
+    <div class="col-8">
+        <h2>Seznam alergenu</h2>
+    </div>
 </div>

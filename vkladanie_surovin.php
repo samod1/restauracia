@@ -8,6 +8,30 @@
 ?>
 <div class="jumbotron-fluid">
     <h2>Vkladanie surovin</h2>
+
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Vytvorit novu kategoriu</button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Vytvorenie novej kategorie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post">
+                        <label>Nazev kategorie</label>
+                        <input type="text" name="Kategoria">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="form-group">
 <form method="post" autocomplete="on">
@@ -41,7 +65,7 @@
     <br>
     <!--<input required autofocus id="nazovsuroviny" name="katSuroviny">-->
 
-    <input class="btn btn-primary btn-lg" type="submit" value="Ulozit surovinu">
+    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Ulozit surovinu">
     <input type="hidden" name="send" value="yes">
 
 </form>
@@ -62,5 +86,4 @@ if ($_POST["send"] == "yes") {
 //include "tbl_suroviny.php";
 
 mysqli_close($conn);
-
 ?>
