@@ -75,4 +75,7 @@ $nazovSuboru="Vitejte";
         </tbody>
     </table>
 </div>
+<?php
+include "widgets/footer.php";
+?>
 
