@@ -66,5 +66,5 @@ if ($_POST["send"] == "yes") {
 //include "tbl_suroviny.php";
 
 mysqli_close($conn);
-
+include "widgets/footer.php";
 ?>

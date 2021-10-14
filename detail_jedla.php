@@ -41,3 +41,7 @@ if ($_GET["id"] != "") {
 }
 ?>
 </div>
+<?php
+mysqli_close($conn);
+include "widgets/footer.php";
+?>

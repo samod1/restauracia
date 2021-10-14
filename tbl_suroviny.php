@@ -92,3 +92,7 @@ if ($pocetRiadkov == 0) {
         <h2>Seznam alergenu</h2>
     </div>
 </div>
+<?php
+mysqli_close($conn);
+include "widgets/footer.php";
+?>

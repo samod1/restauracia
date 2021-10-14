@@ -55,4 +55,7 @@ include "widgets/navbar.php";
         </tbody>
     </table>
 </div>
-
+<?php
+mysqli_close($conn);
+include "widgets/footer.php";
+?>
