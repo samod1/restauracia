@@ -44,7 +44,7 @@ include "widgets/navbar.php";
             while ($row = mysqli_fetch_assoc($result)) {
             ?>
         <tr>
-            <td><?php echo $row["nazov"]?></td>
+            <td><a id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>"><?php echo $row["nazov"]?></a></td>
             <td><?php echo $row["nazov_typu_receptu"]?></td>
             <td><?php echo /*$row["nazov"]*/"1,2,4"?></td>
             <td><a id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>">Detail jedla</a></td>
