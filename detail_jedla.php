@@ -16,12 +16,22 @@ if ($_GET["id"] != "") {
         echo "<div class='container-fluid'><h3>Detail jedla: " . $rowNazov["nazov"] . "</h3>
         <h4>Suroviny</h4>
         <table class='table Stable-stripped'>
-            <thead>
-                <td>
+            <thead class='table thead-light'>
+                <tr>
                     <th>Surovina</th>
                     <th>Mnozstvo</th>
-                </td>
-            </thead>        
+                </tr>
+            </thead> 
+            <tbody>
+                <tr>
+                    <td>Kuracie maso</td>
+                    <td>1kg</td>
+                </tr>
+                <tr>
+                    <td>Cibula</td>
+                    <td>0,250kg</td>
+                </tr>
+            </tbody>       
         </table>
         <h4>Postup</h4>
         <p>".$rowNazov["postup"]."</p>
