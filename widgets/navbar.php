@@ -9,16 +9,28 @@
                         Suroviny
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="../tbl_suroviny.php">Vkladanie surovin</a>
+                        <a class="dropdown-item" href="../tbl_suroviny.php">Zoznam surovin</a>
+                        <a class="dropdown-item" href="../vkladanie_surovin.php.php">Vkladanie surovin</a>
 
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="../zoznam_receptov.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Recepty</a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../zoznam_receptov.php">Zoznam receptov</a>
                         <a class="dropdown-item" href="../new_recept.php">Vytvorit novy recept</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="../jedalny_listok.php" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Menu</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="../jedalny_listok.php">Jedalne listky</a>
+                        <a class="dropdown-item" href="#">Vytvorit nove menu</a>
+                    </div>
+                </li>
+
+
             </ul>
         </nav>
         <nav aria-label="breadcrumb">
