@@ -47,7 +47,7 @@ include "widgets/navbar.php";
             <td><a id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>"><?php echo $row["nazov"]?></a></td>
             <td><?php echo $row["nazov_typu_receptu"]?></td>
             <td><?php echo /*$row["nazov"]*/"1,2,4"?></td>
-            <td><a id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>">Detail jedla</a></td>
+            <td><a class="btn btn-primary" id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>"><i class="fa fa-search"></i> Detail jedla</a></td>
 
         <?php
             }
