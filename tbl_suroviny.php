@@ -31,7 +31,7 @@ if ($pocetRiadkov == 0) {
             <a href="vkladanie_surovin.php" class="btn btn-primary"><i class="fa fa-plus"></i> Pridat novu surovinu</a>
         </div>
     </div>
-</div>
+
 </div>
 <table class="table table-striped">
     <thead>
@@ -92,6 +92,7 @@ if ($pocetRiadkov == 0) {
         <h2>Seznam alergenu</h2>
     </div>
 </div>
+    </div>
 <?php
 mysqli_close($conn);
 include "widgets/footer.php";
