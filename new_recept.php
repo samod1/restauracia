@@ -8,9 +8,48 @@ include "widgets/header.php";
 $bc_nazov = "Novy recept";
 include "widgets/navbar.php";
 ?>
-
-<h2>Vytvorit novej recept</h2>
 <div class="container-fluid">
+    <div class="row">
+        <div class="col-6">
+            <h2>Vytvorit novej recept</h2>
+        </div>
+        <div class="col-2">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Vytvorit novu kategoriu</button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Vytvorenie novej kategorie</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" class="form-control form-control-lg">
+                                <label>Nazev kategorie</label>
+                                <br>
+                                <input class="form-group" type="text" name="nazov_kategorie">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block">
+                                <input type="hidden" name="vlozit" value="yes">
+
+                                <?php
+                                $idKat=0;
+                                $queryKat="INSERT INTO typ_receptu (id_typu_receptu,nazov_typu_receptu) VALUES (?,?)";
+                                $stmtKat = mysqli_stmt_init($conn);
+                                mysqli_stmt_prepare($stmtKat, $queryKat);
+                                mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
+                                mysqli_stmt_execute($stmtKat);
+                                mysqli_stmt_close($stmtKat);
+                                ?>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <form method="post" class="form-group">
     <label for="nazovReceptu">Nazov receptu</label>
     <input class="form-control form-control-lg" required autofocus type="text" name="nazovReceptu">
