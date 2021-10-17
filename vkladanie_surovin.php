@@ -7,10 +7,14 @@
     include "config.php";
 ?>
 <div class="jumbotron-fluid">
-    <h2>Vkladanie surovin</h2>
+    <div class="row">
+        <div class="col-8">
+            <h2>Vkladanie surovin</h2>
+        </div>
 
+    <div class="col-6">
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Vytvorit novu kategoriu</button>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Vytvorit novu kategoriu</button>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -23,14 +27,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="post">
+                    <form method="post" class="form-control form-control-lg">
                         <label>Nazev kategorie</label>
-                        <input type="text" name="Kategoria">
+                        <br>
+                        <input class="form-group" type="text" name="nazov_kategorie">
                         <input type="submit" class="btn btn-primary btn-lg btn-block">
+                        <input type="hidden" name="vlozit" value="yes">
+                        <?php
+                            $idKat=0;
+                            $queryKat="INSERT INTO enum_kategoria_suroviny (id_kategorie,nazov_kategorie) VALUES (?,?)";
+                            $stmtKat = mysqli_stmt_init($conn);
+                            mysqli_stmt_prepare($stmtKat, $queryKat);
+                            mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
+                            mysqli_stmt_execute($stmtKat);
+                            mysqli_stmt_close($stmtKat);
+
+                        ?>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <div class="form-group">
@@ -88,4 +105,4 @@ if ($_POST["send"] == "yes") {
 mysqli_close($conn);
 include "widgets/footer.php"
 ?>
-
+</div>

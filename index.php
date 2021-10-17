@@ -5,6 +5,34 @@ $nazovSuboru="Vitejte";
   include "widgets/navbar.php";
 ?>
 <div class="container-fluid">
+    <div class="row">
+        <div class="col"></div>
+        <div class="col-4">
+            <table class="table table-stripped">
+                <thead class="thead-light">
+                    <tr>
+                        <th colspan="2" style="text-align: center"><h5>Statistiky</h5></th>
+                    </tr>
+                </thead>
+
+                <tr>
+                    <th>Den</th>
+                    <td><?php $mydate=getdate(date("U"));
+                            echo "$mydate[weekday]"?></td>
+                </tr>
+                <tr>
+                    <th>Pocet vytvorenych menu</th>
+                    <td><a href="jedalny_listok.php">2</a></td>
+
+                </tr>
+                <tr>
+                    <th>Pocet hostu tento tyzden</th>
+                    <td>250</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col"></div>
+    </div>
     <h3>Menu na aktualny tyzden</h3>
     <table class="table table-stripped">
         <tbody>
