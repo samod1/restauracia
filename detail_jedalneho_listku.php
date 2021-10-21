@@ -24,6 +24,10 @@ include "widgets/navbar.php";
                 </div>
             </div>
         </div>
+        <div class="col"></div>
+        <div class="col">
+            <a href="#" class="btn btn-primary"><i class="fa fa-print"></i> Tlacit menu</a>
+        </div>
     </div>
     <h5>Podavane jidla</h5>
     <table class="table table-stripped">
