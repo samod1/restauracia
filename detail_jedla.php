@@ -26,7 +26,7 @@ if ($_GET["id"] != "") {
             <a href='#' class='btn btn-danger 'onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
         </div>
      </div>
-            <h4>Suroviny</h4>
+            <h4>Suroviny prepocet na jednu osobu</h4>
             <table class='table tbl-stripped'>
                 <thead class='table thead-light'>
                     <tr>

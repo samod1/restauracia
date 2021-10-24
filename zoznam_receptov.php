@@ -23,7 +23,7 @@ include "widgets/navbar.php";
                 <th>Nazov jedla</th>
                 <th>Kategoria jedla</th>
                 <th>Alergeny</th>
-                <th>Akcia</th>
+                <th colspan="2">Akcia</th>
             </tr>
         </thead>
         <tbody>
@@ -48,6 +48,8 @@ include "widgets/navbar.php";
             <td><?php echo $row["nazov_typu_receptu"]?></td>
             <td><?php echo /*$row["nazov"]*/"1,2,4"?></td>
             <td><a class="btn btn-primary" id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>"><i class="fa fa-search"></i> Detail jedla</a></td>
+            <td><a class="btn btn-primary" id="Priradsuroviny" href="priradenie_surovin.php?id=<?php echo $row["id"]; ?>"><i class="fa fa-search"></i> Prirad suroviny jedla</a></td>
+
 
         <?php
             }
