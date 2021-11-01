@@ -15,7 +15,7 @@ if ($_GET["id"] != "") {
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
         { echo "<h3>Priradenie surovin k receptu ".$rowNazov["nazov"]."</h3>"
             ?>
-    <form method="get" class="form-group">
+    <form method="post" class="form-group">
         <div class="row"></div>
         <div class="row">
             <div class="col">
@@ -24,7 +24,7 @@ if ($_GET["id"] != "") {
                     $resultKat= mysqli_query($conn,$queryKat);
 
                 ?>
-                    <select class="form-control form-control-lg">
+                    <select class="form-control form-control-lg" name="kategoria">
                         <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
                         {
                             ?>
@@ -40,19 +40,32 @@ if ($_GET["id"] != "") {
                 <input type="hidden" name="zobraz" value="yes">
             </div>
         </div>
-    
+
+
+        <?php
+            $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM restauracia.tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
+            $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
+            $pocetRiadkov = mysqli_num_rows($result);
+            if (!$result) {
+                echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
+                exit;
+            }
+            if ($pocetRiadkov == 0) {
+                echo "Nemam co zobrazit";
+            }
+        ?>
     </form>
             <form method="get" class="form-group">
+                <?php
+            while ($row = mysqli_fetch_assoc($result)) {
+                ?>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">Veprova panenka</label>
+                    <input class="form-check-input" type="checkbox" name="surovina" id="<?php echo $row["nazov_suroviny"]?>" value="<?php echo $row["id_suroviny"] ?>">
+                    <label class="form-check-label" for="<?php echo $row["nazov_suroviny"]?>"><?php echo $row["nazov_suroviny"]?></label>
                 </div>
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                    <label class="form-check-label" for="exampleRadios1">Hovedzi kyta</label>
-                </div>
-
+                <?php
+            }
+                ?>
                 
                 <div class="row">
                     <div class="col">
@@ -72,6 +85,10 @@ if ($_GET["id"] != "") {
             </form>
 </div>
 <?php
+
+
+
+
         }
 }
 ?>
