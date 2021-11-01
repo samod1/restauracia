@@ -151,11 +151,13 @@ if ($_GET["id"] != "") {
                     </div>
                 </div>
                 <br>
-                <input type="submit" class="btn btn-primary btn-lg btn-block">
+                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Ulozit surovinu k receptu">
                 <input type="hidden" name="ulozit" value="yes">
             </form>
 </div>
 <?php
+            if ($_POST["ulozit"] == "yes") {
+
                 //jednotky
            $id = 0;
            $id_suroviny= $_POST["surovina"];
@@ -166,10 +168,12 @@ if ($_GET["id"] != "") {
             $query = "INSERT INTO restauracia.suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
             $stmt = mysqli_stmt_init($conn);
             mysqli_stmt_prepare($stmt, $query);
-            mysqli_stmt_bind_param($stmt, 'iiiii', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka );
+            mysqli_stmt_bind_param($stmt, 'iiiii', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
             mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
         }
 }
+}
 mysqli_close($conn);
+include "widgets/footer.php";
 ?>
