@@ -1,4 +1,7 @@
 <?php
+$conn="";
+include "config.php";
+
 $nazovSuboru="Vitejte";
   include "widgets/header.php";
   $bc_nazov = "Domov";
@@ -17,13 +20,39 @@ $nazovSuboru="Vitejte";
 
                 <tr>
                     <th>Den</th>
-                    <td><?php $mydate=getdate(date("U"));
-                            echo "$mydate[weekday]"?></td>
+                    <td><?php
+                        $dniSK= [
+                           1=>'Pondelok',
+                           2=>'Utorok',
+                           3=>'Streda',
+                           4=>'Štvrtok',
+                           5=>'Piatok',
+                           6=>'Sobota',
+                           7=>'Nedeľa'];
+                        $dniCZ= [
+                           1=>'Pondělí',
+                           2=>'Úterý',
+                           3=>'Středa',
+                           4=>'Čtvrtek',
+                           5=>'Pátek',
+                           6=>'Sobota',
+                           7=>'Neděle'];
+                        echo $dniCZ[date('N')];
+                        ?></td>
                 </tr>
                 <tr>
                     <th>Pocet vytvorenych menu</th>
                     <td><a href="jedalny_listok.php">2</a></td>
 
+                </tr>
+                <tr>
+                    <th>Pocet receptu</th>
+                    <td><?php
+                        $query="SELECT id FROM restauracia.recept";
+                        $result= mysqli_query($conn,$query);
+                        $pocetRiadkov=mysqli_num_rows($result);
+                        echo $pocetRiadkov;
+                        ?></td>
                 </tr>
                 <tr>
                     <th>Pocet hostu tento tyzden</th>
@@ -33,72 +62,17 @@ $nazovSuboru="Vitejte";
         </div>
         <div class="col"></div>
     </div>
-    <h3>Menu na aktualny tyzden</h3>
+    <h3>Menu na tenhle den</h3>
     <table class="table table-stripped">
         <tbody>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Pondeli</th></tr>
+            <tr><th colspan="2" class="table-active" style="text-align: center">Pondeli MOCK</th></tr>
             <tr>
                 <th>Polivka</th>
                 <td>Kulajda</td>
             </tr>
             <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
-            </tr>
-
-            <tr><th colspan="2" class="table-active" style="text-align: center">Utery</th></tr>
-            <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
-            </tr>
-            <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
-            </tr>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Streda</th></tr>
-            <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
-            </tr>
-            <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
-            </tr>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Ctvrtek</th></tr>
-            <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
-            </tr>
-            <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
-            </tr>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Patek</th></tr>
-            <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
-            </tr>
-            <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
-            </tr>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Sobota</th></tr>
-            <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
-            </tr>
-            <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
-            </tr>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Nedele</th></tr>
-            <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
-            </tr>
-            <tr>
-                <th>Hlavni jidlo:</th>
-                <td> Kureci rezen s brambory a salatem</td>
+                <th>Menu 1</th>
+                <td>Kureci ryzecek s bramborovou kasi</td>
             </tr>
         </tbody>
     </table>
