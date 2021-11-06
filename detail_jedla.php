@@ -103,7 +103,7 @@ if ($_GET["id"] != "") {
 
 </div>
 <?php
-echo $pocetHosti;
+
 mysqli_close($conn);
 include "widgets/footer.php";
 ?>
