@@ -51,7 +51,7 @@ $nazovSuboru="Vitejte";
                         $query="SELECT id FROM restauracia.recept";
                         $result= mysqli_query($conn,$query);
                         $pocetRiadkov=mysqli_num_rows($result);
-                        echo $pocetRiadkov;
+                        echo  "<a href='zoznam_receptov.php'>".$pocetRiadkov.'</a>';
                         ?></td>
                 </tr>
                 <tr>
@@ -65,13 +65,25 @@ $nazovSuboru="Vitejte";
     <h3>Menu na tenhle den</h3>
     <table class="table table-stripped">
         <tbody>
-            <tr><th colspan="2" class="table-active" style="text-align: center">Pondeli MOCK</th></tr>
+            <tr>
+                <th colspan="2" class="table-active" style="text-align: center">
+                    <?php echo $dniCZ[date('N')]; ?>
+                </th>
+            </tr>
             <tr>
                 <th>Polivka</th>
                 <td>Kulajda</td>
             </tr>
             <tr>
                 <th>Menu 1</th>
+                <td>Kureci ryzecek s bramborovou kasi</td>
+            </tr>
+            <tr>
+                <th>Menu 2</th>
+                <td>Kureci ryzecek s bramborovou kasi</td>
+            </tr>
+            <tr>
+                <th>Menu 3</th>
                 <td>Kureci ryzecek s bramborovou kasi</td>
             </tr>
         </tbody>
