@@ -5,6 +5,7 @@ $nazovSuboru="Detail jedla";
 include "widgets/header.php";
 $bc_nazov="Detail jedla";
 include "widgets/navbar.php";
+$pocetHosti="10.000";
 ?>
 
 <?php
@@ -25,9 +26,31 @@ if ($_GET["id"] != "") {
         <div class='col'>
             <a href='#' class='btn btn-danger 'onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
         </div>
-     </div>
+        <div class="col">
+            <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
+                            aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-calculator"></i> Pocet osob</a>
+        </div>
+        </div>
 
-    <h4>Suroviny prepocet na jednu osobu</h4>
+            <br>
+            <div class="row">
+                <br>
+                <div class="col">
+                    <div class="collapse multi-collapse" id="multiCollapseExample1">
+                        <div class="card card-body">
+                            <form method="post" class="form-group">
+                                <label>Pocet hostu</label>
+                                <input class="form-control" type="number" name="pocetHostu" value="1">
+                                <br>
+                                <input type="submit" class="btn btn-primary btn-lg" value="Prepocitat">
+                                <input type="hidden" name="prepocitat" value="yes">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    <h4>Suroviny prepocet pre <?php echo $pocetHosti=$_POST["pocetHostu"];?> osobu</h4>
     <table class='table tbl-stripped'>
         <thead class='table thead-light'>
         <tr>
@@ -55,7 +78,7 @@ if ($_GET["id"] != "") {
             ?>
             <tr>
                 <td><?php echo $rowSuroviny["nazov_suroviny"]; ?></td>
-                <td><?php echo $rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]; ?></td>
+                <td><?php echo $pocetHosti*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]; ?></td>
             </tr>
         <?php } ?>
         </tbody>
@@ -80,6 +103,7 @@ if ($_GET["id"] != "") {
 
 </div>
 <?php
+echo $pocetHosti;
 mysqli_close($conn);
 include "widgets/footer.php";
 ?>
