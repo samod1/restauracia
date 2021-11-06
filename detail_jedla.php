@@ -50,7 +50,7 @@ if ($_GET["id"] != "") {
                 </div>
             </div>
 
-    <h4>Suroviny prepocet pre <?php echo $pocetHosti=$_POST["pocetHostu"];?> osobu</h4>
+    <h4>Suroviny prepoctene pro <?php echo $pocetHosti=$_POST["pocetHostu"];?> hostu</h4>
     <table class='table tbl-stripped'>
         <thead class='table thead-light'>
         <tr>
