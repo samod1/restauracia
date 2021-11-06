@@ -5,7 +5,7 @@ $nazovSuboru="Detail jedla";
 include "widgets/header.php";
 $bc_nazov="Detail jedla";
 include "widgets/navbar.php";
-$pocetHosti="10.000";
+$pocetHosti="1.000";
 ?>
 
 <?php
