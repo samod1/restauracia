@@ -2,10 +2,11 @@
 <head>
     <meta charset="UTF-8">
     <title><?php echo $nazovSuboru;?></title>
-    <meta name="author" content="Samuel Domin"
+    <meta name="author" content="Samuel Domin">
+    <meta name="copyright" content="Samuel Domin www.samod.sk">
     <meta name="keyword" content="HTML, CSS, JavaScript, PHP">
     <meta name="description" content="Semestralny projekt INTE">
-    <meta http-equiv="refresh" content="90">
+    <!--<meta http-equiv="refresh" content="90">-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
