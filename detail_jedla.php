@@ -17,20 +17,23 @@ if ($_GET["id"] != "") {
 
 <div class='container-fluid'>
     <div class='row'>
-        <div class='col-8'>
+        <div class='col-4'>
             <h3>Detail jedla: <?php echo $rowNazov["nazov"];} ?> </h3>
         </div>
-        <div class='col'>
+        <div class='col-2'>
             <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><i class='fa fa-pencil'></i> Edituj</a>
         </div>
-        <div class='col'>
+        <div class='col-2'>
             <a href='#' class='btn btn-danger 'onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
         </div>
-        <div class="col">
+        <div class="col-2">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
                             aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-calculator"></i> Pocet osob</a>
         </div>
+        <div class="col-2">
+            <button onclick="window.print()" class="btn btn-primary"><i class="fa fa-print"></i> Tlacit recept</button>
         </div>
+    </div>
 
             <br>
             <div class="row">
