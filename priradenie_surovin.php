@@ -26,19 +26,7 @@ if ($_GET["id"] != "") {
             <br><br>
     <?php
 
-        $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM restauracia.suroviny_k_receptu 
-        INNER JOIN restauracia.tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
-        INNER JOIN restauracia.enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
-        WHERE $id_receptu=".$id_receptu;
-        $resultSur= mysqli_query($conn, $querySur);
-            $pocetRiadkov = mysqli_num_rows($resultSur);
-            if (!$resultSur) {
-                echo "Error: Neda sa vykonat prikaz SQL: " . $querySur . ".<br>" . PHP_EOL;
-                exit;
-            }
-            if ($pocetRiadkov == 0) {
-                echo "Nemam co zobrazit";
-            }
+
 
     ?>
     <div class="collapse multi-collapse" id="pridaneSuroviny">
@@ -48,17 +36,32 @@ if ($_GET["id"] != "") {
                 <tr>
                     <th>Nazov suroviny</th>
                     <th>Mnozstvo</th>
+                    <th>Akcia</th>
                 </tr>
             </thead>
             <tbody>
             <?php
+            $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM restauracia.suroviny_k_receptu 
+        INNER JOIN restauracia.tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
+        INNER JOIN restauracia.enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
+        WHERE id_rec =".$id_receptu;
+            $resultSur= mysqli_query($conn, $querySur);
+            $pocetRiadkov = mysqli_num_rows($resultSur);
+            if (!$resultSur) {
+                echo "Error: Neda sa vykonat prikaz SQL: " . $querySur . ".<br>" . PHP_EOL;
+                exit;
+            }
+            if ($pocetRiadkov == 0) {
+                echo "Nemam co zobrazit";
+            }
             while ($rowSur = mysqli_fetch_assoc($resultSur))
             {
             ?>
 
             <tr>
                 <td><?php echo $rowSur["nazov_suroviny"]?></td>
-                <td><?php echo $rowSur["mnozstvo"], " ", $rowSur["jednotka"]?></td>
+                <td><?php echo $rowSur["mnozstvo"], " ", $rowSur["skratka"]?></td>
+                <td><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Odstranit</a></td>
 
             </tr>
             <?php
@@ -142,10 +145,8 @@ if ($_GET["id"] != "") {
                         }
                         ?>
                         <select class="form-control" name="jednotka">
-                            <?php
-                                while ($row = mysqli_fetch_assoc($resultJednotka)) {
-                            ?>
-                            <option value="<?php echo $row["id_jednotky"]?>"><?php echo $row["jednotka"]?></option>
+                            <?php while ($row = mysqli_fetch_assoc($resultJednotka)) { ?>
+                            <option value="<?php echo $row["id_jednotky"]; ?>"><?php echo $row["jednotka"]; ?></option>
                             <?php } ?>
                         </select>
                     </div>
@@ -156,23 +157,24 @@ if ($_GET["id"] != "") {
             </form>
 </div>
 <?php
-            if ($_POST["ulozit"] == "yes") {
 
-                //jednotky
-           $id = 0;
-           $id_suroviny= $_POST["surovina"];
-           $mnozstvo = $_POST["mnozstvo"];
-           $jednotka = $_POST["jednotka"];
-
-
-            $query = "INSERT INTO restauracia.suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, $query);
-            mysqli_stmt_bind_param($stmt, 'iiiii', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        }
 }
+    if ($_POST["ulozit"] == "yes") {
+
+        //jednotky
+        $id = 0;
+        $id_suroviny= $_POST["surovina"];
+        $mnozstvo = $_POST["mnozstvo"];
+        $jednotka = $_POST["jednotka"];
+
+
+        $query = "INSERT INTO suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
+        $stmt = mysqli_stmt_init($conn);
+        mysqli_stmt_prepare($stmt, $query);
+        mysqli_stmt_bind_param($stmt, 'iiiii', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
 }
 mysqli_close($conn);
 include "widgets/footer.php";
