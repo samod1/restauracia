@@ -49,7 +49,7 @@ if ($pocetRiadkov == 0) {
     <tr>
         <td><?php echo $row["nazov_suroviny"]?></td>
         <td><?php echo $row["nazov_kategorie"]?></td>
-        <td><a href="#" class="btn btn-danger btn-ml"><i class="fa fa-trash"></i></a></td>
+        <td><a href="zmazat.php?id=<?php echo $row["id_suroviny"];?>&zmazat=ano" class="btn btn-danger btn-ml"><i class="fa fa-trash"></i></a></td>
         <td><a href="editacia_suroviny.php?id=<?php echo $row["id_suroviny"]; ?>" class="btn btn-secondary btn-ml"><i class="fa fa-pencil"></i></a></td>
         </tr>
 
@@ -77,6 +77,7 @@ if ($pocetRiadkov == 0) {
     <thead>
         <tr>
             <th>Kategoria</th>
+            <th>Akcia</th>
         </tr>
     </thead>
     <tbody>
