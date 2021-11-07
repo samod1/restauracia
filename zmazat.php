@@ -12,3 +12,4 @@ if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
     mysqli_stmt_close($stmt);
     header("Location: tbl_suroviny.php");
 }
+mysqli_close($conn);
