@@ -7,7 +7,7 @@ $conn = '';
 include "config.php";
 
 $query = "SELECT tbl_suroviny.id_suroviny, tbl_suroviny.nazov_suroviny, enum_kategoria_suroviny.nazov_kategorie 
-        FROM tbl_suroviny INNER JOIN enum_kategoria_suroviny ON tbl_suroviny.kategoria_suroviny=enum_kategoria_suroviny.id_kategorie 
+        FROM restauracia.tbl_suroviny INNER JOIN restauracia.enum_kategoria_suroviny ON tbl_suroviny.kategoria_suroviny=enum_kategoria_suroviny.id_kategorie 
         ORDER BY id_suroviny ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
 $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
 $pocetRiadkov = mysqli_num_rows($result);
@@ -38,6 +38,7 @@ if ($pocetRiadkov == 0) {
     <tr>
         <th>Nazov suroviny</th>
         <th>Kategoria suroviny</th>
+        <th colspan="2">Akcia</th>
     </tr>
     </thead>
     <?php
@@ -48,6 +49,8 @@ if ($pocetRiadkov == 0) {
     <tr>
         <td><?php echo $row["nazov_suroviny"]?></td>
         <td><?php echo $row["nazov_kategorie"]?></td>
+        <td><a href="#" class="btn btn-danger btn-ml"><i class="fa fa-trash"></i></a></td>
+        <td><a href="editacia_suroviny.php?id=<?php echo $row["id_suroviny"]; ?>" class="btn btn-secondary btn-ml"><i class="fa fa-pencil"></i></a></td>
         </tr>
 
 <?php
