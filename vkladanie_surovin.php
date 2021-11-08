@@ -92,12 +92,13 @@
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny) VALUES (?,?,?)";
+    $query = "INSERT INTO restauracia.tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny) VALUES (?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
     mysqli_stmt_bind_param($stmt, 'isi', $id, $_POST["nazovSuroviny"],$_POST["katSuroviny"]);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    header("Location: tbl_suroviny.php");
 }
 
 //include "tbl_suroviny.php";
