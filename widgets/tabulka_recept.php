@@ -33,7 +33,7 @@
         <td><?php echo /*$row["nazov"]*/"1,2,4"?></td>
         <td><a class="btn btn-primary" id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id"]; ?>"><i class="fa fa-search"></i> Detail jedla</a></td>
         <td><a class="btn btn-primary" id="Priradsuroviny" href="priradenie_surovin.php?id=<?php echo $row["id"]; ?>"><i class="fa fa-search"></i> Prirad suroviny jedla</a></td>
-        <td><a onclick="return confirm('Chcete vymazat tento recept');" class="btn btn-danger" id="zmaz" href="zoznam_receptov.php?id=<?php echo $row["id"]; ?>&zmazat=ano"><i class="fa fa-trash"></i> Odstranit recept</a></td>
+        <td><a onclick="return confirm('Chcete vymazat tento recept');" class="btn btn-danger" id="zmaz" href="../spracovania/odstranenie_receptu.php?id=<?php echo $row["id"];?>&zmazat=ano"><i class="fa fa-trash"></i> Odstranit recept</a></td>
 
 
         <?php
