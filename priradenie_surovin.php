@@ -113,7 +113,7 @@ if ($_GET["id"] != "") {
         ?>
 
 
-            <form class="form-group" method="post" class="form-group">
+            <form class="form-group" method="post">
                 <label>Suroviny</label>
                 <select name="surovina" class="form-control">
                     <?php
@@ -152,30 +152,39 @@ if ($_GET["id"] != "") {
                     </div>
                 </div>
                 <br>
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Ulozit surovinu k receptu">
-                <input type="hidden" name="ulozit" value="yes">
+                <div class="row">
+                    <div class="col">
+                        <input type="submit" class="btn btn-primary btn-lg" value="Ulozit">
+                        <input type="hidden" name="save" value="yes">
+                    </div>
+                    <div class="col">
+                        <input type="reset" class="btn btn-secondary btn-lg" value="Reset">
+                    </div>
+                </div>
             </form>
 </div>
 <?php
-
 }
-    if ($_POST["ulozit"] == "yes") {
+}
+    if ($_POST["save"] == "yes") {
 
         //jednotky
+
         $id = 0;
+        echo $id_receptu;
         $id_suroviny= $_POST["surovina"];
         $mnozstvo = $_POST["mnozstvo"];
         $jednotka = $_POST["jednotka"];
 
 
-        $query = "INSERT INTO suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
+        $query = "INSERT INTO restauracia.suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
         $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt, $query);
-        mysqli_stmt_bind_param($stmt, 'iiiii', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
+        mysqli_stmt_bind_param($stmt, 'iiisi', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
     }
-}
+
 mysqli_close($conn);
 include "widgets/footer.php";
 ?>
