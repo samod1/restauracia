@@ -15,6 +15,8 @@ if ($_GET["id"] != "") {
 
     $id_receptu=$_GET["id"];
 
+
+
     $queryNazov="SELECT nazov,postup FROM restauracia.recept WHERE id=".$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
@@ -94,7 +96,6 @@ if ($_GET["id"] != "") {
             </div>
             <div class="col">
                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="Zobraz suroviny">
-                <input type="hidden" name="zobraz" value="yes">
             </div>
         </div>
     </form>
@@ -102,18 +103,18 @@ if ($_GET["id"] != "") {
         <?php
             $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM restauracia.tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
             $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
-            $pocetRiadkov = mysqli_num_rows($result);
+            /*$pocetRiadkov = mysqli_num_rows($result);
             if (!$result) {
                 echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
                 exit;
             }
             if ($pocetRiadkov == 0) {
                 echo "Nemam co zobrazit";
-            }
+            }*/
         ?>
 
 
-            <form class="form-group" method="post">
+            <form class="form-group" method="post" action="ulozenie_suroviny.php">
                 <label>Suroviny</label>
                 <select name="surovina" class="form-control">
                     <?php
@@ -127,8 +128,9 @@ if ($_GET["id"] != "") {
 
                 <div class="row">
                     <div class="col">
+                        <input type="hidden" name="id_receptu" value="<?php echo $id_receptu?>">
                         <label for="mnozstvo">Mnozstvi</label>
-                        <input class="form-control" type="number" id="mnozstvo" name="mnozstvo">
+                        <input class="form-control" type="text" id="mnozstvo" name="mnozstvo" placeholder="0,450">
                     </div>
                     <div class="col">
                         <label>Jednotka</label>
@@ -177,13 +179,14 @@ if ($_GET["id"] != "") {
         $jednotka = $_POST["jednotka"];
 
 
+
         $query = "INSERT INTO restauracia.suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
         $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt, $query);
         mysqli_stmt_bind_param($stmt, 'iiisi', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-    }
+}
 
 mysqli_close($conn);
 include "widgets/footer.php";
