@@ -1,16 +1,18 @@
 <?php
 $conn="";
-include "config.php";
+require_once "config.php";
+
 if ($_POST["save"] == "yes") {
 
-    //jednotky
-
     $id = 0;
-    $id_rec = $_POST["id_receptu"];
+    $id_rec = $_POST["id_rec"];
     $id_suroviny= $_POST["surovina"];
     $mnozstvo = $_POST["mnozstvo"];
     $jednotka = $_POST["jednotka"];
 
+    echo $id_rec .",". $id_suroviny .",". $mnozstvo .",". $jednotka;
+
+    //console.log($id." ".$id_rec." ". $id_suroviny. " ". $mnozstvo. " ". $jednotka);
 
 
     $query = "INSERT INTO restauracia.suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
@@ -19,5 +21,7 @@ if ($_POST["save"] == "yes") {
     mysqli_stmt_bind_param($stmt, 'iiisi', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("Location: tbl_suroviny.php");
+    mysqli_commit($conn);
+    //header("Location: zoznam_receptov.php");
 }
+mysqli_close($conn);
