@@ -1,6 +1,6 @@
 <h3>Editacia suroviny</h3>
 <br>
-<form action="../editacia_suroviny.php" method="post" class="form-group">
+<form action="editacia_suroviny.php" method="post" class="form-group">
     <label>Nazov suroviny</label>
     <input name="surovina" type="text" class="form-control" value="<?php echo $nazovSurovinyp?>">
     <br>
