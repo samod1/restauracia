@@ -24,7 +24,7 @@ if ($_GET["id"] != "") {
             <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><i class='fa fa-pencil'></i> Edituj</a>
         </div>
         <div class='col-2'>
-            <a href='#' class='btn btn-danger 'onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
+            <a href='odstranenie_receptu.php?<?php echo $_GET["id"]?>&zmazat=ano' class='btn btn-danger 'onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
         </div>
         <div class="col-2">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
