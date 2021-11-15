@@ -6,21 +6,6 @@ include "widgets/navbar.php";
 $conn = '';
 include "config.php";
 
-$query = "SELECT tbl_suroviny.id_suroviny, tbl_suroviny.nazov_suroviny, enum_kategoria_suroviny.nazov_kategorie 
-        FROM restauracia.tbl_suroviny INNER JOIN restauracia.enum_kategoria_suroviny ON tbl_suroviny.kategoria_suroviny=enum_kategoria_suroviny.id_kategorie 
-        ORDER BY id_suroviny ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
-$result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
-$pocetRiadkov = mysqli_num_rows($result);
-if (!$result) {
-    echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
-    exit;
-}
-if ($pocetRiadkov == 0) {
-
-    echo "Nemam co zobrazit";
-
-}
-
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -33,43 +18,8 @@ if ($pocetRiadkov == 0) {
     </div>
 
 </div>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Nazov suroviny</th>
-        <th>Kategoria suroviny</th>
-        <th colspan="2">Akcia</th>
-    </tr>
-    </thead>
-    <?php
+<?php include "tabulka_surovin.php";?>
 
-    while ($row = mysqli_fetch_assoc($result)) {
-
-    ?>
-    <tr>
-        <td><?php echo $row["nazov_suroviny"]?></td>
-        <td><?php echo $row["nazov_kategorie"]?></td>
-        <td><a href="zmazat.php?id=<?php echo $row["id_suroviny"]?>&zmazat=ano" class="btn btn-danger btn-ml"><i class="fa fa-trash"></i></a></td>
-        <td><a href="editacia_suroviny.php?id=<?php echo $row["id_suroviny"];?>&edituj=ano" class="btn btn-secondary btn-ml"><i class="fa fa-pencil"></i></a></td>
-        </tr>
-
-<?php
-    }
-    $queryKat="SELECT id_kategorie, nazov_kategorie FROM restauracia.enum_kategoria_suroviny ORDER BY id_kategorie ASC";
-    $resultKat = mysqli_query($conn,$queryKat);
-    $pocetRiadkovKat = mysqli_num_rows($resultKat);
-    if (!$result) {
-        echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
-        exit;
-    }
-    if ($pocetRiadkovKat == 0) {
-
-        echo "Nemam co zobrazit";
-
-    }
-
-?>
-</table>
 <div class="row">
     <div class="col-4">
 <h2>Kategorie surovin</h2>
@@ -80,7 +30,23 @@ if ($pocetRiadkov == 0) {
             <th>Akcia</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody
+    <?php
+
+$queryKat="SELECT id_kategorie, nazov_kategorie FROM restauracia.enum_kategoria_suroviny ORDER BY id_kategorie ASC";
+$resultKat = mysqli_query($conn,$queryKat);
+$pocetRiadkovKat = mysqli_num_rows($resultKat);
+if (!$resultKat) {
+    echo "Error: Neda sa vykonat prikaz SQL: " . $queryKat . ".<br>" . PHP_EOL;
+    exit;
+}
+if ($pocetRiadkovKat == 0) {
+
+    echo "Nemam co zobrazit";
+
+}
+
+?>
     <?php while ($row = mysqli_fetch_assoc($resultKat)) {
 
     ?>
