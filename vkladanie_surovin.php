@@ -35,7 +35,7 @@
                         <input type="hidden" name="vlozit" value="yes">
                         <?php
                             $idKat=0;
-                            $queryKat="INSERT INTO enum_kategoria_suroviny (id_kategorie,nazov_kategorie) VALUES (?,?)";
+                            $queryKat="INSERT INTO restauracia.enum_kategoria_suroviny (id_kategorie,nazov_kategorie) VALUES (?,?)";
                             $stmtKat = mysqli_stmt_init($conn);
                             mysqli_stmt_prepare($stmtKat, $queryKat);
                             mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
@@ -58,7 +58,7 @@
 
     <label for="nazovsuroviny">kategoria suroviny</label>
     <?php
-        $query = "SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny order by id_kategorie ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
+        $query = "SELECT id_kategorie, nazov_kategorie FROM restauracia.enum_kategoria_suroviny order by id_kategorie ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
         $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
         $pocetRiadkov = mysqli_num_rows($result);
         if (!$result) {
@@ -98,7 +98,6 @@ if ($_POST["send"] == "yes") {
     mysqli_stmt_bind_param($stmt, 'isi', $id, $_POST["nazovSuroviny"],$_POST["katSuroviny"]);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("Location: tbl_suroviny.php");
 }
 
 //include "tbl_suroviny.php";
