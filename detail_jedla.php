@@ -5,7 +5,7 @@ $nazovSuboru="Detail jedla";
 include "widgets/header.php";
 $bc_nazov="Detail jedla";
 include "widgets/navbar.php";
-$pocetHosti="1.000";
+$jeden_Host="1";
 ?>
 
 <?php
@@ -53,7 +53,19 @@ if ($_GET["id"] != "") {
                 </div>
             </div>
 
-    <h4>Suroviny prepoctene pro <?php echo $pocetHosti=$_POST["pocetHostu"];?> hostu</h4>
+    <h4>Suroviny prepoctene pro
+        <?php
+        if($_POST["prepocitat"]=="yes")
+        {
+            echo $_POST["pocetHostu"];
+        }
+
+        else
+        {
+            echo "1";
+        }
+
+        ?> hostu</h4>
     <table class='table tbl-stripped'>
         <thead class='table thead-light'>
         <tr>
@@ -81,7 +93,20 @@ if ($_GET["id"] != "") {
             ?>
             <tr>
                 <td><?php echo $rowSuroviny["nazov_suroviny"]; ?></td>
-                <td><?php echo $pocetHosti*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]; ?></td>
+
+                    <?php
+                    if ($_POST["prepocitat"]=="yes")
+                    {
+                        echo "<td>".$_POST["pocetHostu"]*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]."</td>";
+                    }
+
+                    else
+                    {
+                        echo "<td>".$jeden_Host*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]."</td>";
+                    }
+                ?>
+
+
             </tr>
         <?php } ?>
         </tbody>
