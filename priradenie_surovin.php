@@ -9,28 +9,27 @@ include "widgets/navbar.php";
 <div class="jumbotron-fluid">
 
 <?php
+$id_receptu=$_GET["id"];
 
+if ($id_receptu != "") {
 
-if ($_GET["id"] != "") {
-
-    $id_receptu=$_GET["id"];
-
-
-
-    $queryNazov="SELECT nazov,postup FROM restauracia.recept WHERE id=".$_GET["id"];
+    $queryNazov="SELECT nazov FROM restauracia.recept WHERE id=".$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
         {
-            echo "<h3>Priradenie surovin k receptu ".$rowNazov["nazov"]."</h3>"
-            ?>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#pridaneSuroviny" aria-expanded="false" aria-controls="multiCollapseExample2">Tabulka pridanych surovin</button>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#KategorieSurovin" aria-expanded="false" aria-controls="multiCollapseExample2">Kategorie surovin</button>
-            <br><br>
-    <?php
+            echo "<h3>Priradenie surovin k receptu ".$rowNazov["nazov"]."</h3>";
+            }?>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#pridaneSuroviny" aria-expanded="false" aria-controls="multiCollapseExample2">Tabulka pridanych surovin</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#KategorieSurovin" aria-expanded="false" aria-controls="multiCollapseExample2">Kategorie surovin</button>
+                <br>
+            </div>
+        </div>
 
 
-
-    ?>
     <div class="collapse multi-collapse" id="pridaneSuroviny">
         <h4>Suroviny v tomto recepte</h4>
         <table class="table table-striped">
@@ -43,10 +42,10 @@ if ($_GET["id"] != "") {
             </thead>
             <tbody>
             <?php
-            $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM restauracia.suroviny_k_receptu 
+            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, enum_jednotka.skratka FROM restauracia.suroviny_k_receptu 
         INNER JOIN restauracia.tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
         INNER JOIN restauracia.enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
-        WHERE id_rec =".$id_receptu;
+        WHERE id_rec =".$id_receptu." ORDER BY kategoria_suroviny ASC " ;
             $resultSur= mysqli_query($conn, $querySur);
             $pocetRiadkov = mysqli_num_rows($resultSur);
             if (!$resultSur) {
@@ -76,7 +75,6 @@ if ($_GET["id"] != "") {
 
     <div class="collapse multi-collapse" id="KategorieSurovin">
     <form method="post" class="form-group">
-        <div class="row"></div>
         <div class="row">
             <div class="col">
                 <?php
@@ -87,7 +85,7 @@ if ($_GET["id"] != "") {
                         <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
                         {
                             ?>
-                        <option value="<?php echo $rowKat["id_kategorie"]?>"><?php echo $rowKat["nazov_kategorie"]?></option>
+                        <option value="<?php echo $rowKat["id_kategorie"];?>"><?php echo $rowKat["nazov_kategorie"];?></option>
                             <?php
                         }
                         ?>
@@ -115,8 +113,10 @@ if ($_GET["id"] != "") {
 
 
             <form class="form-group" method="post" action="ulozenie_suroviny.php">
-                <label>Suroviny</label>
-                <select name="surovina" class="form-control">
+                <input type="hidden" name="id_rec" value="<?php echo $id_receptu;?>">
+
+                <label for="surovina">Suroviny</label>
+                <select id="surovina" name="surovina" class="form-control form-control-lg">
                     <?php
                     while ($row = mysqli_fetch_assoc($result)) {
                     ?>
@@ -128,9 +128,8 @@ if ($_GET["id"] != "") {
 
                 <div class="row">
                     <div class="col">
-                        <input type="hidden" name="id_receptu" value="<?php echo $id_receptu?>">
                         <label for="mnozstvo">Mnozstvi</label>
-                        <input class="form-control" type="text" id="mnozstvo" name="mnozstvo" placeholder="0,450">
+                        <input class="form-control form-control-lg" type="text" id="mnozstvo" name="mnozstvo" placeholder="cislo zadavajte s bodkov">
                     </div>
                     <div class="col">
                         <label>Jednotka</label>
@@ -146,7 +145,7 @@ if ($_GET["id"] != "") {
                             echo "Nemam co zobrazit";
                         }
                         ?>
-                        <select class="form-control" name="jednotka">
+                        <select class="form-control form-control-lg" name="jednotka">
                             <?php while ($row = mysqli_fetch_assoc($resultJednotka)) { ?>
                             <option value="<?php echo $row["id_jednotky"]; ?>"><?php echo $row["jednotka"]; ?></option>
                             <?php } ?>
@@ -156,36 +155,17 @@ if ($_GET["id"] != "") {
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="submit" class="btn btn-primary btn-lg" value="Ulozit">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Ulozit">
                         <input type="hidden" name="save" value="yes">
                     </div>
                     <div class="col">
-                        <input type="reset" class="btn btn-secondary btn-lg" value="Reset">
+                        <input type="reset" class="btn btn-secondary btn-lg btn-block" value="Reset">
                     </div>
                 </div>
             </form>
 </div>
 <?php
-}
-}
-    if ($_POST["save"] == "yes") {
 
-        //jednotky
-
-        $id = 0;
-        echo $id_receptu;
-        $id_suroviny= $_POST["surovina"];
-        $mnozstvo = $_POST["mnozstvo"];
-        $jednotka = $_POST["jednotka"];
-
-
-
-        $query = "INSERT INTO restauracia.suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt, $query);
-        mysqli_stmt_bind_param($stmt, 'iiisi', $id,$id_suroviny, $id_receptu, $mnozstvo, $jednotka);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
 }
 
 mysqli_close($conn);

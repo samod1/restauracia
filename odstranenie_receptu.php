@@ -1,8 +1,15 @@
 <?php
 $conn="";
-include "../config.php";
+include "config.php";
 
 if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
+
+    $querySuroviny = "DELETE FROM restauracia.suroviny_k_receptu WHERE id_rec=?";
+    $stmtSuroviny = mysqli_stmt_init($conn);
+    mysqli_stmt_prepare($stmtSuroviny, $querySuroviny);
+    mysqli_stmt_bind_param($stmtSuroviny, "i", $id);
+    mysqli_stmt_execute($stmtSuroviny);
+    mysqli_stmt_close($stmtSuroviny);
 
     $id = $_GET["id"];
     $query = "DELETE FROM restauracia.recept WHERE id=?";
@@ -11,5 +18,6 @@ if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
     mysqli_stmt_bind_param($stmt, "i", $id);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("Location: ../zoznam_receptov.php");
-}
+    }
+mysqli_close($conn);
+header('Location: zoznam_receptov.php');

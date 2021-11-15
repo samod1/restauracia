@@ -84,6 +84,8 @@ include "widgets/navbar.php";
     <br>
     <label>Postup pripravy</label>
     <textarea class="form-control" rows="10" name="postupReceptu"></textarea>
+    <label for="alergeny">Alergeny</label>
+    <input class="form-control form-control-lg" required autofocus type="text" name="alergeny">
     <br>
     <input class="btn btn-primary btn-lg btn-block"type="submit" value="Ulozit">
     <input type="hidden" name="send" value="yes">
@@ -94,15 +96,17 @@ include "widgets/navbar.php";
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO recept (id,nazov,postup,typ_receptu) VALUES (?,?,?,?)";
+    $query = "INSERT INTO restauracia.recept (id,nazov,postup,typ_receptu,alergeny) VALUES (?,?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
-    mysqli_stmt_bind_param($stmt, 'issi', $id, $_POST["nazovReceptu"],$_POST["postupReceptu"],$_POST["typKuchyne"]);
+    mysqli_stmt_bind_param($stmt, 'issis', $id, $_POST["nazovReceptu"],$_POST["postupReceptu"],$_POST["typKuchyne"],$_POST["alergeny"]);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
+    header("Location: zoznam_receptov.php");
+    exit;
 }
 
-//include "tbl_suroviny.php";
+
 
 mysqli_close($conn);
 include "widgets/footer.php";
