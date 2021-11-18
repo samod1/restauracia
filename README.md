@@ -1,6 +1,6 @@
 # doRest
 je produkt urceny pre restauracie, ktory dokaze riadit chod celej restauracie. 
-##Funkcionality
+## Funkcionality
 
 ### Sklad
 * Prijem
