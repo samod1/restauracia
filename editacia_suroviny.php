@@ -9,8 +9,8 @@ include "widgets/navbar.php";
 if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
 {
     $idSuroviny = $_GET["id"];
-    $query="SELECT nazov_suroviny,nazov_kategorie,id_kategorie FROM restauracia.tbl_suroviny 
-    INNER JOIN restauracia.enum_kategoria_suroviny ON enum_kategoria_suroviny.id_kategorie = tbl_suroviny.kategoria_suroviny 
+    $query="SELECT nazov_suroviny,nazov_kategorie,id_kategorie FROM tbl_suroviny 
+    INNER JOIN enum_kategoria_suroviny ON enum_kategoria_suroviny.id_kategorie = tbl_suroviny.kategoria_suroviny 
     WHERE id_suroviny=".$idSuroviny;
 
     $result=mysqli_query($conn,$query);
@@ -27,7 +27,7 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
 }
     if ($_POST["edit"]=="yes")
     {
-        $queryEdit="UPDATE restauracia.tbl_suroviny SET nazov_suroviny='?' WHERE id_suroviny=?";
+        $queryEdit="UPDATE tbl_suroviny SET nazov_suroviny='?' WHERE id_suroviny=?";
         $stmt = mysqli_stmt_init($conn);
         mysqli_stmt_prepare($stmt,$queryEdit);
         mysqli_stmt_bind_param($stmt,"si",$_POST["surovina"],$idSuroviny);

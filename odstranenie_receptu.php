@@ -4,7 +4,7 @@ include "config.php";
 
 if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
 
-    $querySuroviny = "DELETE FROM restauracia.suroviny_k_receptu WHERE id_rec=?";
+    $querySuroviny = "DELETE FROM suroviny_k_receptu WHERE id_rec=?";
     $stmtSuroviny = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmtSuroviny, $querySuroviny);
     mysqli_stmt_bind_param($stmtSuroviny, "i", $id);
@@ -12,7 +12,7 @@ if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
     mysqli_stmt_close($stmtSuroviny);
 
     $id = $_GET["id"];
-    $query = "DELETE FROM restauracia.recept WHERE id=?";
+    $query = "DELETE FROM recept WHERE id=?";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
     mysqli_stmt_bind_param($stmt, "i", $id);

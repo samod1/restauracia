@@ -15,7 +15,7 @@ $conn="";
     $start_from = ($page-1) * $per_page_record;
 
     $query = "SELECT tbl_suroviny.id_suroviny, tbl_suroviny.nazov_suroviny, enum_kategoria_suroviny.nazov_kategorie 
-        FROM restauracia.tbl_suroviny INNER JOIN restauracia.enum_kategoria_suroviny ON tbl_suroviny.kategoria_suroviny=enum_kategoria_suroviny.id_kategorie 
+        FROM tbl_suroviny INNER JOIN enum_kategoria_suroviny ON tbl_suroviny.kategoria_suroviny=enum_kategoria_suroviny.id_kategorie 
         ORDER BY id_suroviny ASC LIMIT $start_from, $per_page_record";
     $rs_result = mysqli_query ($conn, $query);
     ?>
@@ -43,7 +43,7 @@ $conn="";
                         <td><a href="editacia_suroviny.php?id=<?php echo $row["id_suroviny"];?>&edituj=ano" class="btn btn-secondary btn-ml"><i class="fa fa-pencil"></i></a></td>
                     </tr>
                     <?php
-                };
+                }
                 ?>
                 </tbody>
             </table>
@@ -51,7 +51,7 @@ $conn="";
             <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <?php
-                $query = "SELECT COUNT(*) FROM restauracia.tbl_suroviny";
+                $query = "SELECT COUNT(*) FROM tbl_suroviny";
                 $rs_result = mysqli_query($conn, $query);
                 $row = mysqli_fetch_row($rs_result);
                 $total_records = $row[0];
@@ -72,7 +72,7 @@ $conn="";
                     else  {
                         $pagLink .= "<li class='page-item'><a class='page-link' href='tbl_suroviny.php?page=".$i."'>".$i."</a></li>";
                     }
-                };
+                }
                 echo $pagLink;
 
                 if($page<$total_pages){

@@ -96,7 +96,7 @@ include "widgets/navbar.php";
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO restauracia.recept (id,nazov,postup,typ_receptu,alergeny) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO recept (id,nazov,postup,typ_receptu,alergeny) VALUES (?,?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
     mysqli_stmt_bind_param($stmt, 'issis', $id, $_POST["nazovReceptu"],$_POST["postupReceptu"],$_POST["typKuchyne"],$_POST["alergeny"]);

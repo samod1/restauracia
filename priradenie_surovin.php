@@ -13,7 +13,7 @@ $id_receptu=$_GET["id"];
 
 if ($id_receptu != "") {
 
-    $queryNazov="SELECT nazov FROM restauracia.recept WHERE id=".$_GET["id"];
+    $queryNazov="SELECT nazov FROM recept WHERE id=".$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
         {
@@ -42,9 +42,9 @@ if ($id_receptu != "") {
             </thead>
             <tbody>
             <?php
-            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, enum_jednotka.skratka FROM restauracia.suroviny_k_receptu 
-        INNER JOIN restauracia.tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
-        INNER JOIN restauracia.enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
+            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, enum_jednotka.skratka FROM suroviny_k_receptu 
+        INNER JOIN tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
+        INNER JOIN enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
         WHERE id_rec =".$id_receptu." ORDER BY kategoria_suroviny ASC " ;
             $resultSur= mysqli_query($conn, $querySur);
             $pocetRiadkov = mysqli_num_rows($resultSur);
@@ -78,7 +78,7 @@ if ($id_receptu != "") {
         <div class="row">
             <div class="col">
                 <?php
-                    $queryKat="SELECT id_kategorie, nazov_kategorie FROM restauracia.enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
+                    $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
                     $resultKat= mysqli_query($conn,$queryKat);
                 ?>
                     <select class="form-control form-control-lg" name="kategoria">
@@ -99,7 +99,7 @@ if ($id_receptu != "") {
     </form>
     </div>
         <?php
-            $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM restauracia.tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
+            $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
             $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
             /*$pocetRiadkov = mysqli_num_rows($result);
             if (!$result) {
@@ -134,7 +134,7 @@ if ($id_receptu != "") {
                     <div class="col">
                         <label>Jednotka</label>
                         <?php
-                            $queryJednotka="SELECT id_jednotky, jednotka FROM restauracia.enum_jednotka ORDER BY id_jednotky ASC";
+                            $queryJednotka="SELECT id_jednotky, jednotka FROM enum_jednotka ORDER BY id_jednotky ASC";
                             $resultJednotka = mysqli_query($conn, $queryJednotka); // mysqli_query - vykona prikaz
                             $pocetRiadkov = mysqli_num_rows($resultJednotka);
                         if (!$resultJednotka) {
