@@ -10,7 +10,7 @@ $jeden_Host="1";
 
 <?php
 if ($_GET["id"] != "") {
-    $queryNazov="SELECT nazov FROM restauracia.recept WHERE id=".$_GET["id"];
+    $queryNazov="SELECT nazov FROM recept WHERE id=".$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
     { ?>
@@ -75,9 +75,9 @@ if ($_GET["id"] != "") {
         </thead>
         <tbody>
         <?php
-        $querySuroviny="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM restauracia.suroviny_k_receptu 
-        INNER JOIN restauracia.tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
-        INNER JOIN restauracia.enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
+        $querySuroviny="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM suroviny_k_receptu 
+        INNER JOIN tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
+        INNER JOIN enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
         WHERE id_rec =".$_GET["id"];
         $resultSuroviny= mysqli_query($conn,$querySuroviny);
         $pocetRiadkov = mysqli_num_rows($resultSuroviny);
@@ -115,7 +115,7 @@ if ($_GET["id"] != "") {
             <h4>Postup</h4>
             <?php
 
-            $queryNazov="SELECT postup FROM restauracia.recept WHERE id=".$_GET["id"];
+            $queryNazov="SELECT postup FROM recept WHERE id=".$_GET["id"];
             $resultNazov = mysqli_query($conn, $queryNazov);
             while ($rowNazov = mysqli_fetch_assoc($resultNazov))
             { ?>

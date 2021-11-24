@@ -14,8 +14,8 @@
     <tbody>
     <?php
 
-    $query = "SELECT id, nazov, nazov_typu_receptu FROM restauracia.recept 
-            INNER JOIN restauracia.typ_receptu ON id_typu_receptu=typ_receptu ORDER BY id ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
+    $query = "SELECT id, nazov, nazov_typu_receptu FROM recept 
+            INNER JOIN typ_receptu ON id_typu_receptu=typ_receptu ORDER BY id ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
     $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
     $pocetRiadkov = mysqli_num_rows($result);
     if (!$result) {
@@ -25,6 +25,8 @@
     if ($pocetRiadkov == 0) {
         echo "Nemam co zobrazit";
     }
+    else
+    {
     while ($row = mysqli_fetch_assoc($result)) {
     ?>
     <tr>
@@ -37,7 +39,7 @@
 
 
         <?php
-        }
+        }}
 
 
         ?>

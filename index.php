@@ -48,11 +48,17 @@ $nazovSuboru="Vitejte";
                 <tr>
                     <th>Pocet receptu</th>
                     <td><?php
-                        $query="SELECT id FROM restauracia.recept";
+                        $query="SELECT id FROM recept";
                         $result= mysqli_query($conn,$query);
                         $pocetRiadkov=mysqli_num_rows($result);
+                        if ($pocetRiadkov==0)
+                        {
+                            echo "0";
+                        }
+                        else
+                        {
                         echo  "<a href='zoznam_receptov.php'>".$pocetRiadkov.'</a>';
-                        ?></td>
+                        }?></td>
                 </tr>
                 <tr>
                     <th>Pocet hostu tento tyzden</th>

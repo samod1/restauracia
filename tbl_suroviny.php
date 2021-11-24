@@ -33,7 +33,7 @@ include "config.php";
     <tbody
     <?php
 
-$queryKat="SELECT id_kategorie, nazov_kategorie FROM restauracia.enum_kategoria_suroviny ORDER BY id_kategorie ASC";
+$queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY id_kategorie ASC";
 $resultKat = mysqli_query($conn,$queryKat);
 $pocetRiadkovKat = mysqli_num_rows($resultKat);
 if (!$resultKat) {
