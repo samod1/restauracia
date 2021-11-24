@@ -9,6 +9,15 @@ include "widgets/navbar.php";
 ?>
 <div class="container-fluid">
     <h3>Modul skladovych zasob</h3>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-primary" href="#">Vytvorit novu prijemku</a>
+        </div>
+        <div class="col">
+            <a href="#" class="btn btn-primary">kjdfl</a>
+        </div>
+    </div>
+    <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active" id="Objednavky" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Objednavky</button>
@@ -22,6 +31,17 @@ include "widgets/navbar.php";
             <div class="container-fluid">
                 <br>
                 <h4>Objednavky</h4>
+                <?php
+                    $query="SELECT ID_objednavky, Cislo_objednavky, Datum_dorucenia, Datum_splatnosti, Celkova_cena,Variabilny_symbol, Vybavena FROM tbl_prijemka ORDER BY ID_objednavky ASC";
+                    $result = mysqli_query($conn,$query);
+                    $pocetRiadkov = mysqli_num_rows($result);
+                    if ($pocetRiadkov == 0)
+                    {
+                        echo "Nemam co zobrazit";
+                    }
+                    else
+                    {
+                ?>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -30,26 +50,37 @@ include "widgets/navbar.php";
                             <th>Datum splatnosti</th>
                             <th>Variabilny symbol</th>
                             <th>Celkova cena</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                    <?php
+                        while ($row=mysqli_fetch_assoc($result))
+                    {
+                    ?>
                         <tr>
-                            <td>0000000</td>
-                            <td>25.11.2021</td>
-                            <td>31.12.2021</td>
-                            <td>5465145615</td>
-                            <td>150$</td>
-                        </tr>
+                            <td><?php echo $row["Cislo_objednavky"];?></td>
+                            <td><?php echo $row["Datum_dorucenia"];?></td>
+                            <td><?php echo $row["Datum_splatnosti"];?></td>
+                            <td><?php echo $row["Variabilny_symbol"];?></td>
+                            <td><?php echo $row["Celkova_cena"]."€";?></td>
+                            <td><?php
 
-                        <tr>
-                            <td>0000000</td>
-                            <td>25.11.2021</td>
-                            <td>31.12.2021</td>
-                            <td>5465145615</td>
-                            <td>150$</td>
+                                    if($row["Vybavena"] == 1) {
+                                        echo "<button class='btn btn-danger' disabled>Ukoncena</button>";
+                                    }
+
+                                    else
+                                    {
+                                        echo"<button class='btn btn-success' disabled>Aktivna</button>";
+                                    }
+                                ?>
+                            </td>
                         </tr>
+                    <?php }?>
                     </tbody>
                 </table>
+            <?php } ?>
             </div>
 
 
