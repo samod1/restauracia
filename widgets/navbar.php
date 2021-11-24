@@ -29,6 +29,9 @@
                         <a class="dropdown-item" href="../nove_menu.php">Vytvorit nove menu</a>
                     </div>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../sklad.php">Sklad</a>
+                </li>
 
 
             </ul>
