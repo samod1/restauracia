@@ -2,17 +2,7 @@
     $conn="";
     include "config.php";
 ?>
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>Nazov jedla</th>
-        <th>Kategoria jedla</th>
-        <th>Alergeny</th>
-        <th colspan="3">Akcia</th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php
+<?php
 
     $query = "SELECT id, nazov, nazov_typu_receptu FROM recept 
             INNER JOIN typ_receptu ON id_typu_receptu=typ_receptu ORDER BY id ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
@@ -27,6 +17,18 @@
     }
     else
     {
+        ?>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nazov jedla</th>
+        <th>Kategoria jedla</th>
+        <th>Alergeny</th>
+        <th colspan="3">Akcia</th>
+    </tr>
+    </thead>
+    <tbody>
+<?php
     while ($row = mysqli_fetch_assoc($result)) {
     ?>
     <tr>
