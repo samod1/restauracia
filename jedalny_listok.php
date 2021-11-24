@@ -26,8 +26,9 @@ include "widgets/navbar.php";
         if ($pocetRiadkov == 0) {
 
             echo "Nemam co zobrazit";
-
         }
+        else
+        {
     ?>
 
     <table class="table table-striped">
@@ -54,6 +55,9 @@ include "widgets/navbar.php";
         ?>
         </tbody>
     </table>
+    <?php
+        }
+    ?>
 </div>
 <?php
 mysqli_close($conn);
