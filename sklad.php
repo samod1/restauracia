@@ -9,14 +9,6 @@ include "widgets/navbar.php";
 ?>
 <div class="container-fluid">
     <h3>Modul skladovych zasob</h3>
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-primary" href="#">Vytvorit novu prijemku</a>
-        </div>
-        <div class="col">
-            <a href="#" class="btn btn-primary">kjdfl</a>
-        </div>
-    </div>
     <br>
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -31,6 +23,12 @@ include "widgets/navbar.php";
             <div class="container-fluid">
                 <br>
                 <h4>Objednavky</h4>
+                <div class="row">
+                    <div class="col">
+                        <a class="btn btn-primary" href="prijemka.php">Vytvorit novu prijemku</a>
+                    </div>
+                </div>
+                <br>
                 <?php
                     $query="SELECT ID_objednavky, Cislo_objednavky, Datum_dorucenia, Datum_splatnosti, Celkova_cena,Variabilny_symbol, Vybavena FROM tbl_prijemka ORDER BY ID_objednavky ASC";
                     $result = mysqli_query($conn,$query);
