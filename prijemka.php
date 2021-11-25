@@ -9,7 +9,8 @@ include "widgets/navbar.php";
 <h3>Príjemka</h3>
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
-<div class="container">
+<div class="container-fluid">
+    <label></label>
     <div class="row clearfix">
         <div class="col-md-12 column">
             <table class="table table-bordered table-hover" id="tab_logic">
@@ -19,19 +20,16 @@ include "widgets/navbar.php";
                         #
                     </th>
                     <th class="text-center">
-                        User ID
+                        Nazov tovaru
                     </th>
                     <th class="text-center">
-                        Name
+                        Mnozstvo
                     </th>
                     <th class="text-center">
-                        NIC
+                        Jednotka
                     </th>
                     <th class="text-center">
-                        Amount
-                    </th>
-                    <th class="text-center">
-                        Date
+                        Datum spotreby
                     </th>
                 </tr>
                 </thead>
@@ -41,7 +39,9 @@ include "widgets/navbar.php";
                         1
                     </td>
                     <td>
-                        <input type="text" name='uid' placeholder='User ID' class="form-control" />
+                        <select>
+                            <option></option>
+                        </select>
                     </td>
                     <td>
                         <input type="text" name='uname' placeholder='Name' class="form-control" />
@@ -61,14 +61,19 @@ include "widgets/navbar.php";
             </table>
         </div>
     </div>
-    <button id="add_row" class="btn btn-primary btn-lg pull-left">SUBMIT</button>
+    <button id="add_row" class="btn btn-primary btn-lg pull-left">Pridat riadok</button>
 
     <script>
         $(document).ready(function() {
             var i = 1;
             $("#add_row").click(function() {
                 $('tr').find('input').prop('disabled',true)
-                $('#addr' + i).html("<td>" + (i + 1) + "</td><td><input type='text' name='uid" + i + "'  placeholder='User ID' class='form-control input-md'/></td><td><input type='text' name='uname" + i + "' placeholder='Name' class='form-control input-md'/></td><td><input type='text' name='nic" + i + "' placeholder='NIC' class='form-control input-md'/></td><td><input type='text' name='amount" + i + "' placeholder='Amount' class='form-control input-md'/></td><td><input type='date' name='dt" + i + "' placeholder='Date' class='form-control input-md'/></td>");
+                $('#addr' + i).html("<td>" + (i + 1) + "</td>" +
+                    "<td><input type='text' name='uid" + i + "'  placeholder='User ID' class='form-control input-md'/></td>" +
+                    "<td><input type='text' name='uname" + i + "' placeholder='Name' class='form-control input-md'/></td>" +
+                    "<td><input type='text' name='nic" + i + "' placeholder='NIC' class='form-control input-md'/></td>" +
+                    "<td><input type='text' name='amount" + i + "' placeholder='Amount' class='form-control input-md'/></td>" +
+                    "<td><input type='date' name='dt" + i + "' placeholder='Date' class='form-control input-md'/></td>");
 
                 $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
                 i++;
