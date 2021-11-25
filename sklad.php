@@ -49,6 +49,7 @@ include "widgets/navbar.php";
                             <th>Variabilny symbol</th>
                             <th>Celkova cena</th>
                             <th>Status</th>
+                            <th>Detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,15 +66,16 @@ include "widgets/navbar.php";
                             <td><?php
 
                                     if($row["Vybavena"] == 1) {
-                                        echo "<button class='btn btn-danger' disabled>Ukoncena</button>";
+                                        echo "<button class='btn btn-success' disabled>Ukoncena</button>";
                                     }
 
                                     else
                                     {
-                                        echo"<button class='btn btn-success' disabled>Aktivna</button>";
+                                        echo"<button class='btn btn-danger' disabled>Aktivna</button>";
                                     }
                                 ?>
                             </td>
+                            <td><a href="detail_objednavky.php?id=<?php echo $row['ID_objednavky'];?>" class="btn btn-primary">Detail</a></td>
                         </tr>
                     <?php }?>
                     </tbody>
@@ -85,17 +87,43 @@ include "widgets/navbar.php";
         </div>
         <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="sklad">
             <div class="container-fluid">
+                <br>
                 <h4>Skladove zasoby</h4>
                 <!-- TODO zaanalyzovat -->
                 <table class="table table-striped">
+                    <?php
+                        $query="SELECT nazov_suroviny,Mnozstvo,skratka 
+                                FROM tbl_suroviny 
+                                INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky
+                                ORDER BY  id_suroviny ASC";
+                        $result=mysqli_query($conn,$query);
+                        $pocetRiadkov = mysqli_num_rows($result);
+                        if($pocetRiadkov !=0)
+                        {
+
+                    ?>
+                    <thead>
+                        <th>Nazov suroviny</th>
+                        <th>Mnozstvo</th>
+                    </thead>
                     <tbody>
-                        <tr>fsakdbkfjjd</tr>
+                    <?php
+                            while ($row=mysqli_fetch_assoc($result))
+                            {
+                    ?>
+                        <td><?php echo $row["nazov_suroviny"];?></td>
+                        <td><?php echo $row["Mnozstvo"]." ".$row["skratka"]; ?></td>
                     </tbody>
+                    <?php
+                        }}
+                        else
+                        {
+                            echo "Nulovy pocet riadkov musite zadat surovinu";
+                        }
+                    ?>
                 </table>
             </div>
-
         </div>
-    <table class=""></table>
 </div>
 <?php
 include "widgets/footer.php";
