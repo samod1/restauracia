@@ -10,6 +10,9 @@ include "widgets/navbar.php";
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
 <div class="container-fluid">
+    <form>
+
+    </form>
     <label></label>
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -81,3 +84,7 @@ include "widgets/navbar.php";
         });
     </script>
 </div>
+<?php
+include "widgets/footer.php";
+mysqli_close($conn);
+?>

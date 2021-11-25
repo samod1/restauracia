@@ -97,3 +97,7 @@ include "widgets/navbar.php";
         </div>
     <table class=""></table>
 </div>
+<?php
+include "widgets/footer.php";
+mysqli_close($conn);
+?>
