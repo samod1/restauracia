@@ -10,12 +10,27 @@ include "widgets/navbar.php";
 <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
 
 <div class="container-fluid">
-    <form>
+    <form method="post" class="form-group">
+        <label>Cislo objednavky</label>
+        <input class="form-control" type="text" name="cisloObjednavky">
 
+        <label>Variabilny symbol</label>
+        <input class="form-control" type="text">
+
+        <label>Datum dorucenia</label>
+        <input class="form-control" type="date">
+
+        <label>Datum splatnosti</label>
+        <input class="form-control" type="date">
+
+        <label>Prijmovy doklad</label>
+        <input class="form-control" type="file">
+        <input type="hidden" name="Send" value="yes">
     </form>
     <label></label>
     <div class="row clearfix">
         <div class="col-md-12 column">
+            <form method="post">
             <table class="table table-bordered table-hover" id="tab_logic">
                 <thead>
                 <tr>
@@ -42,7 +57,7 @@ include "widgets/navbar.php";
                         1
                     </td>
                     <td>
-                        <select>
+                        <select class="form-control">
                             <option></option>
                         </select>
                     </td>
@@ -53,11 +68,9 @@ include "widgets/navbar.php";
                         <input type="text" name='nic' placeholder='NIC' class="form-control" />
                     </td>
                     <td>
-                        <input type="text" name='amount' placeholder='Amount' class="form-control" />
+                        <input type="date" name='amount' placeholder='Amount' class="form-control" />
                     </td>
-                    <td>
-                        <input type="date" name='dt' placeholder='Date' class="form-control" />
-                    </td>
+
                 </tr>
                 <tr id='addr1'></tr>
                 </tbody>
@@ -75,14 +88,17 @@ include "widgets/navbar.php";
                     "<td><input type='text' name='uid" + i + "'  placeholder='User ID' class='form-control input-md'/></td>" +
                     "<td><input type='text' name='uname" + i + "' placeholder='Name' class='form-control input-md'/></td>" +
                     "<td><input type='text' name='nic" + i + "' placeholder='NIC' class='form-control input-md'/></td>" +
-                    "<td><input type='text' name='amount" + i + "' placeholder='Amount' class='form-control input-md'/></td>" +
-                    "<td><input type='date' name='dt" + i + "' placeholder='Date' class='form-control input-md'/></td>");
+                    "<td><input type='text' name='amount" + i + "' placeholder='Amount' class='form-control input-md'/></td>");
 
                 $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
                 i++;
             });
         });
     </script>
+    <form>
+        <br>
+        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Odoslat objednavku">
+    </form>
 </div>
 <?php
 include "widgets/footer.php";
