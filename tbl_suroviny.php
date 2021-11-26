@@ -10,7 +10,7 @@ include "config.php";
 <div class="container-fluid">
     <div class="row">
         <div class="col-8">
-    <h2>Prehlad surovin</h2>
+    <h3>Prehlad surovin</h3>
         </div>
         <div class="col-4">
             <a href="vkladanie_surovin.php" class="btn btn-primary"><i class="fa fa-plus"></i> Pridat novu surovinu</a>
@@ -18,11 +18,6 @@ include "config.php";
     </div>
 
 </div>
-<?php include "tabulka_surovin.php";?>
-
-<div class="row">
-    <div class="col-4">
-<h2>Kategorie surovin</h2>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -45,23 +40,17 @@ if ($pocetRiadkovKat == 0) {
     echo "Nemam co zobrazit";
 
 }
-
+    while ($row = mysqli_fetch_assoc($resultKat)) {
 ?>
-    <?php while ($row = mysqli_fetch_assoc($resultKat)) {
-
-    ?>
         <tr>
-
-            <td><?php echo $row["nazov_kategorie"]?></td>
+            <td><a href="sur_kat.php?id=<?php echo $row["id_kategorie"];?>"><?php echo $row["nazov_kategorie"]?></a></td>
             <td><a href="mazanie_kategorie.php?id=<?php echo $row["id_kategorie"]?>&zmazat=ano" class="btn btn-danger btn-ml"><i class="fa fa-trash"></i></a> </td>
         </tr>
     <?php }?>
     </tbody>
 </table>
 </div>
-    <div class="col-8">
-        <h2>Seznam alergenu</h2>
-    </div>
+
 </div>
     </div>
 <?php
