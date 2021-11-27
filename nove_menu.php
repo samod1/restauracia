@@ -3,7 +3,7 @@ $conn="";
 $nazovSuboru="Novy jedalny listok";
 $bc_nazov="Novy jidelny listek";
 
-include "config.php";
+include "configDb.php";
 include "widgets/header.php";
 include "widgets/navbar.php";
 ?>

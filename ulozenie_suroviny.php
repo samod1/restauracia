@@ -1,6 +1,6 @@
 <?php
 $conn="";
-require_once "config.php";
+require_once "configDb.php";
 
 if ($_POST["save"] == "yes") {
 

@@ -14,7 +14,7 @@ include "widgets/navbar.php";
     <h4>Seznam aktualnich jidelnych listku</h4>
     <?php
         $conn="";
-        include "config.php";
+        include "configDb.php";
 
         $query = "SELECT id_menu, datum_od, datum_do FROM tbl_menu ORDER BY id_menu ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
         $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz

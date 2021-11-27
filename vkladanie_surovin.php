@@ -4,7 +4,7 @@
     $bc_nazov = "Vkladanie surovin";
     include "widgets/navbar.php";
     $conn="";
-    include "config.php";
+    include "configDb.php";
 ?>
 <div class="jumbotron-fluid">
     <div class="row">

@@ -4,7 +4,7 @@ include "widgets/header.php";
 $bc_nazov="Prehlad surovin";
 include "widgets/navbar.php";
 $conn = '';
-include "config.php";
+include "configDb.php";
 
 if ($_GET["id"]!="")
 {
@@ -25,7 +25,7 @@ if ($_GET["id"]!="")
  {?>
      <table class="table table-striped">
          <thead>
-            <th>Nazov kategorie</th>
+            <th>Názov kategórie</th>
          </thead>
          <?php
             while ($row=mysqli_fetch_assoc($result))

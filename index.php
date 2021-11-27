@@ -1,11 +1,13 @@
 <?php
-$conn="";
 include "config.php";
+$conn="";
+include "configDb.php";
 
 $nazovSuboru="Vitejte";
   include "widgets/header.php";
   $bc_nazov = "Domov";
   include "widgets/navbar.php";
+
 ?>
 <div class="container-fluid">
     <div class="row">
@@ -14,12 +16,12 @@ $nazovSuboru="Vitejte";
             <table class="table table-stripped">
                 <thead class="thead-light">
                     <tr>
-                        <th colspan="2" style="text-align: center"><h5>Statistiky</h5></th>
+                        <th colspan="2" style="text-align: center"><h5><?php echo $lang["STATISTICS"]?></h5></th>
                     </tr>
                 </thead>
 
                 <tr>
-                    <th>Den</th>
+                    <th><?php echo $lang["DAY"]?></th>
                     <td><?php
                         $dniSK= [
                            1=>'Pondelok',
@@ -37,16 +39,22 @@ $nazovSuboru="Vitejte";
                            5=>'Pátek',
                            6=>'Sobota',
                            7=>'Neděle'];
-                        echo $dniCZ[date('N')];
+                        if($_SESSION['lang'] == "sk") {
+                            echo $dniSK[date('N')];
+                        }
+                        else
+                        {
+                            echo $dniSK[date('N')];
+                        }
                         ?></td>
                 </tr>
                 <tr>
-                    <th>Pocet vytvorenych menu</th>
+                    <th><?php echo $lang["MENU_COUNT"]?></th>
                     <td><a href="jedalny_listok.php">2</a></td>
 
                 </tr>
                 <tr>
-                    <th>Pocet receptu</th>
+                    <th><?php echo $lang["RECIEPE_COUNT"]?></th>
                     <td><?php
                         $query="SELECT id FROM recept";
                         $result= mysqli_query($conn,$query);
@@ -61,14 +69,15 @@ $nazovSuboru="Vitejte";
                         }?></td>
                 </tr>
                 <tr>
-                    <th>Pocet hostu tento tyzden</th>
+                    <th><?php echo $lang["GUEST_COUNT"]?></th>
+
                     <td>250</td>
                 </tr>
             </table>
         </div>
         <div class="col"></div>
     </div>
-    <h3>Menu na tenhle den</h3>
+    <h3><?php echo $lang["TODAYS_MENU"]?></h3>
     <table class="table table-stripped">
         <tbody>
             <tr>

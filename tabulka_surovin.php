@@ -1,7 +1,7 @@
 <?php
 $conn="";
     // Import the file where we defined the connection to Database.
-    include "config.php";
+    include "configDb.php";
 
     $per_page_record = 10;  // Number of entries to show in a page.
     // Look for a GET variable page if not found default is 1.

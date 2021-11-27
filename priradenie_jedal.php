@@ -3,7 +3,7 @@ $conn="";
 $nazovSuboru="Priradenie k menu";
 $bc_nazov="Priradenie k menu";
 
-include "config.php";
+include "configDb.php";
 include "widgets/header.php";
 include "widgets/navbar.php";
 ?>

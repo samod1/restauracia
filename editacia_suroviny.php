@@ -3,7 +3,7 @@ $conn="";
 $nazovSuboru="Editacia suroviny";
 $bc_nazov="Editacia suroviny";
 include "widgets/header.php";
-include "config.php";
+include "configDb.php";
 include "widgets/navbar.php";
 
 if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")

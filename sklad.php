@@ -1,6 +1,6 @@
 <?php
 $conn ="";
-include "config.php";
+include "configDb.php";
 $nazovSuboru="Sklad";
 include "widgets/header.php";
 $bc_nazov="Sklad";

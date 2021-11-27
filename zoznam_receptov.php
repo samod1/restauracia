@@ -1,6 +1,6 @@
 <?php
 $conn="";
-include "config.php";
+include "configDb.php";
 $nazovSuboru="Prehlad receptov";
 include "widgets/header.php";
 

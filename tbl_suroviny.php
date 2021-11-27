@@ -4,56 +4,36 @@ include "widgets/header.php";
 $bc_nazov="Prehlad surovin";
 include "widgets/navbar.php";
 $conn = '';
-include "config.php";
-
+include "configDb.php";
 ?>
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-8">
-    <h3>Prehlad surovin</h3>
+<div class="row">
+    <form class="form-group" method="post">
+        <div class="col-6">
+            <label>Kategoria suroviny</label>
+            <select name="kategoria" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                <option>Maso</option>
+                <option>Ryby</option>
+                <option>Cukor</option>
+                <option>Hovadzina</option>
+                <option>kuracie stehna</option>
+                <option>Kuracie prsia</option>
+            </select>
         </div>
-        <div class="col-4">
-            <a href="vkladanie_surovin.php" class="btn btn-primary"><i class="fa fa-plus"></i> Pridat novu surovinu</a>
+        <div class="col-2">
+            <input type="submit" value="Vyhladaj" class="btn btn-primary btn-lg">
         </div>
-    </div>
-
-</div>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Kategoria</th>
-            <th>Akcia</th>
-        </tr>
-    </thead>
-    <tbody
-    <?php
-
-$queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY id_kategorie ASC";
-$resultKat = mysqli_query($conn,$queryKat);
-$pocetRiadkovKat = mysqli_num_rows($resultKat);
-if (!$resultKat) {
-    echo "Error: Neda sa vykonat prikaz SQL: " . $queryKat . ".<br>" . PHP_EOL;
-    exit;
-}
-if ($pocetRiadkovKat == 0) {
-
-    echo "Nemam co zobrazit";
-
-}
-    while ($row = mysqli_fetch_assoc($resultKat)) {
-?>
-        <tr>
-            <td><a href="sur_kat.php?id=<?php echo $row["id_kategorie"];?>"><?php echo $row["nazov_kategorie"]?></a></td>
-            <td><a href="mazanie_kategorie.php?id=<?php echo $row["id_kategorie"]?>&zmazat=ano" class="btn btn-danger btn-ml"><i class="fa fa-trash"></i></a> </td>
-        </tr>
-    <?php }?>
-    </tbody>
-</table>
+    </form>
 </div>
 
-</div>
-    </div>
 <?php
-mysqli_close($conn);
-include "widgets/footer.php";
+if ($_POST["kategoria"]!="")
+{
+    //TODO zobraz vsetky zaznamy
+}
+else
+{
+    //TODO zobraz zaznamy iba danej kategorie
+}
 ?>
+</div>
