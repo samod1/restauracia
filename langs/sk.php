@@ -15,6 +15,17 @@ $lang= array(
     "MENU_COUNT" => "Počet vytvorených menu",
     "RECIEPE_COUNT" => "Počet vytvorených receptov",
     "DAY" => "Deň",
-    "TODAYS_MENU" => "Dnešné menu"
+    "TODAYS_MENU" => "Dnešné menu",
+    "kat_suroviny" => "Kategória surovín",
+    "suroviny" => "Prehľad surovín",
+    "hladaj" => "Vyhľadaj",
+    "domov" => "Domov",
+    "noRecords" => "V databáze sa nenechádzajú žiadne záznamy",
+    "nazov" => "Názov",
+    "mnozstvo" => "Množstvo"
+
+
+
+
 );
 ?>
