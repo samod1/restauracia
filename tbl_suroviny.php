@@ -93,20 +93,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                                 <?php echo $lang["mnozstvo"].": ".$rowSur["Mnozstvo"],$rowSur["skratka"];?>
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
-                                    <table class="table table-bordered">
-                                        <thead>
-                                            <tr>
-                                                <th>fkd</th>
-                                                <th>fkd</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>dss</td>
-                                                <td>dss</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <p>TODO VYPIS RECEPTOV</p>
                                 </div>
                             </div>
                             <div class="modal-footer">
