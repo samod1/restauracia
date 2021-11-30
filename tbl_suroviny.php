@@ -15,7 +15,7 @@ include "configDb.php";
 <div class="row">
     <div class="col"><a href="vkladanie_surovin.php" class="btn btn-primary btn-lg"><?php echo $lang["novaSur"]?></a> </div>
 </div>
-    <form method="get" class="form-group">
+    <form method="post" class="form-group">
         <div class="row">
             <label><?php echo $lang["kat_suroviny"];?></label>
             <div class="col-8">
@@ -45,7 +45,7 @@ include "configDb.php";
 
 
 <?php
-if ($_GET["kategoria"] != "" && $_GET["kategoria"]!="all")
+if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
 {
     $queryKat = "SELECT nazov_suroviny FROM tbl_suroviny";
     $resultKat = mysqli_query($conn,$queryKat);
@@ -62,34 +62,61 @@ if ($_GET["kategoria"] != "" && $_GET["kategoria"]!="all")
 
     else
     {
-        $querySur = "SELECT id_suroviny,nazov_suroviny,Mnozstvo,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky WHERE kategoria_suroviny =". $_GET["kategoria"];
+        $querySur = "SELECT id_suroviny,nazov_suroviny,Mnozstvo,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky WHERE kategoria_suroviny =". $_POST["kategoria"];
         $resultSur = mysqli_query($conn,$querySur);
         ?>
         <table class="table table-stripped">
             <thead>
-                <th><?php echo $lang["nazov"]; ?></th>
+                <th colspan="2"><?php echo $lang["nazov"]; ?></th>
                 <th><?php echo $lang["mnozstvo"]; ?></th>
             </thead>
-
 
             <tbody>
             <?php
             while ($rowSur = mysqli_fetch_assoc($resultSur))
             { ?>
-                <td><a data-id="@idSur" data-toggle="modal" data-target="#suroviny"><?php echo $rowSur["nazov_suroviny"];?></a></td>
+                <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
                 <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
 
-                <script>
-                    $(document).ready(function () {
-                        $(".open-suroviny").click(function () {
-                            $('#bookId').val($(this).data(<?php echo $rowSur["id_suroviny"]?>));
-
-                        });
-                    });
-                </script>
-       <?php } ?>
+                <!-- Modal -->
+                <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><?php echo $lang["detailSur"].": ".$rowSur["nazov_suroviny"];?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <?php echo $lang["mnozstvo"].": ".$rowSur["Mnozstvo"],$rowSur["skratka"];?>
+                                <h6><?php echo $lang["surRec"]?></h6>
+                                <div>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>fkd</th>
+                                                <th>fkd</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>dss</td>
+                                                <td>dss</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal"><?php echo $lang["close"]?></button>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            <?php } ?>
             </tbody>
-
         </table>
             <?php
     }
@@ -97,7 +124,7 @@ if ($_GET["kategoria"] != "" && $_GET["kategoria"]!="all")
 
 else
 {
-    $querySur = "SELECT nazov_suroviny,Mnozstvo,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
+    $querySur = "SELECT id_suroviny,nazov_suroviny,Mnozstvo,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
     $resultSur = mysqli_query($conn,$querySur);
     ?>
     <table class="table table-stripped">
@@ -108,39 +135,20 @@ else
 
 
         <tbody>
-        <?php
-        while ($rowSur = mysqli_fetch_assoc($resultSur))
-        { ?>
-                <tr>
-                    <td><?php echo $rowSur["nazov_suroviny"];?></td>
-                    <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
-                </tr>
-        <?php } ?>
+            <?php
+            while ($rowSur = mysqli_fetch_assoc($resultSur))
+            { ?>
+                    <tr>
+                        <td><?php echo $rowSur["nazov_suroviny"];?></td>
+                        <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
+                    </tr>
+            <?php } ?>
         </tbody>
     </table>
 
 <?php
 }
 ?>
-    <div class="modal fade" id="suroviny" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang["detailSur"];?></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <h6 id="idSur"></h6>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $lang["close"]?></button>
-                    <button type="button" class="btn btn-primary"><?php echo $lang["save"]?></button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 <?php
     include_once "widgets/footer.php";
