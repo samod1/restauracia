@@ -3,9 +3,9 @@ include "config.php";
 $conn="";
 include "configDb.php";
 
-$nazovSuboru="Vitejte";
+$nazovSuboru= $lang["HOME"];
   include "widgets/header.php";
-  $bc_nazov = "Domov";
+  $bc_nazov = $lang["HOME"];
   include "widgets/navbar.php";
 
 ?>
@@ -31,6 +31,7 @@ $nazovSuboru="Vitejte";
                            5=>'Piatok',
                            6=>'Sobota',
                            7=>'Nedeľa'];
+
                         $dniCZ= [
                            1=>'Pondělí',
                            2=>'Úterý',
@@ -39,6 +40,7 @@ $nazovSuboru="Vitejte";
                            5=>'Pátek',
                            6=>'Sobota',
                            7=>'Neděle'];
+
                         if($_SESSION['lang'] == "sk") {
                             echo $dniSK[date('N')];
                         }

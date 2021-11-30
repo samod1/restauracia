@@ -45,7 +45,8 @@ if ($id_receptu != "") {
             $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, enum_jednotka.skratka FROM suroviny_k_receptu 
         INNER JOIN tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
         INNER JOIN enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
-        WHERE id_rec =".$id_receptu." ORDER BY kategoria_suroviny ASC " ;
+        WHERE id_rec =".$id_receptu." ORDER BY kategoria_suroviny ASC ";
+
             $resultSur= mysqli_query($conn, $querySur);
             $pocetRiadkov = mysqli_num_rows($resultSur);
             if (!$resultSur) {

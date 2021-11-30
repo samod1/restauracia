@@ -19,13 +19,16 @@ $lang= array(
     "kat_suroviny" => "Kategória surovín",
     "suroviny" => "Prehľad surovín",
     "hladaj" => "Vyhľadaj",
-    "domov" => "Domov",
     "noRecords" => "V databáze sa nenechádzajú žiadne záznamy",
     "nazov" => "Názov",
-    "mnozstvo" => "Množstvo"
-
-
-
+    "mnozstvo" => "Množstvo",
+    "novaSur" => "Vytvoriť surovinu",
+    "all" =>"Všetky",
+    "detailSur" => "Detail suroviny",
+    "save" => "Uložiť zmeny",
+    "close" => "Zavrieť",
+    "nReceptu" => "Názov receptu",
+    "surRec" => "Surovina je zahrnutá v receptoch"
 
 );
 ?>

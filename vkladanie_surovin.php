@@ -1,4 +1,5 @@
 <?php
+include "config.php";
     $nazovSuboru="Vkladanie surovin";
     include "widgets/header.php";
     $bc_nazov = "Vkladanie surovin";
