@@ -28,7 +28,8 @@ $lang= array(
     "save" => "Uložiť zmeny",
     "close" => "Zavrieť",
     "nReceptu" => "Názov receptu",
-    "surRec" => "Surovina je zahrnutá v receptoch"
+    "surRec" => "Surovina je zahrnutá v receptoch",
+    "noRec" => "Pre túto surovinu neboli najdené žiadne recepty"
 
 );
 ?>

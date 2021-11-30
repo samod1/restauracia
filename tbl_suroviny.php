@@ -93,7 +93,23 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                                 <?php echo $lang["mnozstvo"].": ".$rowSur["Mnozstvo"],$rowSur["skratka"];?>
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
-                                    <p>TODO VYPIS RECEPTOV</p>
+                                    <?php
+                                        $queryRec="SELECT nazov, id_rec FROM suroviny_k_receptu INNER JOIN recept r ON suroviny_k_receptu.id_rec = r.id WHERE id_sur=".$rowSur["id_suroviny"];
+                                        $resultRec=mysqli_query($conn,$queryRec);
+                                        $pocetRiadkovRec = mysqli_num_rows($resultRec);
+                                        if ($pocetRiadkovRec == 0)
+                                        {
+                                            echo "<h6>".$lang["noRec"]."</h6>";
+                                        }
+
+                                        else
+                                        {
+                                                while ($rowRec = mysqli_fetch_assoc($resultRec))
+                                                {
+                                                    echo $rowRec["nazov"];
+                                                }
+                                        }
+                                    ?>
                                 </div>
                             </div>
                             <div class="modal-footer">
