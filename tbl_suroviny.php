@@ -75,10 +75,11 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
             <?php
             while ($rowSur = mysqli_fetch_assoc($resultSur))
             { ?>
+                    <tr>
                 <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
                 <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
                 <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
-
+                    </tr>
                 <!-- Modal -->
                 <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
                     <div class="modal-dialog">
@@ -132,7 +133,7 @@ else
     ?>
     <table class="table table-stripped">
         <thead>
-            <th><?php echo $lang["nazov"]; ?></th>
+            <th colspan="2"><?php echo $lang["nazov"]; ?></th>
             <th><?php echo $lang["mnozstvo"]; ?></th>
         </thead>
 
@@ -143,8 +144,48 @@ else
             { ?>
                     <tr>
                         <td><?php echo $rowSur["nazov_suroviny"];?></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
                         <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
                     </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><?php echo $lang["detailSur"].": ".$rowSur["nazov_suroviny"];?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <?php echo $lang["mnozstvo"].": ".$rowSur["Mnozstvo"],$rowSur["skratka"];?>
+                                <h6><?php echo $lang["surRec"]?></h6>
+                                <div>
+                                    <?php
+                                    $queryRec="SELECT nazov, id_rec FROM suroviny_k_receptu INNER JOIN recept r ON suroviny_k_receptu.id_rec = r.id WHERE id_sur=".$rowSur["id_suroviny"];
+                                    $resultRec=mysqli_query($conn,$queryRec);
+                                    $pocetRiadkovRec = mysqli_num_rows($resultRec);
+                                    if ($pocetRiadkovRec == 0)
+                                    {
+                                        echo "<h6>".$lang["noRec"]."</h6>";
+                                    }
+
+                                    else
+                                    {
+                                        while ($rowRec = mysqli_fetch_assoc($resultRec))
+                                        {
+                                            echo $rowRec["nazov"];
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal"><?php echo $lang["close"]?></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             <?php } ?>
         </tbody>
     </table>
