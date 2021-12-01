@@ -29,7 +29,8 @@ $lang= array(
     "close" => "Zavrieť",
     "nReceptu" => "Názov receptu",
     "surRec" => "Surovina je zahrnutá v receptoch",
-    "noRec" => "Pre túto surovinu neboli najdené žiadne recepty"
+    "noRec" => "Pre túto surovinu neboli najdené žiadne recepty",
+    "ERRGET" => "Nebolo zaslané žiadne ID"
 
 );
 ?>
