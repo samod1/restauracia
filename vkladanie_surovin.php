@@ -70,7 +70,9 @@ include "config.php";
 
             echo "Nemam co zobrazit";
         }
+        //TODO jazykove mutacie
     ?>
+
     <select name="katSuroviny" class="form-control form-control-lg" required autofocus>
         <?php
             while ($row = mysqli_fetch_assoc($result)) {
@@ -80,10 +82,26 @@ include "config.php";
             }
     ?>
     </select>
+    <label>Mnozstvo</label>
+    <input class="form-control form-control-lg" type="text" name="mnozstvo" placeholder="125,3">
+    <br>
+    <?php
+        $queryJed="SELECT id_jednotky, jednotka FROM enum_jednotka ORDER BY skratka ASC";
+        $resultJed=mysqli_query($conn,$queryJed);
+    ?>
+    <label>Merna jednotka</label>
+    <select name="jednotka" class="form-control form-control-lg">
+        <?php
+            while ($rowJed=mysqli_fetch_assoc($resultJed))
+        {?>
+        <option value="<?php echo $rowJed["id_jednotky"];?>"><?php echo $rowJed["jednotka"];?></option>
+        <?php }?>
+    </select>
     <br>
     <!--<input required autofocus id="nazovsuroviny" name="katSuroviny">-->
 
     <input class="btn btn-primary btn-lg btn-block" type="submit" value="Ulozit surovinu">
+    <input class="btn btn-secondary btn-lg btn-block" type="reset" value="Zmazat">
     <input type="hidden" name="send" value="yes">
 
 </form>
@@ -93,10 +111,10 @@ include "config.php";
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny) VALUES (?,?,?)";
+    $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny,Mnozstvo,jednotka) VALUES (?,?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
-    mysqli_stmt_bind_param($stmt, 'isi', $id, $_POST["nazovSuroviny"],$_POST["katSuroviny"]);
+    mysqli_stmt_bind_param($stmt, 'isiis', $id, $_POST["nazovSuroviny"],$_POST["katSuroviny"],$_POST["mnozstvo"],$_POST["jednotka"]);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 }
