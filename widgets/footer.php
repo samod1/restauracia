@@ -1,7 +1,8 @@
 <style>
     .footer {
         left: 0;
-        position: absolute;
+        position: sticky;
+        position: -webkit-sticky;
         bottom: 0;
         text-align: center;
         color: white;
@@ -10,5 +11,16 @@
 </style>
 
 <div class="footer bg-dark">
-    <p><a href="index.php?lang=sk"><?php echo $lang['lang_sk'] ?></a> | <a href="index.php?lang=cz"><?php echo $lang['lang_cz'] ?></a></p>
+    <div class="row">
+        <div class="col">
+            <p>&copy; Samuel Domin</p>
+        </div>
+        <div class="col">
+            <p><a href="index.php?lang=sk"><?php echo $lang['lang_sk'] ?></a> | <a href="index.php?lang=cz"><?php echo $lang['lang_cz'] ?></a></p>
+        </div>
+        <div class="col">
+            ver:51782d6b
+        </div>
+    </div>
+
 </div>
