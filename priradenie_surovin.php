@@ -1,6 +1,9 @@
 <?php
 $conn ="";
 include "configDb.php";
+
+include "config.php";
+
 $nazovSuboru="Priradenie surovin";
 include "widgets/header.php";
 $bc_nazov="Priradenie surovin";
@@ -56,60 +59,55 @@ if ($id_receptu != "") {
             if ($pocetRiadkov == 0) {
                 echo "Nemam co zobrazit";
             }
-            while ($rowSur = mysqli_fetch_assoc($resultSur))
+            else
             {
-            ?>
+                while ($rowSur = mysqli_fetch_assoc($resultSur))
+                {
+                ?>
 
-            <tr>
-                <td><?php echo $rowSur["nazov_suroviny"]?></td>
-                <td><?php echo $rowSur["mnozstvo"], " ", $rowSur["skratka"]?></td>
-                <td><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Odstranit</a></td>
+                <tr>
+                    <td><?php echo $rowSur["nazov_suroviny"]?></td>
+                    <td><?php echo $rowSur["mnozstvo"], " ", $rowSur["skratka"]?></td>
+                    <td><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Odstranit</a></td>
 
-            </tr>
-            <?php
+                </tr>
+                <?php
+                }
             }
-            ?>
+                ?>
             </tbody>
         </table>
     </div>
 
 
     <div class="collapse multi-collapse" id="KategorieSurovin">
-    <form method="post" class="form-group">
-        <div class="row">
-            <div class="col">
-                <?php
-                    $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
-                    $resultKat= mysqli_query($conn,$queryKat);
-                ?>
-                    <select class="form-control form-control-lg" name="kategoria">
-                        <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
-                        {
+        <form method="post" class="form-group">
+            <div class="row">
+                <div class="col">
+                    <?php
+                        $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
+                        $resultKat= mysqli_query($conn,$queryKat);
+                    ?>
+                        <select class="form-control form-control-lg" name="kategoria">
+                            <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
+                            {
                             ?>
-                        <option value="<?php echo $rowKat["id_kategorie"];?>"><?php echo $rowKat["nazov_kategorie"];?></option>
+                            <option value="<?php echo $rowKat["id_kategorie"];?>"><?php echo $rowKat["nazov_kategorie"];?></option>
                             <?php
-                        }
-                        ?>
-                    </select>
+                            }
+                            ?>
+                        </select>
 
+                </div>
+                <div class="col">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Zobraz suroviny">
+                </div>
             </div>
-            <div class="col">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Zobraz suroviny">
-            </div>
-        </div>
-    </form>
+        </form>
     </div>
         <?php
             $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
             $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
-            /*$pocetRiadkov = mysqli_num_rows($result);
-            if (!$result) {
-                echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
-                exit;
-            }
-            if ($pocetRiadkov == 0) {
-                echo "Nemam co zobrazit";
-            }*/
         ?>
 
 
@@ -119,14 +117,13 @@ if ($id_receptu != "") {
                 <label for="surovina">Suroviny</label>
                 <select id="surovina" name="surovina" class="form-control form-control-lg">
                     <?php
-                    while ($row = mysqli_fetch_assoc($result)) {
+                       while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <option value="<?php echo $row["id_suroviny"]?>"><?php echo $row["nazov_suroviny"]?></option>
                         <?php
                     }
                     ?>
                 </select>
-
                 <div class="row">
                     <div class="col">
                         <label for="mnozstvo">Mnozstvi</label>
@@ -145,11 +142,13 @@ if ($id_receptu != "") {
                         if ($pocetRiadkov == 0) {
                             echo "Nemam co zobrazit";
                         }
+                        else
+                        {
                         ?>
                         <select class="form-control form-control-lg" name="jednotka">
                             <?php while ($row = mysqli_fetch_assoc($resultJednotka)) { ?>
                             <option value="<?php echo $row["id_jednotky"]; ?>"><?php echo $row["jednotka"]; ?></option>
-                            <?php } ?>
+                            <?php }} ?>
                         </select>
                     </div>
                 </div>
@@ -167,6 +166,16 @@ if ($id_receptu != "") {
 </div>
 <?php
 
+}
+
+else
+{
+?>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong><?php echo $lang["ERRGET"]; ?></strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php
 }
 
 mysqli_close($conn);
