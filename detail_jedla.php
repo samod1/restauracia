@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 $conn ="";
 include "configDb.php";
 $nazovSuboru="Detail jedla";
@@ -10,7 +11,7 @@ $jeden_Host="1";
 
 <?php
 if ($_GET["id"] != "") {
-    $queryNazov="SELECT nazov FROM recept WHERE id=".$_GET["id"];
+    $queryNazov= "SELECT nazov_receptu FROM tbl_recept WHERE id_receptu=" .$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
     { ?>
@@ -18,13 +19,13 @@ if ($_GET["id"] != "") {
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-4'>
-            <h3>Detail jedla: <?php echo $rowNazov["nazov"];} ?> </h3>
+            <h3>Detail jedla: <?php echo $rowNazov["nazov_receptu"];} ?> </h3>
         </div>
         <div class='col-2'>
             <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><i class='fa fa-pencil'></i> Edituj</a>
         </div>
         <div class='col-2'>
-            <a href='odstranenie_receptu.php?<?php echo $_GET["id"]?>&zmazat=ano' class='btn btn-danger 'onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
+            <a href='odstranenie_receptu.php?<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
         </div>
         <div class="col-2">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
@@ -75,21 +76,18 @@ if ($_GET["id"] != "") {
         </thead>
         <tbody>
         <?php
-        $querySuroviny="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM suroviny_k_receptu 
-        INNER JOIN tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
-        INNER JOIN enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
-        WHERE id_rec =".$_GET["id"];
-        $resultSuroviny= mysqli_query($conn,$querySuroviny);
-        $pocetRiadkov = mysqli_num_rows($resultSuroviny);
+        $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky WHERE id_rec =".$_GET["id"];
+        $resultSur= mysqli_query($conn,$querySur);
+        $pocetRiadkov = mysqli_num_rows($resultSur);
 
-        if (!$resultSuroviny) {
-            echo "Error: Neda sa vykonat prikaz SQL: " . $querySuroviny . ".<br>" . PHP_EOL;
+        if (!$resultSur) {
+            echo "Error: Neda sa vykonat prikaz SQL: " . $querySur . ".<br>" . PHP_EOL;
             exit;
         }
         if ($pocetRiadkov == 0) {
             echo "Nemam co zobrazit";
         }
-        while ($rowSuroviny = mysqli_fetch_assoc($resultSuroviny)) {
+        while ($rowSuroviny = mysqli_fetch_assoc($resultSur)) {
             ?>
             <tr>
                 <td><?php echo $rowSuroviny["nazov_suroviny"]; ?></td>
@@ -115,7 +113,7 @@ if ($_GET["id"] != "") {
             <h4>Postup</h4>
             <?php
 
-            $queryNazov="SELECT postup FROM recept WHERE id=".$_GET["id"];
+            $queryNazov= "SELECT postup_receptu FROM tbl_recept WHERE id_receptu=" .$_GET["id"];
             $resultNazov = mysqli_query($conn, $queryNazov);
             while ($rowNazov = mysqli_fetch_assoc($resultNazov))
             { ?>

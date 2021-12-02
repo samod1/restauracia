@@ -179,14 +179,14 @@ ALTER TABLE `enum_kategoria_suroviny`
 --
 -- Indexy pre tabuľku `recept`
 --
-ALTER TABLE `recept`
-  ADD PRIMARY KEY (`id`),
+ALTER TABLE tbl_recept
+  ADD PRIMARY KEY (id_receptu),
   ADD KEY `typ_receptu` (`typ_receptu`);
 
 --
 -- Indexy pre tabuľku `suroviny_k_receptu`
 --
-ALTER TABLE `suroviny_k_receptu`
+ALTER TABLE tbl_suroviny_k_receptu
   ADD PRIMARY KEY (`id_rec_sur`),
   ADD KEY `id_rec` (`id_rec`),
   ADD KEY `id_sur` (`id_sur`),
@@ -216,7 +216,7 @@ ALTER TABLE `tbl_suroviny`
 --
 -- Indexy pre tabuľku `typ_receptu`
 --
-ALTER TABLE `typ_receptu`
+ALTER TABLE enum_typ_receptu
   ADD PRIMARY KEY (`id_typu_receptu`);
 
 --
@@ -244,13 +244,13 @@ ALTER TABLE `enum_kategoria_suroviny`
 --
 -- AUTO_INCREMENT pre tabuľku `recept`
 --
-ALTER TABLE `recept`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE tbl_recept
+  MODIFY id_receptu int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pre tabuľku `suroviny_k_receptu`
 --
-ALTER TABLE `suroviny_k_receptu`
+ALTER TABLE tbl_suroviny_k_receptu
   MODIFY `id_rec_sur` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -268,7 +268,7 @@ ALTER TABLE `tbl_suroviny`
 --
 -- AUTO_INCREMENT pre tabuľku `typ_receptu`
 --
-ALTER TABLE `typ_receptu`
+ALTER TABLE enum_typ_receptu
   MODIFY `id_typu_receptu` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -278,14 +278,14 @@ ALTER TABLE `typ_receptu`
 --
 -- Obmedzenie pre tabuľku `recept`
 --
-ALTER TABLE `recept`
-  ADD CONSTRAINT `typ_receptu` FOREIGN KEY (`typ_receptu`) REFERENCES `typ_receptu` (`id_typu_receptu`);
+ALTER TABLE tbl_recept
+  ADD CONSTRAINT `typ_receptu` FOREIGN KEY (`typ_receptu`) REFERENCES enum_typ_receptu (`id_typu_receptu`);
 
 --
 -- Obmedzenie pre tabuľku `suroviny_k_receptu`
 --
-ALTER TABLE `suroviny_k_receptu`
-  ADD CONSTRAINT `suroviny_k_receptu_ibfk_1` FOREIGN KEY (`id_rec`) REFERENCES `recept` (`id`),
+ALTER TABLE tbl_suroviny_k_receptu
+  ADD CONSTRAINT `suroviny_k_receptu_ibfk_1` FOREIGN KEY (`id_rec`) REFERENCES tbl_recept (id_receptu),
   ADD CONSTRAINT `suroviny_k_receptu_ibfk_2` FOREIGN KEY (`id_sur`) REFERENCES `tbl_suroviny` (`id_suroviny`),
   ADD CONSTRAINT `suroviny_k_receptu_ibfk_3` FOREIGN KEY (`jednotka`) REFERENCES `enum_jednotka` (`id_jednotky`);
 
@@ -294,7 +294,7 @@ ALTER TABLE `suroviny_k_receptu`
 --
 ALTER TABLE `tbl_jedla_menu`
   ADD CONSTRAINT `den` FOREIGN KEY (`den`) REFERENCES `enum_dni` (`id_dna`),
-  ADD CONSTRAINT `jedlo` FOREIGN KEY (`id_jedla`) REFERENCES `recept` (`id`),
+  ADD CONSTRAINT `jedlo` FOREIGN KEY (`id_jedla`) REFERENCES tbl_recept (id_receptu),
   ADD CONSTRAINT `menu` FOREIGN KEY (`id_menu`) REFERENCES `tbl_menu` (`id_menu`);
 
 --

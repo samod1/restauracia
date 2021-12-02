@@ -37,7 +37,7 @@ include "widgets/navbar.php";
 
                                 <?php
                                 $idKat=0;
-                                $queryKat="INSERT INTO typ_receptu (id_typu_receptu,nazov_typu_receptu) VALUES (?,?)";
+                                $queryKat= "INSERT INTO enum_typ_receptu (id_typu_receptu,nazov_typu_receptu) VALUES (?,?)";
                                 $stmtKat = mysqli_stmt_init($conn);
                                 mysqli_stmt_prepare($stmtKat, $queryKat);
                                 mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
@@ -58,7 +58,7 @@ include "widgets/navbar.php";
     <label for="typ_kuchyna">Druh receptu</label>
 
     <?php
-    $query = "SELECT id_typu_receptu, nazov_typu_receptu FROM typ_receptu ORDER BY id_typu_receptu ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
+    $query = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
     $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
     $pocetRiadkov = mysqli_num_rows($result);
     if (!$result) {
@@ -97,7 +97,7 @@ include "widgets/navbar.php";
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO recept (id,nazov,postup,typ_receptu,alergeny) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO tbl_recept (id_receptu,nazov_receptu,postup_receptu,typ_receptu,alergeny) VALUES (?,?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
     mysqli_stmt_bind_param($stmt, 'issis', $id, $_POST["nazovReceptu"],$_POST["postupReceptu"],$_POST["typKuchyne"],$_POST["alergeny"]);

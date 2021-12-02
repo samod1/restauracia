@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 $conn ="";
 include "configDb.php";
 $nazovSuboru="Priradenie surovin";
@@ -9,11 +10,11 @@ include "widgets/navbar.php";
 <div class="jumbotron-fluid">
 
 <?php
-$id_receptu=$_GET["id"];
+$_GET["id"];
 
-if ($id_receptu != "") {
+if ($_GET["id"] != "") {
 
-    $queryNazov="SELECT nazov FROM recept WHERE id=".$_GET["id"];
+    $queryNazov= "SELECT nazov_receptu FROM tbl_recept WHERE id_receptu=" .$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
         {
@@ -22,10 +23,6 @@ if ($id_receptu != "") {
         <div class="row">
             <div class="col">
                 <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#pridaneSuroviny" aria-expanded="false" aria-controls="multiCollapseExample2">Tabulka pridanych surovin</button>
-            </div>
-            <div class="col">
-                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#KategorieSurovin" aria-expanded="false" aria-controls="multiCollapseExample2">Kategorie surovin</button>
-                <br>
             </div>
         </div>
 
@@ -42,9 +39,9 @@ if ($id_receptu != "") {
             </thead>
             <tbody>
             <?php
-            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, enum_jednotka.skratka FROM suroviny_k_receptu 
-        INNER JOIN tbl_suroviny ON suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
-        INNER JOIN enum_jednotka ON suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
+            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, enum_jednotka.skratka FROM tbl_suroviny_k_receptu 
+        INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny
+        INNER JOIN enum_jednotka ON tbl_suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky
         WHERE id_rec =".$id_receptu." ORDER BY kategoria_suroviny ASC ";
 
             $resultSur= mysqli_query($conn, $querySur);
@@ -74,7 +71,6 @@ if ($id_receptu != "") {
     </div>
 
 
-    <div class="collapse multi-collapse" id="KategorieSurovin">
     <form method="post" class="form-group">
         <div class="row">
             <div class="col">
@@ -98,7 +94,6 @@ if ($id_receptu != "") {
             </div>
         </div>
     </form>
-    </div>
         <?php
             $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
             $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz

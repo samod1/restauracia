@@ -95,7 +95,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
                                     <?php
-                                        $queryRec="SELECT nazov, id_rec FROM suroviny_k_receptu INNER JOIN recept r ON suroviny_k_receptu.id_rec = r.id WHERE id_sur=".$rowSur["id_suroviny"];
+                                        $queryRec= "SELECT nazov_receptu, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_recept r ON tbl_suroviny_k_receptu.id_rec = r.id_receptu WHERE id_sur=" .$rowSur["id_suroviny"];
                                         $resultRec=mysqli_query($conn,$queryRec);
                                         $pocetRiadkovRec = mysqli_num_rows($resultRec);
                                         if ($pocetRiadkovRec == 0)
@@ -162,7 +162,7 @@ else
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
                                     <?php
-                                    $queryRec="SELECT nazov, id_rec FROM suroviny_k_receptu INNER JOIN recept r ON suroviny_k_receptu.id_rec = r.id WHERE id_sur=".$rowSur["id_suroviny"];
+                                    $queryRec= "SELECT nazov_receptu, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_recept r ON tbl_suroviny_k_receptu.id_rec = r.id_receptu WHERE id_sur=" .$rowSur["id_suroviny"];
                                     $resultRec=mysqli_query($conn,$queryRec);
                                     $pocetRiadkovRec = mysqli_num_rows($resultRec);
                                     if ($pocetRiadkovRec == 0)

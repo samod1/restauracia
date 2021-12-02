@@ -58,7 +58,7 @@ $nazovSuboru= $lang["HOME"];
                 <tr>
                     <th><?php echo $lang["RECIEPE_COUNT"]?></th>
                     <td><?php
-                        $query="SELECT id FROM recept";
+                        $query="SELECT id_receptu FROM tbl_recept";
                         $result= mysqli_query($conn,$query);
                         $pocetRiadkov=mysqli_num_rows($result);
                         if ($pocetRiadkov==0)
