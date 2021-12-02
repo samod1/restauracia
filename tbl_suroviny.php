@@ -107,7 +107,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                                         {
                                                 while ($rowRec = mysqli_fetch_assoc($resultRec))
                                                 {
-                                                    echo $rowRec["nazov"];
+                                                    echo $rowRec["nazov_receptu"];
                                                 }
                                         }
                                     ?>
@@ -174,7 +174,7 @@ else
                                     {
                                         while ($rowRec = mysqli_fetch_assoc($resultRec))
                                         {
-                                            echo $rowRec["nazov"];
+                                            echo $rowRec["nazov_receptu"];
                                         }
                                     }
                                     ?>
