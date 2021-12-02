@@ -169,13 +169,12 @@ else
                                     {
                                         echo "<h6>".$lang["noRec"]."</h6>";
                                     }
-
                                     else
                                     {
                                         while ($rowRec = mysqli_fetch_assoc($resultRec))
-                                        {
-                                            echo $rowRec["nazov_receptu"];
-                                        }
+                                        { ?>
+                                            <a href="detail_jedla.php?id=<?php echo $rowRec["id_rec"];?>"><?php echo $rowRec["nazov_receptu"]?></a>
+                                      <?php  }
                                     }
                                     ?>
                                 </div>
