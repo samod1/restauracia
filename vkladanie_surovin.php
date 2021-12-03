@@ -111,7 +111,7 @@ include "config.php";
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny,Mnozstvo,jednotka) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny,mnozstvo_sklad,jednotka) VALUES (?,?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
     mysqli_stmt_bind_param($stmt, 'isiis', $id, $_POST["nazovSuroviny"],$_POST["katSuroviny"],$_POST["mnozstvo"],$_POST["jednotka"]);
