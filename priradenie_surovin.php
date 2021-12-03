@@ -23,6 +23,9 @@ if ($_GET["id"] != "") {
             <div class="col">
                 <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#pridaneSuroviny" aria-expanded="false" aria-controls="multiCollapseExample2">Tabulka pridanych surovin</button>
             </div>
+            <div class="col">
+                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#kategorieSurovin" aria-expanded="false" aria-controls="multiCollapseExample2">Kategorie surovin</button>
+            </div>
         </div>
 
 
@@ -66,31 +69,33 @@ if ($_GET["id"] != "") {
     </div>
 
     <br>
-
-    <form method="post" class="form-group">
-        <div class="row">
-            <div class="col">
-                <?php
-                    $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
-                    $resultKat= mysqli_query($conn,$queryKat);
-                ?>
-                    <label>Kategoria suroviny</label>
-                    <select class="form-control form-control-lg" name="kategoria">
-                        <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
-                        {
+    <div class="collapse multi-collapse" id="kategorieSurovin">
+        <form method="post" class="form-group">
+            <div class="row">
+                <div class="col">
+                    <?php
+                        $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
+                        $resultKat= mysqli_query($conn,$queryKat);
+                    ?>
+                        <label>Kategoria suroviny</label>
+                        <select class="form-control form-control-lg" name="kategoria">
+                            <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
+                            {
+                                ?>
+                            <option value="<?php echo $rowKat["id_kategorie"];?>"><?php echo $rowKat["nazov_kategorie"];?></option>
+                                <?php
+                            }
                             ?>
-                        <option value="<?php echo $rowKat["id_kategorie"];?>"><?php echo $rowKat["nazov_kategorie"];?></option>
-                            <?php
-                        }
-                        ?>
-                    </select>
+                        </select>
 
+                </div>
+                <div class="col">
+                    <label></label>
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Zobraz suroviny">
+                </div>
             </div>
-            <div class="col">
-                <input type="submit" class="btn btn-primary btn-lg btn-block" value="Zobraz suroviny">
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
         <?php
             $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
             $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
