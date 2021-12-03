@@ -69,6 +69,7 @@ if ($_GET["id"] != "") {
     </div>
 
     <br>
+
     <div class="collapse multi-collapse" id="kategorieSurovin">
         <form method="post" class="form-group">
             <div class="row">
