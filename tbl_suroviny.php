@@ -91,7 +91,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <?php echo $lang["mnozstvo"].": ".$rowSur["Mnozstvo"],$rowSur["skratka"];?>
+                                <?php echo $lang["mnozstvo"].": ".$rowSur["mnozstvo_sklad"],$rowSur["skratka"];?>
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
                                     <?php
@@ -145,7 +145,7 @@ else
                     <tr>
                         <td><?php echo $rowSur["nazov_suroviny"];?></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
-                        <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
+                        <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
                     </tr>
                 <!-- Modal -->
                 <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
@@ -158,7 +158,7 @@ else
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <?php echo $lang["mnozstvo"].": ".$rowSur["Mnozstvo"],$rowSur["skratka"];?>
+                                <?php echo $lang["mnozstvo"].": ".$rowSur["mnozstvo_sklad"],$rowSur["skratka"];?>
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
                                     <?php
