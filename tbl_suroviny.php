@@ -62,7 +62,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
 
     else
     {
-        $querySur = "SELECT id_suroviny,nazov_suroviny,Mnozstvo,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky WHERE kategoria_suroviny =". $_POST["kategoria"];
+        $querySur = "SELECT id_suroviny,nazov_suroviny,mnozstvo_sklad,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky WHERE kategoria_suroviny =" . $_POST["kategoria"];
         $resultSur = mysqli_query($conn,$querySur);
         ?>
         <table class="table table-stripped">
@@ -78,7 +78,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                     <tr>
                 <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
                 <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
-                <td><?php echo $rowSur["Mnozstvo"]." ".$rowSur["skratka"];?></td>
+                <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
                     </tr>
                 <!-- Modal -->
                 <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
@@ -128,7 +128,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
 
 else
 {
-    $querySur = "SELECT id_suroviny,nazov_suroviny,Mnozstvo,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
+    $querySur = "SELECT id_suroviny,nazov_suroviny,mnozstvo_sklad,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
     $resultSur = mysqli_query($conn,$querySur);
     ?>
     <table class="table table-stripped">

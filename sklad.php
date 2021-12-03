@@ -92,7 +92,7 @@ include "widgets/navbar.php";
                 <!-- TODO zaanalyzovat -->
                 <table class="table table-striped">
                     <?php
-                        $query="SELECT nazov_suroviny,Mnozstvo,skratka 
+                        $query= "SELECT nazov_suroviny,mnozstvo_sklad,skratka 
                                 FROM tbl_suroviny 
                                 INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky
                                 ORDER BY  id_suroviny ASC";
@@ -112,7 +112,7 @@ include "widgets/navbar.php";
                             {
                     ?>
                         <td><?php echo $row["nazov_suroviny"];?></td>
-                        <td><?php echo $row["Mnozstvo"]." ".$row["skratka"]; ?></td>
+                        <td><?php echo $row["mnozstvo_sklad"]." ".$row["skratka"]; ?></td>
                     </tbody>
                     <?php
                         }}
