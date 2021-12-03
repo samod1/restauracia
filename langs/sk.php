@@ -30,7 +30,47 @@ $lang= array(
     "nReceptu" => "Názov receptu",
     "surRec" => "Surovina je zahrnutá v receptoch",
     "noRec" => "Pre túto surovinu neboli najdené žiadne recepty",
-    "ERRGET" => "Nebolo zaslané žiadne ID"
+    "ERRGET" => "Nebolo zaslané žiadne ID",
+
+    "RecList" => "Zoznam receptov",
+    "nazovRec" => "Názov receptu",
+    "kategorieRec" => "Kategória receptu",
+    "alergens" => "Alergény",
+    "price" => "Cena jedla",
+    "action" => "Akcia",
+    "newRec" => "Vytvoriť nový recept",
+    "detailRec" => "Detail receptu",
+    "addIng" => "Priradiť suroviny k jedlu",
+    "delRec" => "Odstrániť recept",
+    "delRecReq" => "Chcete vymazať tento recept",
+
+    "newKat" => "Vytvoriť novú kategóriu",
+    "postup" => "Postup prípravy",
+    "saveRec" => "Založiť recept",
+    "nazovKat" => "Názov kategórie",
+    "cenaJedla" => "zadajte bez meny",
+
+    "edit" => "Upraviť recept",
+    "del" => "Zmazať",
+    "calc" => "Prepočítať",
+    "print" => "Vytlačiť recept",
+    "guest" => "Počet hostí",
+    "calcH" => "Suroviny prepočítané na",
+    "portions" => "porcií",
+    "recSur" => "Surovina",
+    "recSurPl" => "Surovina",
+    "amount" => "Množstvo",
+    "amountPl" => "Suroviny",
+    "reset" => "Reset", //todo upravit
+
+    "Hprir" => "Priradenie surovín k receptu",
+    "btnPrir1" => "Tabuľka pridaných surovín",
+    "btnPrir2" => "Kategórie surovín",
+    "SurInRec" => "Ingrediencie",
+    "nazSur" => "Názov suroviny",
+    "showSur" => "Zobraz suroviny",
+    "saveSur" => "Priradiť surovinu"
+
 
 );
 ?>
