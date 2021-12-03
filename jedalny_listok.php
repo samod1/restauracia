@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 $nazovSuboru="Jidelny listek";
 include "widgets/header.php";
 $bc_nazov="Jidelny listek";
@@ -8,7 +9,7 @@ include "widgets/navbar.php";
     <div class="row">
         <h3>Jidelny listek</h3>
         <div class="col-4">
-            <a href="#" class="btn btn-primary"><i class="fa fa-plus"></i> Vytvorit novy jedalny listok</a>
+            <a href="nove_menu.php" class="btn btn-primary"><i class="fa fa-plus"></i> Vytvorit novy jedalny listok</a>
         </div>
     </div>
     <h4>Seznam aktualnich jidelnych listku</h4>

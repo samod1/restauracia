@@ -1,4 +1,5 @@
 <?php
+include "config.php";
 $conn="";
 $nazovSuboru="Novy jedalny listok";
 $bc_nazov="Novy jidelny listek";

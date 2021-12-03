@@ -69,7 +69,9 @@ $lang= array(
     "SurInRec" => "Ingrediencie",
     "nazSur" => "Názov suroviny",
     "showSur" => "Zobraz suroviny",
-    "saveSur" => "Priradiť surovinu"
+    "saveSur" => "Priradiť surovinu",
+
+    ""
 
 
 );
