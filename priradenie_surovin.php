@@ -17,26 +17,26 @@ if ($_GET["id"] != "") {
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
         {
-            echo "<h3>Priradenie surovin k receptu ".$rowNazov["nazov_receptu"]."</h3>";
+            echo "<h3>". $lang["Hprir"]." ".$rowNazov["nazov_receptu"]."</h3>";
             }?>
         <div class="row">
             <div class="col">
-                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#pridaneSuroviny" aria-expanded="false" aria-controls="multiCollapseExample2">Tabulka pridanych surovin</button>
+                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#pridaneSuroviny" aria-expanded="false" aria-controls="multiCollapseExample2"><?php echo $lang["btnPrir1"];?></button>
             </div>
             <div class="col">
-                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#kategorieSurovin" aria-expanded="false" aria-controls="multiCollapseExample2">Kategorie surovin</button>
+                <button class="btn btn-primary btn-lg btn-block" type="button" data-toggle="collapse" data-target="#kategorieSurovin" aria-expanded="false" aria-controls="multiCollapseExample2"><?php echo $lang["btnPrir2"];?></button>
             </div>
         </div>
 
 
     <div class="collapse multi-collapse" id="pridaneSuroviny">
-        <h4>Suroviny v tomto recepte</h4>
+        <h4><?php echo $lang["SurInRec"];?></h4>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Nazov suroviny</th>
-                    <th>Mnozstvo</th>
-                    <th>Akcia</th>
+                    <th><?php echo $lang["nazSur"];?></th>
+                    <th><?php echo $lang["amount"];?></th>
+                    <th><?php echo $lang["action"];?></th>
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +57,7 @@ if ($_GET["id"] != "") {
             <tr>
                 <td><?php echo $rowSur["nazov_suroviny"]?></td>
                 <td><?php echo $rowSur["mnozstvo"], " ", $rowSur["skratka"]?></td>
-                <td><a href="#" class="btn btn-danger"><i class="fa fa-trash"></i> Odstranit</a></td>
+                <td><a href="#" class="btn btn-danger"><?php echo $lang["del"];?>/td>
 
             </tr>
             <?php
@@ -92,7 +92,7 @@ if ($_GET["id"] != "") {
                 </div>
                 <div class="col">
                     <label></label>
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="Zobraz suroviny">
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["showSur"];?>">
                 </div>
             </div>
         </form>
@@ -106,7 +106,7 @@ if ($_GET["id"] != "") {
             <form class="form-group" method="post" action="ulozenie_suroviny.php">
                 <input type="hidden" name="id_rec" value="<?php echo $_GET["id"];?>">
 
-                <label for="surovina">Suroviny</label>
+                <label for="surovina"><?php echo $lang["recSurPl"];?></label>
                 <select id="surovina" name="surovina" class="form-control form-control-lg">
                     <?php
                     while ($row = mysqli_fetch_assoc($result)) {
@@ -119,7 +119,7 @@ if ($_GET["id"] != "") {
 
                 <div class="row">
                     <div class="col">
-                        <label for="mnozstvo">Mnozstvi</label>
+                        <label for="mnozstvo"><?php echo $lang["amount"];?></label>
                         <input class="form-control form-control-lg" type="text" id="mnozstvo" name="mnozstvo" placeholder="cislo zadavajte s bodkov">
                     </div>
                     <div class="col">
@@ -146,11 +146,11 @@ if ($_GET["id"] != "") {
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="Ulozit">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["saveSur"];?>">
                         <input type="hidden" name="save" value="yes">
                     </div>
                     <div class="col">
-                        <input type="reset" class="btn btn-secondary btn-lg btn-block" value="Reset">
+                        <input type="reset" class="btn btn-secondary btn-lg btn-block" value="<?php echo $lang["reset"];?>">
                     </div>
                 </div>
             </form>

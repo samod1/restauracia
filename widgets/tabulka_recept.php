@@ -21,11 +21,11 @@
 <table class="table table-striped">
     <thead>
     <tr>
-        <th>Nazov jedla</th>
-        <th>Kategoria jedla</th>
-        <th>Alergeny</th>
-        <th>Cena jedla</th>
-        <th colspan="3">Akcia</th>
+        <th><?php echo $lang["nReceptu"]?></th>
+        <th><?php echo $lang["kategorieRec"]?></th>
+        <th><?php echo $lang["alergens"]?></th>
+        <th><?php echo $lang["price"]?></th>
+        <th colspan="3"><?php echo $lang["action"]?></th>
     </tr>
     </thead>
     <tbody>
@@ -37,9 +37,9 @@
         <td><?php echo $row["nazov_typu_receptu"]?></td>
         <td><?php echo $row["alergeny"]?></td>
         <td><?php echo $row["cena_jedla"]."€"?></td>
-        <td><a class="btn btn-primary" id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id_receptu"]; ?>"><i class="fa fa-search"></i> Detail jedla</a></td>
-        <td><a class="btn btn-primary" id="Priradsuroviny" href="priradenie_surovin.php?id=<?php echo $row["id_receptu"]; ?>"><i class="fa fa-search"></i> Prirad suroviny jedla</a></td>
-        <td><a onclick="return confirm('Chcete vymazat tento recept');" class="btn btn-danger" href="../odstranenie_receptu.php?id=<?php echo $row["id_receptu"]?>&zmazat=ano"><i class="fa fa-trash"></i> Odstranit recept</a></td>
+        <td><a class="btn btn-primary" id="zobrazObedy" href="detail_jedla.php?id=<?php echo $row["id_receptu"]; ?>"><?php echo $lang["detailRec"]?></a></td>
+        <td><a class="btn btn-primary" id="Priradsuroviny" href="priradenie_surovin.php?id=<?php echo $row["id_receptu"]; ?>"><?php echo $lang["addIng"]?></td>
+        <td><a onclick="return confirm('<?php echo $lang["delRecReq"];?>');" class="btn btn-danger" href="../odstranenie_receptu.php?id=<?php echo $row["id_receptu"]?>&zmazat=ano"><?php echo $lang["delRec"]?></a></td>
 
 
         <?php

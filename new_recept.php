@@ -12,27 +12,27 @@ include "widgets/navbar.php";
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">
-            <h2>Vytvorit novej recept</h2>
+            <h2><?php echo $lang["newRec"];?></h2>
         </div>
         <div class="col-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-plus"></i> Vytvorit novu kategoriu</button>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"><?php echo $lang["newKat"];?></button>
 
             <!-- Modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Vytvorenie novej kategorie</h5>
+                            <h5 class="modal-title" id="exampleModalLabel"><?php echo $lang["newKat"];?></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <form method="post" class="form-control form-control-lg">
-                                <label>Nazev kategorie</label>
+                                <label><?php echo $lang["nazovKat"];?></label>
                                 <br>
                                 <input class="form-group" type="text" name="nazov_kategorie">
-                                <input type="submit" class="btn btn-primary btn-lg btn-block">
+                                <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["newKat"];?>">
                                 <input type="hidden" name="vlozit" value="yes">
 
                                 <?php
@@ -51,11 +51,12 @@ include "widgets/navbar.php";
             </div>
         </div>
     </div>
+
 <form method="post" class="form-group">
-    <label for="nazovReceptu">Nazov receptu</label>
+    <label for="nazovReceptu"><?php echo $lang["nazovRec"];?></label>
     <input class="form-control form-control-lg" required autofocus type="text" name="nazovReceptu">
     <br>
-    <label for="typ_kuchyna">Druh receptu</label>
+    <label for="typ_kuchyna"><?php echo $lang["kategorieRec"];?></label>
 
     <?php
     $query = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
@@ -83,12 +84,14 @@ include "widgets/navbar.php";
         ?>
     </select>
     <br>
-    <label>Postup pripravy</label>
+    <label><?php echo $lang["postup"];?></label>
     <textarea class="form-control" rows="10" name="postupReceptu"></textarea>
-    <label for="alergeny">Alergeny</label>
+    <label for="alergeny"><?php echo $lang["alergens"];?></label>
     <input class="form-control form-control-lg" required autofocus type="text" name="alergeny">
+    <label><?php echo $lang["price"];?></label>
+    <input class="form-control form-control-lg" type="text" name="cena" placeholder="<?php echo $lang["cenaJedla"];?>">
     <br>
-    <input class="btn btn-primary btn-lg btn-block"type="submit" value="Ulozit">
+    <input class="btn btn-primary btn-lg btn-block"type="submit" value="<?php echo $lang["saveRec"];?>">
     <input type="hidden" name="send" value="yes">
 </form>
 </div>
@@ -97,10 +100,10 @@ include "widgets/navbar.php";
 if ($_POST["send"] == "yes") {
 
     $id = 0;
-    $query = "INSERT INTO tbl_recept (id_receptu,nazov_receptu,postup_receptu,typ_receptu,alergeny) VALUES (?,?,?,?,?)";
+    $query = "INSERT INTO tbl_recept (id_receptu,nazov_receptu,postup_receptu,typ_receptu,alergeny,cena_jedla) VALUES (?,?,?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
-    mysqli_stmt_bind_param($stmt, 'issis', $id, $_POST["nazovReceptu"],$_POST["postupReceptu"],$_POST["typKuchyne"],$_POST["alergeny"]);
+    mysqli_stmt_bind_param($stmt, 'ississ', $id, $_POST["nazovReceptu"],$_POST["postupReceptu"],$_POST["typKuchyne"],$_POST["alergeny"],$_POST["cena"] );
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     header("Location: zoznam_receptov.php");

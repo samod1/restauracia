@@ -19,20 +19,20 @@ if ($_GET["id"] != "") {
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-4'>
-            <h3>Detail jedla: <?php echo $rowNazov["nazov_receptu"];} ?> </h3>
+            <h3><?php echo $lang["detailRec"]." ";?> <?php echo $rowNazov["nazov_receptu"];} ?> </h3>
         </div>
         <div class='col-2'>
-            <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><i class='fa fa-pencil'></i> Edituj</a>
+            <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><?php echo $lang["edit"];?></a>
         </div>
         <div class='col-2'>
-            <a href='odstranenie_receptu.php?<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick='return confirm('Naozaj chces vykonat tieto zmeny ?');'><i class='fa fa-trash'></i> Zmazat</a>
+            <a href='odstranenie_receptu.php?<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick="return confirm('<?php echo $lang['delRecReq'];?>');"><?php echo $lang["del"];?></a>
         </div>
         <div class="col-2">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
-                            aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-calculator"></i> Pocet osob</a>
+                            aria-expanded="false" aria-controls="multiCollapseExample1"><?php echo $lang["calc"];?></a>
         </div>
         <div class="col-2">
-            <button onclick="window.print()" class="btn btn-primary"><i class="fa fa-print"></i> Tlacit recept</button>
+            <button onclick="window.print()" class="btn btn-primary"><?php echo $lang["print"];?></button>
         </div>
     </div>
 
@@ -43,10 +43,10 @@ if ($_GET["id"] != "") {
                     <div class="collapse multi-collapse" id="multiCollapseExample1">
                         <div class="card card-body">
                             <form method="post" class="form-group">
-                                <label>Pocet hostu</label>
+                                <label><?php echo $lang["guest"];?></label>
                                 <input class="form-control" type="number" name="pocetHostu" value="1">
                                 <br>
-                                <input type="submit" class="btn btn-primary btn-lg" value="Prepocitat">
+                                <input type="submit" class="btn btn-primary btn-lg" value="<?php echo $lang["calc"];?>">
                                 <input type="hidden" name="prepocitat" value="yes">
                             </form>
                         </div>
@@ -54,7 +54,7 @@ if ($_GET["id"] != "") {
                 </div>
             </div>
 
-    <h4>Suroviny prepoctene pro
+    <h4><?php echo $lang["calcH"];?>
         <?php
         if($_POST["prepocitat"]=="yes")
         {
@@ -66,12 +66,12 @@ if ($_GET["id"] != "") {
             echo "1";
         }
 
-        ?> hostu</h4>
+        ?> <?php echo $lang["portions"];?></h4>
     <table class='table tbl-stripped'>
         <thead class='table thead-light'>
         <tr>
-            <th>Surovina</th>
-            <th>Mnozstvo</th>
+            <th><?php echo $lang["recSur"];?></th>
+            <th><?php echo $lang["amount"];?></th>
         </tr>
         </thead>
         <tbody>
@@ -95,7 +95,8 @@ if ($_GET["id"] != "") {
                     <?php
                     if ($_POST["prepocitat"]=="yes")
                     {
-                        echo "<td>".$_POST["pocetHostu"]*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]."</td>";
+
+                            echo "<td>" . $_POST["pocetHostu"]*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]."</td>";
                     }
 
                     else
@@ -110,14 +111,14 @@ if ($_GET["id"] != "") {
         </tbody>
     </table>
 
-            <h4>Postup</h4>
+            <h4><?php echo $lang["postup"];?></h4>
             <?php
 
             $queryNazov= "SELECT postup_receptu FROM tbl_recept WHERE id_receptu=" .$_GET["id"];
             $resultNazov = mysqli_query($conn, $queryNazov);
             while ($rowNazov = mysqli_fetch_assoc($resultNazov))
             { ?>
-                <p> <?php echo $rowNazov["postup"]; ?> </p>
+                <p> <?php echo $rowNazov["postup_receptu"]; ?> </p>
     <?php } ?>
             </div>
 
