@@ -78,7 +78,7 @@ if ($_GET["id"] != "") {
                         $queryKat="SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
                         $resultKat= mysqli_query($conn,$queryKat);
                     ?>
-                        <label>Kategoria suroviny</label>
+                        <label><?php echo $lang["btnPrir2"];?></label>
                         <select class="form-control form-control-lg" name="kategoria">
                             <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
                             {
