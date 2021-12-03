@@ -19,7 +19,7 @@
             <p><a href="index.php?lang=sk"><?php echo $lang['lang_sk'] ?></a> | <a href="index.php?lang=cz"><?php echo $lang['lang_cz'] ?></a></p>
         </div>
         <div class="col">
-            ver:51782d6b
+            ver:4a665af
         </div>
     </div>
 
