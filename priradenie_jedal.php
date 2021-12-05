@@ -18,7 +18,6 @@ include "widgets/navbar.php";
     </div>
 
     <form class="form-group" method="post">
-
         <input type="hidden" name="id_menu" value="<?php echo $_GET["menu"];?>">
         <?php
         $query = "SELECT id_dna, den FROM enum_dni WHERE Jazyk = 'SK' ORDER BY id_dna ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
@@ -51,7 +50,7 @@ include "widgets/navbar.php";
                 <div class="collapse multi-collapse" id="polievka">
                     <fieldset>
             <legend>Polievka</legend>
-            <form method="post" class="form-group">
+            <form method="post" class="form-group" action="ulozenie_receptu.php">
             <?php
                 $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC";
                 $resultKat = mysqli_query($conn,$queryKat);
@@ -212,17 +211,7 @@ include "widgets/navbar.php";
          <input type="hidden" name="send" value="yes">
     </form>
     <br>
-    <?php
-        if($_POST["send"]=="yes")
-        {
-            $query = "INSERT INTO tbl_jedla_menu (id_menu, den, polievka, menu1, menu2, menu3) VALUES (?,?,?,?,?,?) ";
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt, $query);
-            mysqli_stmt_bind_param($stmt, 'iiiiii', $_POST["id_menu"], $_POST["den"], $_POST["polievka"],$_POST["menu_1"],$_POST["menu_2"],$_POST["menu_3"]);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        }
-    ?>
+
 </div>
 <?php
     include "widgets/footer.php"
