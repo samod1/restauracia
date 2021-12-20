@@ -72,11 +72,12 @@ if ($_GET["id"] != "") {
         <tr>
             <th><?php echo $lang["recSur"];?></th>
             <th><?php echo $lang["amount"];?></th>
+            <th>Akcia</th>
         </tr>
         </thead>
         <tbody>
         <?php
-        $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky WHERE id_rec =".$_GET["id"];
+        $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka, id_rec_sur, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky WHERE id_rec =".$_GET["id"];
         $resultSur= mysqli_query($conn,$querySur);
         $pocetRiadkov = mysqli_num_rows($resultSur);
 
@@ -104,8 +105,7 @@ if ($_GET["id"] != "") {
                         echo "<td>".$jeden_Host*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]."</td>";
                     }
                 ?>
-
-
+                <td><a href="odstranenie_suroviny.php?id=<?php echo $rowSuroviny["id_rec_sur"]?>&zmazat=ano" class="btn btn-danger">Odstranit</a></td>
             </tr>
         <?php } ?>
         </tbody>
