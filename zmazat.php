@@ -2,7 +2,7 @@
 $conn="";
 include "configDb.php";
 
-if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
+if ($_GET["del"] == "surovina" && $_GET["id"] != "") {
 
     $id = $_GET["id"];
     $query = "DELETE FROM tbl_suroviny WHERE id_suroviny=?";

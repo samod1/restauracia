@@ -135,6 +135,7 @@ else
         <thead>
             <th colspan="2"><?php echo $lang["nazov"]; ?></th>
             <th><?php echo $lang["mnozstvo"]; ?></th>
+            <th colspan="2">Akcia</th>
         </thead>
 
 
@@ -146,7 +147,10 @@ else
                         <td><?php echo $rowSur["nazov_suroviny"];?></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
                         <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
+                        <td><a href="editacia_suroviny.php?id=<?php echo $rowSur["id_suroviny"];?>&edituj=ano" class="btn btn-secondary">Edituj</a></td>
+                        <td><a href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina" class="btn btn-danger">Zmazat</a></td>
                     </tr>
+
                 <!-- Modal -->
                 <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
                     <div class="modal-dialog">
