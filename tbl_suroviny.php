@@ -146,7 +146,7 @@ else
                     <tr>
                         <td><?php echo $rowSur["nazov_suroviny"];?></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
-                        <td><a href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit mnozstvo</a></td>
+                        <td><a class="btn btn-secondary" href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit mnozstvo</a></td>
                         <td><?php
                             if ($rowSur["mnozstvo_sklad"] <= 0)
                             {
