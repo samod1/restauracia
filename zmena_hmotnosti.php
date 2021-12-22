@@ -46,10 +46,10 @@
                             $query = "UPDATE tbl_suroviny SET mnozstvo_sklad = ? WHERE id_suroviny=?";
                             $stmt = mysqli_stmt_init($conn);
                             mysqli_stmt_prepare($stmt, $query);
-                            mysqli_stmt_bind_param($stmt, 'ii', $hmotnostMinus,$rowSur["id_suroviny"]);
+                            mysqli_stmt_bind_param($stmt, 'si', $hmotnostMinus,$rowSur["id_suroviny"]);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
-                            header("Location: tbl_suroviny.php");
+                            header("Location:tbl_suroviny.php");
                         }
 
                         else
@@ -58,18 +58,15 @@
                             $query = "UPDATE tbl_suroviny SET mnozstvo_sklad = ? WHERE id_suroviny=?";
                             $stmt = mysqli_stmt_init($conn);
                             mysqli_stmt_prepare($stmt, $query);
-                            mysqli_stmt_bind_param($stmt, 'ii', $hmotnostPlus,$rowSur["id_suroviny"]);
+                            mysqli_stmt_bind_param($stmt, 'si', $hmotnostPlus,$rowSur["id_suroviny"]);
                             mysqli_stmt_execute($stmt);
                             mysqli_stmt_close($stmt);
-                            header("Location: tbl_suroviny.php");
+                            header("Location:tbl_suroviny.php");
                         }
                     }
 
                     ?>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal"><?php echo $lang["close"]?></button>
             </div>
         </div>
     </div>
@@ -88,4 +85,5 @@
 </div>";
     }
     mysqli_close($conn);
-        ?>
+
+    ?>
