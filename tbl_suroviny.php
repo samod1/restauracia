@@ -133,7 +133,7 @@ else
     ?>
     <table class="table table-stripped">
         <thead>
-            <th colspan="2"><?php echo $lang["nazov"]; ?></th>
+            <th colspan="3"><?php echo $lang["nazov"]; ?></th>
             <th><?php echo $lang["mnozstvo"]; ?></th>
             <th colspan="2">Akcia</th>
         </thead>
@@ -146,12 +146,26 @@ else
                     <tr>
                         <td><?php echo $rowSur["nazov_suroviny"];?></td>
                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
-                        <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
+                        <td><a href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit mnozstvo</a></td>
+                        <td><?php
+                            if ($rowSur["mnozstvo_sklad"] <= 0)
+                            {
+                                echo "<p class='font-weight-bold text-danger'>". $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"]."</p>";?>
+
+                            <?php
+                            }
+                            else
+                            {
+                                echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];
+                            }
+                            ?></td>
+
                         <td><a href="editacia_suroviny.php?id=<?php echo $rowSur["id_suroviny"];?>&edituj=ano" class="btn btn-secondary">Edituj</a></td>
                         <td><a href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina" class="btn btn-danger">Zmazat</a></td>
+
                     </tr>
 
-                <!-- Modal -->
+                <!-- Modal suroviny obsiahnute v receptoch -->
                 <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -162,7 +176,8 @@ else
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <?php echo $lang["mnozstvo"].": ".$rowSur["mnozstvo_sklad"],$rowSur["skratka"];?>
+                                <?php
+                                echo $lang["mnozstvo"].": ".$rowSur["mnozstvo_sklad"],$rowSur["skratka"];?>
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
                                     <?php
