@@ -50,7 +50,7 @@ include "widgets/navbar.php";
                 <div class="collapse multi-collapse" id="polievka">
                     <fieldset>
             <legend>Polievka</legend>
-            <form method="post" class="form-group" action="ulozenie_receptu.php">
+            <form method="post" class="form-group" action="ulozenie_dna.php" name="polievka">
             <?php
                 $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC";
                 $resultKat = mysqli_query($conn,$queryKat);
@@ -82,6 +82,7 @@ include "widgets/navbar.php";
                 <option value="<?php echo $rowRec["id_receptu"];?>"><?php echo $rowRec["nazov_receptu"];?></option>
                 <?php }?>
             </select>
+                        <input type="submit" value="zvolRecept">
         </fieldset>
                 </div>
             </div>
