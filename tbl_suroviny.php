@@ -34,72 +34,89 @@ include "configDb.php";
                     </div>
                     <div class="modal-body">
                         <div class="form-group">
-<form method="post" autocomplete="on">
-    <label for="nazovsuroviny">Nazev suroviny</label>
-    <input class="form-control form-control-lg" required autofocus id="nazovsuroviny" name="nazovSuroviny" placeholder="Sem napiste nazov suroviny" type="text">
-    <br>
+                            <form method="post" autocomplete="on" action="spracovanie/vlozenie_spracovanie.php">
+                                <label for="nazovsuroviny">Nazov suroviny</label>
+                                <input class="form-control form-control-lg" required autofocus id="nazovsuroviny" name="nazovSuroviny" placeholder="Sem napiste nazov suroviny" type="text">
+                                <br>
+                                <label>Popis suroviny</label>
+                                <textarea class="form-control" name="popis" rows="8" cols="25"></textarea>
+                                <label></label>
+                                <br>
+                                <label>Nazov dodavatela</label>
+                                <input type="text" class="form-control form-control-lg" name="dodavatel">
+                                <label>Katalogove cislo dodavatela</label>
+                                <input type="text" class="form-control form-control-lg" name="katCislo">
+                                <br>
 
-    <label for="nazovsuroviny">kategoria suroviny</label>
-    <?php
-        $query = "SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny order by id_kategorie ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
-        $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
-        $pocetRiadkov = mysqli_num_rows($result);
-        if (!$result) {
-            echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
-            exit;
-        }
-        if ($pocetRiadkov == 0) {
+                                <label><h4>Hmotnost</h4></label>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Brutto</label>
+                                        <input type="text" name="brutto" class="form-control form-control-lg">
+                                    </div>
+                                    <div class="col">
+                                        <label>Netto</label>
+                                        <input type="text" name="netto" class="form-control form-control-lg">
+                                    </div>
+                                </div>
+                                <br>
+                                <label for="nazovsuroviny">kategoria suroviny</label>
+                                <?php
+                                    $query = "SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny order by id_kategorie ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
+                                    $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
+                                    $pocetRiadkov = mysqli_num_rows($result);
+                                    if (!$result) {
+                                        echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
+                                        exit;
+                                    }
+                                    if ($pocetRiadkov == 0) {
 
-            echo "Nemam co zobrazit";
-        }
-        //TODO jazykove mutacie
-    ?>
+                                        echo "Nemam co zobrazit";
+                                    }
+                                    //TODO jazykove mutacie
+                                ?>
 
-    <select name="katSuroviny" class="form-control form-control-lg" required autofocus>
-        <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-        ?>
-            <option value="<?php echo $row["id_kategorie"]?>"><?php echo $row["nazov_kategorie"]?></option>
-    <?php
-            }
-    ?>
-    </select>
-    <label>Mnozstvo</label>
-    <input class="form-control form-control-lg" type="text" name="mnozstvo" placeholder="125,3">
-    <br>
-    <?php
-        $queryJed="SELECT id_jednotky, jednotka FROM enum_jednotka ORDER BY skratka ASC";
-        $resultJed=mysqli_query($conn,$queryJed);
-    ?>
-    <label>Merna jednotka</label>
-    <select name="jednotka" class="form-control form-control-lg">
-        <?php
-            while ($rowJed=mysqli_fetch_assoc($resultJed))
-        {?>
-        <option value="<?php echo $rowJed["id_jednotky"];?>"><?php echo $rowJed["jednotka"];?></option>
-        <?php }?>
-    </select>
-    <br>
-    <!--<input required autofocus id="nazovsuroviny" name="katSuroviny">-->
+                                <select name="katSuroviny" class="form-control form-control-lg" required autofocus>
+                                    <?php
+                                        while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <option value="<?php echo $row["id_kategorie"]?>"><?php echo $row["nazov_kategorie"]?></option>
+                                <?php
+                                        }
+                                ?>
+                                </select>
+                                <div class="row">
+                                    <div class="col">
+                                        <label>Mnozstvo</label>
+                                        <input class="form-control form-control-lg" type="text" name="mnozstvo" placeholder="125,3">
+                                    </div>
+                                <br>
+                                    <div class="col">
+                                        <?php
+                                            $queryJed="SELECT id_jednotky, jednotka FROM enum_jednotka ORDER BY skratka ASC";
+                                            $resultJed=mysqli_query($conn,$queryJed);
+                                        ?>
+                                        <label>Merna jednotka</label>
+                                        <select name="jednotka" class="form-control form-control-lg">
+                                            <?php
+                                                while ($rowJed=mysqli_fetch_assoc($resultJed))
+                                            {?>
+                                            <option value="<?php echo $rowJed["id_jednotky"];?>"><?php echo $rowJed["jednotka"];?></option>
+                                            <?php }?>
+                                        </select>
+                                    </div>
+                                </div>
+                                <label>Obrazok produktu</label>
+                                <input type="file" class="form-control-file">
+                                <br>
+                                <!--<input required autofocus id="nazovsuroviny" name="katSuroviny">-->
 
-    <input class="btn btn-primary btn-lg btn-block" type="submit" value="Ulozit surovinu">
-    <input class="btn btn-secondary btn-lg btn-block" type="reset" value="Zmazat">
-    <input type="hidden" name="send" value="yes">
+                                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Ulozit surovinu">
+                                <input class="btn btn-secondary btn-lg btn-block" type="reset" value="Zmazat">
+                                <input type="hidden" name="send" value="yes">
 
-</form>
+                            </form>
 </div>
-<?php
-//vkladanie udajov do DB
-if ($_POST["send"] == "yes") {
-
-    $id = 0;
-    $query = "INSERT INTO tbl_suroviny (id_suroviny,nazov_suroviny,kategoria_suroviny,mnozstvo_sklad,jednotka) VALUES (?,?,?,?,?)";
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, $query);
-    mysqli_stmt_bind_param($stmt, 'isiis', $id, $_POST["nazovSuroviny"],$_POST["katSuroviny"],$_POST["mnozstvo"],$_POST["jednotka"]);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_close($stmt);
-} ?>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavriet</button>
@@ -126,7 +143,9 @@ if ($_POST["send"] == "yes") {
                     }
                     ?>
                 </select>
-                <!-- TODO upravit databazu -->
+
+
+
             </div>
             <div class="col-2">
                 <input type="submit" value="<?php echo $lang["hladaj"];?>" class="btn btn-primary btn-lg">
