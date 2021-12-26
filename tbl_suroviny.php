@@ -159,7 +159,7 @@ include "configDb.php";
 
 
 <?php
-if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
+if ($_POST["kategoria"] != "" && $_POST["kategoria"] =="all")
 {
     $queryKat = "SELECT nazov_suroviny FROM tbl_suroviny";
     $resultKat = mysqli_query($conn,$queryKat);
@@ -176,7 +176,10 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
 
     else
     {
-        $querySur = "SELECT id_suroviny,nazov_suroviny,mnozstvo_sklad,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky WHERE kategoria_suroviny =" . $_POST["kategoria"];
+        $querySur = "SELECT id_suroviny,nazov_suroviny,mnozstvo_sklad,skratka,dodavatel,hmotnost_netto,
+       hmotnost_brutto,katalogove_cislo,popis_suroviny FROM tbl_suroviny 
+       INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
+
         $resultSur = mysqli_query($conn,$querySur);
         ?>
         <table class="table table-stripped">
@@ -190,10 +193,11 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
             while ($rowSur = mysqli_fetch_assoc($resultSur))
             { ?>
                     <tr>
-                <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
-                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
-                <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
+                        <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
+                        <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
                     </tr>
+
                 <!-- Modal -->
                 <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
                     <div class="modal-dialog">
@@ -205,7 +209,24 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"]!="all")
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <?php echo $lang["mnozstvo"].": ".$rowSur["mnozstvo_sklad"],$rowSur["skratka"];?>
+                                <h6>Popis suroviny: </h6>
+                                <p><?php echo $rowSur["popis_suroviny"];?></p>
+                                <table>
+                                    <thead>
+                                        <th>Dodavatel</th>
+                                        <th>Katalogove cislo u dodavatela</th>
+                                        <th>Hmotnost netto</th>
+                                        <th>Hmotnost bruto</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><?php echo $rowSur["dodavatel"];?></td>
+                                            <td><?php echo $rowSur["katalogove_cislo"];?></td>
+                                            <td><?php echo $rowSur["hmotnost_netto"];?></td>
+                                            <td><?php echo $rowSur["hmotnost_brutto"];?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                                 <h6><?php echo $lang["surRec"]?></h6>
                                 <div>
                                     <?php
@@ -245,82 +266,8 @@ else
     $querySur = "SELECT id_suroviny,nazov_suroviny,mnozstvo_sklad,skratka FROM tbl_suroviny INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
     $resultSur = mysqli_query($conn,$querySur);
     ?>
-    <table class="table table-stripped">
-        <thead>
-            <th colspan="3"><?php echo $lang["nazov"]; ?></th>
-            <th><?php echo $lang["mnozstvo"]; ?></th>
-            <th colspan="2">Akcia</th>
-        </thead>
 
-
-        <tbody>
-            <?php
-            while ($rowSur = mysqli_fetch_assoc($resultSur))
-            { ?>
-                    <tr>
-                        <td><?php echo $rowSur["nazov_suroviny"];?></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
-                        <td><a class="btn btn-secondary" href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit mnozstvo</a></td>
-                        <td><?php
-                            if ($rowSur["mnozstvo_sklad"] <= 0)
-                            {
-                                echo "<p class='font-weight-bold text-danger'>". $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"]."</p>";?>
-
-                            <?php
-                            }
-                            else
-                            {
-                                echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];
-                            }
-                            ?></td>
-
-                        <td><a href="editacia_suroviny.php?id=<?php echo $rowSur["id_suroviny"];?>&edituj=ano" class="btn btn-secondary">Edituj</a></td>
-                        <td><a href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina" class="btn btn-danger">Zmazat</a></td>
-
-                    </tr>
-
-                <!-- Modal suroviny obsiahnute v receptoch -->
-                <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title"><?php echo $lang["detailSur"].": ".$rowSur["nazov_suroviny"];?></h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <?php
-                                echo $lang["mnozstvo"].": ".$rowSur["mnozstvo_sklad"],$rowSur["skratka"];?>
-                                <h6><?php echo $lang["surRec"]?></h6>
-                                <div>
-                                    <?php
-                                    $queryRec= "SELECT nazov_receptu, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_recept r ON tbl_suroviny_k_receptu.id_rec = r.id_receptu WHERE id_sur=" .$rowSur["id_suroviny"];
-                                    $resultRec=mysqli_query($conn,$queryRec);
-                                    $pocetRiadkovRec = mysqli_num_rows($resultRec);
-                                    if ($pocetRiadkovRec == 0)
-                                    {
-                                        echo "<h6>".$lang["noRec"]."</h6>";
-                                    }
-                                    else
-                                    {
-                                        while ($rowRec = mysqli_fetch_assoc($resultRec))
-                                        { ?>
-                                            <a href="detail_jedla.php?id=<?php echo $rowRec["id_rec"];?>"><?php echo $rowRec["nazov_receptu"]?></a>
-                                      <?php  }
-                                    }
-                                    ?>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal"><?php echo $lang["close"]?></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        </tbody>
-    </table>
+    <H3>treba dokoncit</H3>
 
 <?php
 }
