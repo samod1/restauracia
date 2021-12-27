@@ -144,8 +144,6 @@ include "configDb.php";
                     ?>
                 </select>
 
-
-
             </div>
             <div class="col-2">
                 <input type="submit" value="<?php echo $lang["hladaj"];?>" class="btn btn-primary btn-lg">
@@ -156,20 +154,18 @@ include "configDb.php";
         </div>
     </form>
 
-
-
 <?php
-if ($_POST["kategoria"] != "" && $_POST["kategoria"] =="all")
+if ($_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
 {
-    $queryKat = "SELECT nazov_suroviny FROM tbl_suroviny";
-    $resultKat = mysqli_query($conn,$queryKat);
+    $queryKat = "SELECT nazov_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =".$_POST["kategoria"];
+    $resultKat = mysqli_query($conn, $queryKat);
     $pocetRiadkovSur = mysqli_num_rows($resultKat);
 
     if ($pocetRiadkovSur == 0)
     {
         echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
             <svg class='bi flex-shrink-0 me-2' width='24' height='24' role='img' aria-label='Danger:'><use xlink:href='#exclamation-triangle-fill'/></svg>
-            <strong>".$lang["noRecords"]."</strong>
+            <strong>" . $lang["noRecords"] . "</strong>
             <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
         </div>";
     }
@@ -179,7 +175,6 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] =="all")
         $querySur = "SELECT id_suroviny,nazov_suroviny,mnozstvo_sklad,skratka,dodavatel,hmotnost_netto,
        hmotnost_brutto,katalogove_cislo,popis_suroviny FROM tbl_suroviny 
        INNER JOIN enum_jednotka ej on tbl_suroviny.jednotka = ej.id_jednotky";
-
         $resultSur = mysqli_query($conn,$querySur);
         ?>
         <table class="table table-stripped">
@@ -199,8 +194,8 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] =="all")
                     </tr>
 
                 <!-- Modal -->
-                <div class="modal fade" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
-                    <div class="modal-dialog">
+                <div class="modal fade bd-example-modal-lg" id="message<?php echo $rowSur['id_suroviny'];?>" role="dialog" aria-hidden="true" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title"><?php echo $lang["detailSur"].": ".$rowSur["nazov_suroviny"];?></h5>
@@ -209,25 +204,30 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] =="all")
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <h6>Popis suroviny: </h6>
-                                <p><?php echo $rowSur["popis_suroviny"];?></p>
-                                <table>
-                                    <thead>
-                                        <th>Dodavatel</th>
-                                        <th>Katalogove cislo u dodavatela</th>
-                                        <th>Hmotnost netto</th>
-                                        <th>Hmotnost bruto</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><?php echo $rowSur["dodavatel"];?></td>
-                                            <td><?php echo $rowSur["katalogove_cislo"];?></td>
-                                            <td><?php echo $rowSur["hmotnost_netto"];?></td>
-                                            <td><?php echo $rowSur["hmotnost_brutto"];?></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <h6><?php echo $lang["surRec"]?></h6>
+                                <div class="row">
+                                    <div class="col">
+                                        <a class="btn btn-danger btn-lg btn-block" href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina">Zmazat surovinu</a>
+                                    </div>
+                                    <div class="col">
+                                        <a href="editacia_suroviny.php?id=<?php echo $rowSur["id_suroviny"];?>&edituj=ano" class="btn btn-secondary btn-lg btn-block">Upravit informacie</a>
+                                    </div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <h5>Podorobnosti o suroivne</h5>
+                                    <div class="col">
+                                        <p><strong>Popis suroviny: </strong><?php echo $rowSur["popis_suroviny"];?></p>
+                                        <p><strong>Dodavatel: </strong> <?php echo $rowSur["dodavatel"];?></p>
+                                        <p><strong>Katalogove cislo u dodavatela: </strong><?php echo $rowSur["katalogove_cislo"];?></p>
+                                        <p><strong>Hmotnost netto: </strong><?php echo $rowSur["hmotnost_netto"],$rowSur["skratka"];?></p>
+                                        <p><strong>Hmotnost brutto: </strong><?php echo $rowSur["hmotnost_brutto"],$rowSur["skratka"];?></p>
+                                    </div>
+                                    <div class="col">
+                                        <p>Sem pojde obrazok</p>
+                                    </div>
+                                </div>
+
+                                <h5><?php echo $lang["surRec"]?></h5>
                                 <div>
                                     <?php
                                         $queryRec= "SELECT nazov_receptu, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_recept r ON tbl_suroviny_k_receptu.id_rec = r.id_receptu WHERE id_sur=" .$rowSur["id_suroviny"];
@@ -247,6 +247,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] =="all")
                                         }
                                     ?>
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary btn-lg btn-block" data-dismiss="modal"><?php echo $lang["close"]?></button>
