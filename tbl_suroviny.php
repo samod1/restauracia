@@ -12,16 +12,11 @@ include "configDb.php";
 ?>
 <div class="container-fluid">
     <h3><?php echo $lang["suroviny"];?></h3>
-<div class="row">
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col"></div>
-    <div class="col">
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModal">
-            Vytvorit surovinu
-        </button>
-
+    <div class="row">
+        <div class="col">
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#exampleModal">
+                Vytvorit surovinu
+            </button>
         <!-- Modal -->
         <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -125,7 +120,7 @@ include "configDb.php";
             </div>
         </div>
     </div>
-</div>
+    </div>
     <form method="post" class="form-group">
         <div class="row">
             <label><?php echo $lang["kat_suroviny"];?></label>
@@ -146,10 +141,10 @@ include "configDb.php";
 
             </div>
             <div class="col-2">
-                <input type="submit" value="<?php echo $lang["hladaj"];?>" class="btn btn-primary btn-lg">
+                <input type="submit" value="<?php echo $lang["hladaj"];?>" class="btn btn-primary btn-lg btn-block">
             </div>
             <div class="col-2">
-                <input type="reset" class="btn btn-secondary btn-lg">
+                <input type="reset" class="btn btn-secondary btn-lg btn-block">
             </div>
         </div>
     </form>
