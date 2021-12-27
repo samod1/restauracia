@@ -189,7 +189,7 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
             { ?>
                     <tr>
                         <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
+                        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
                         <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
                     </tr>
 
@@ -206,16 +206,20 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
                             <div class="modal-body">
                                 <div class="row">
                                     <div class="col">
-                                        <a class="btn btn-danger btn-lg btn-block" href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina">Zmazat surovinu</a>
+                                        <a href="editacia_suroviny.php?id=<?php echo $rowSur["id_suroviny"];?>&edituj=ano" class="btn btn-primary btn-lg btn-block">Upravit informacie</a>
                                     </div>
                                     <div class="col">
-                                        <a href="editacia_suroviny.php?id=<?php echo $rowSur["id_suroviny"];?>&edituj=ano" class="btn btn-secondary btn-lg btn-block">Upravit informacie</a>
+                                        <a class="btn btn-secondary btn-lg btn-block" href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit hmotnost</a>
                                     </div>
+                                    <div class="col">
+                                        <a class="btn btn-danger btn-lg btn-block" href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina">Zmazat surovinu</a>
+                                    </div>
+
                                 </div>
                                 <br>
                                 <div class="row">
-                                    <h5>Podorobnosti o suroivne</h5>
                                     <div class="col">
+                                        <h5>Podorobnosti o suroivne</h5>
                                         <p><strong>Popis suroviny: </strong><?php echo $rowSur["popis_suroviny"];?></p>
                                         <p><strong>Dodavatel: </strong> <?php echo $rowSur["dodavatel"];?></p>
                                         <p><strong>Katalogove cislo u dodavatela: </strong><?php echo $rowSur["katalogove_cislo"];?></p>
@@ -223,7 +227,8 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
                                         <p><strong>Hmotnost brutto: </strong><?php echo $rowSur["hmotnost_brutto"],$rowSur["skratka"];?></p>
                                     </div>
                                     <div class="col">
-                                        <p>Sem pojde obrazok</p>
+                                        <h5>Nahladovy obrazok</h5>
+                                        <img src="img/br_panenka.jpg" class="img-thumbnail">
                                     </div>
                                 </div>
 
