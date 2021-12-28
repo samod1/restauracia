@@ -141,7 +141,7 @@ include "configDb.php";
 
             </div>
             <div class="col-2">
-                <input type="submit" value="<?php echo $lang["hladaj"];?>" class="btn btn-primary btn-lg btn-block">
+                <input name="kategorie" type="submit" value="<?php echo $lang["hladaj"];?>" class="btn btn-primary btn-lg btn-block">
             </div>
             <div class="col-2">
                 <input type="reset" class="btn btn-secondary btn-lg btn-block">
@@ -150,7 +150,7 @@ include "configDb.php";
     </form>
 
 <?php
-if ($_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
+if (isset($_POST["kategorie"]) && $_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
 {
     $queryKat = "SELECT nazov_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =".$_POST["kategoria"];
     $resultKat = mysqli_query($conn, $queryKat);
@@ -241,9 +241,9 @@ if ($_POST["kategoria"] != "" && $_POST["kategoria"] != "all")
                                         else
                                         {
                                                 while ($rowRec = mysqli_fetch_assoc($resultRec))
-                                                {
-                                                    echo $rowRec["nazov_receptu"];
-                                                }
+                                                {?>
+                                                    <a href="detail_jedla.php?id=<?php echo $rowRec["id_rec"];?>"><?php echo $rowRec["nazov_receptu"];?></a>
+                                                <?php }
                                         }
                                     ?>
                                 </div>
