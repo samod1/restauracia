@@ -26,8 +26,9 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
     {
 ?>
     <h3>Editacia suroviny: <?php echo $row["nazov_suroviny"]?></h3>
-    <form method="post" class="form-group">
+    <form method="post" class="form-group" action="spracovanie/uprava_spracovanie.php">
         <input type="hidden" name="idSuroviny" value="<?php echo $idSuroviny;?>">
+
         <label>Nazov suroviny</label>
         <input class="form-control form-control-lg" type="text" name="nazovSuroviny" value="<?php echo $row["nazov_suroviny"];?>">
         <br>
@@ -78,18 +79,22 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
             ?>
         </select>
         <br>
+
         <label>Dodavatel</label>
         <input class="form-control form-control-lg" type="text" name="dodavatel" value="<?php echo $row["dodavatel"]?>">
         <br>
+
         <label>Katalogove cislo</label>
         <input class="form-control form-control-lg" type="text" name="katalogove_cislo" value="<?php echo $row["katalogove_cislo"]?>">
         <br>
+
         <div class="row">
             <div class="col">
                 <label>Hmotnost brutto</label>
                 <input class="form-control form-control-lg" type="text" name="brutto" value="<?php echo $row["hmotnost_brutto"];?>">
 
             </div>
+
             <div class="col">
                 <label>Hmotnost netto</label>
                 <input class="form-control form-control-lg" type="text" name="netto" value="<?php echo $row["hmotnost_netto"];?>">
@@ -101,23 +106,12 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
             <input type="file" class="form-control-file" id="exampleFormControlFile1">
         </div>
         <br>
-        <input type="submit" value="Ulozit" class="btn btn-primary btn-lg btn-block">
-        <input type="hidden" name="edit" value="yes">
+        <input type="submit" value="Ulozit zmeny" class="btn btn-primary btn-lg btn-block" name="uprav">
+        <input type="hidden" name="surovina" value="yes">
     </form>
 <?php
     }
 
-    if ($_POST["edit"]=="yes")
-    {
-        $queryEdit="UPDATE tbl_suroviny SET nazov_suroviny=? WHERE id_suroviny=?";
-        $stmt = mysqli_stmt_init($conn);
-        mysqli_stmt_prepare($stmt,$queryEdit);
-        mysqli_stmt_bind_param($stmt,"si",$_POST["nazovSuroviny"],$_POST["idSuroviny"]);
-        mysqli_stmt_execute($stmt);
-        mysqli_stmt_close($stmt);
-        mysqli_commit($conn);
-        header("Location: tbl_suroviny.php");
-    }
 }
 ?>
 </div>
