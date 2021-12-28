@@ -1,6 +1,6 @@
 <?php
 $conn = "";
-include "configDb.php";
+include "../configDb.php";
 if ($_POST["edit"]=="yes")
 {
     //definovanie premennych
@@ -18,8 +18,7 @@ if ($_POST["edit"]=="yes")
     mysqli_stmt_bind_param($stmt, 'sssii', $nazovReceptu, $postupReceptu,$alergeny,$cenaJedla,$idReceptu);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("Location: zoznam_receptov.php");
-
+    header("Location: ../zoznam_receptov.php");
     mysqli_close($conn);
 
 

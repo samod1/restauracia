@@ -13,7 +13,7 @@ if($_GET["id"] !="" && $_GET["edituj"]="yes")
 ?>
 <div class="container-fluid">
     <h3>Editacia receptu</h3>
-    <form class="form-group" method="post" action="spracovanie_editacie.php">
+    <form class="form-group" method="post" action="spracovanie/spracovanie_editacie.php">
         <input name="idReceptu" type="hidden" value="<?php echo $_GET["id"];?>">
         <?php
             $query="SELECT nazov_receptu,postup_receptu,cena_jedla,alergeny FROM demorest.tbl_recept WHERE id_receptu=".$_GET["id"];
