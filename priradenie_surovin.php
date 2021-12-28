@@ -31,17 +31,8 @@ if ($_GET["id"] != "") {
 
     <div class="collapse multi-collapse" id="pridaneSuroviny">
         <h4><?php echo $lang["SurInRec"];?></h4>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th><?php echo $lang["nazSur"];?></th>
-                    <th><?php echo $lang["amount"];?></th>
-                    <th><?php echo $lang["action"];?></th>
-                </tr>
-            </thead>
-            <tbody>
             <?php
-            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, skratka  FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky WHERE id_rec = ".$_GET["id"]." ORDER BY kategoria_suroviny ASC ";
+            $querySur="SELECT nazov_suroviny ,kategoria_suroviny,mnozstvo, skratka  FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny.jednotka = enum_jednotka.id_jednotky WHERE id_rec = ".$_GET["id"]." ORDER BY kategoria_suroviny ASC ";
             $resultSur= mysqli_query($conn, $querySur);
             $pocetRiadkov = mysqli_num_rows($resultSur);
             if (!$resultSur) {
@@ -49,15 +40,29 @@ if ($_GET["id"] != "") {
                 exit;
             }
             if ($pocetRiadkov == 0) {
-                echo "Nemam co zobrazit";
+                echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                  <strong>Pre tento recept sa nenasli ziadne suroviny.</strong>
+                </div>";
             }
+            else
+            {?>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th><?php echo $lang["nazSur"];?></th>
+                    <th><?php echo $lang["amount"];?></th>
+                    <th><?php echo $lang["action"];?></th>
+                </tr>
+                </thead>
+                <tbody>
+        <?php
             while ($rowSur = mysqli_fetch_assoc($resultSur))
             {
             ?>
             <tr>
                 <td><?php echo $rowSur["nazov_suroviny"]?></td>
                 <td><?php echo $rowSur["mnozstvo"], " ", $rowSur["skratka"]?></td>
-                <td><a href="#" class="btn btn-danger"><?php echo $lang["del"];?>/td>
+                <td><a href="#" class="btn btn-danger"><?php echo $lang["del"];?></td>
 
             </tr>
             <?php
@@ -65,6 +70,7 @@ if ($_GET["id"] != "") {
             ?>
             </tbody>
         </table>
+        <?php }?>
         <br>
     </div>
 
@@ -92,18 +98,20 @@ if ($_GET["id"] != "") {
                 </div>
                 <div class="col">
                     <label></label>
-                    <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["showSur"];?>">
+                    <input name="submit" type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["showSur"];?>">
                 </div>
             </div>
         </form>
     </div>
         <?php
+        if (isset($_POST["submit"]))
+        {
             $query = "SELECT id_suroviny,nazov_suroviny,kategoria_suroviny FROM tbl_suroviny WHERE kategoria_suroviny =" .$_POST["kategoria"] ;  //uspodiadaj ASC od najmensieho po najvacsi
             $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
         ?>
 
 
-            <form class="form-group" method="post" action="ulozenie_suroviny.php">
+            <form class="form-group" method="post" action="spracovanie/ulozenie_suroviny.php">
                 <input type="hidden" name="id_rec" value="<?php echo $_GET["id"];?>">
 
                 <label for="surovina"><?php echo $lang["recSurPl"];?></label>
@@ -127,7 +135,7 @@ if ($_GET["id"] != "") {
                 <br>
                 <div class="row">
                     <div class="col">
-                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["saveSur"];?>">
+                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["saveSur"];?>" name="priradit">
                         <input type="hidden" name="save" value="yes">
                     </div>
                     <div class="col">
@@ -138,8 +146,8 @@ if ($_GET["id"] != "") {
 </div>
 <?php
 }
-
-
+}
 mysqli_close($conn);
 include "widgets/footer.php";
+
 ?>

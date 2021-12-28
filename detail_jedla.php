@@ -24,15 +24,15 @@ if ($_GET["id"] != "") {
         <div class='col-2'>
             <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><?php echo $lang["edit"];?></a>
         </div>
-        <div class='col-2'>
-            <a href='odstranenie_receptu.php?<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick="return confirm('<?php echo $lang['delRecReq'];?>');"><?php echo $lang["del"];?></a>
-        </div>
         <div class="col-2">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
                             aria-expanded="false" aria-controls="multiCollapseExample1"><?php echo $lang["calc"];?></a>
         </div>
         <div class="col-2">
             <button onclick="window.print()" class="btn btn-primary"><?php echo $lang["print"];?></button>
+        </div>
+        <div class='col-2'>
+            <a href='odstranenie_receptu.php?<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick="return confirm('<?php echo $lang['delRecReq'];?>');"><?php echo $lang["del"];?></a>
         </div>
     </div>
 
@@ -46,7 +46,7 @@ if ($_GET["id"] != "") {
                                 <label><?php echo $lang["guest"];?></label>
                                 <input class="form-control" type="number" name="pocetHostu" value="1">
                                 <br>
-                                <input type="submit" class="btn btn-primary btn-lg" value="<?php echo $lang["calc"];?>">
+                                <input type="submit" class="btn btn-primary btn-lg" value="<?php echo $lang["calc"];?>" name="prepocitanie">
                                 <input type="hidden" name="prepocitat" value="yes">
                             </form>
                         </div>
@@ -56,7 +56,7 @@ if ($_GET["id"] != "") {
 
     <h4><?php echo $lang["calcH"];?>
         <?php
-        if($_POST["prepocitat"]=="yes")
+        if(isset($_POST["prepocitanie"]) && $_POST["prepocitat"]=="yes")
         {
             echo $_POST["pocetHostu"];
         }
@@ -67,17 +67,8 @@ if ($_GET["id"] != "") {
         }
 
         ?> <?php echo $lang["portions"];?></h4>
-    <table class='table tbl-stripped'>
-        <thead class='table thead-light'>
-        <tr>
-            <th><?php echo $lang["recSur"];?></th>
-            <th><?php echo $lang["amount"];?></th>
-            <th>Akcia</th>
-        </tr>
-        </thead>
-        <tbody>
         <?php
-        $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka, id_rec_sur, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny_k_receptu.jednotka = enum_jednotka.id_jednotky WHERE id_rec =".$_GET["id"];
+        $querySur="SELECT nazov_suroviny ,mnozstvo, enum_jednotka.skratka, id_rec_sur, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_suroviny ON tbl_suroviny_k_receptu.id_sur = tbl_suroviny.id_suroviny INNER JOIN enum_jednotka ON tbl_suroviny.jednotka = enum_jednotka.id_jednotky WHERE id_rec =".$_GET["id"];
         $resultSur= mysqli_query($conn,$querySur);
         $pocetRiadkov = mysqli_num_rows($resultSur);
 
@@ -86,15 +77,33 @@ if ($_GET["id"] != "") {
             exit;
         }
         if ($pocetRiadkov == 0) {
-            echo "Nemam co zobrazit";
+            echo "<div class='alert alert-warning alert-dismissible fade show' role='alert'>
+                  <strong>Pre tento recept sa nenasli ziadne suroviny.</strong>
+                </div>";?>
+                <br>
+            <a href="priradenie_surovin.php?id=<?php echo $_GET["id"] ?>" class="btn btn-primary btn-lg btn-block">Priradit prvu surovinu</a>
+        <?php
         }
+        else
+        {
+        ?>
+        <table class='table tbl-stripped'>
+            <thead class='table thead-light'>
+            <tr>
+                <th><?php echo $lang["recSur"];?></th>
+                <th><?php echo $lang["amount"];?></th>
+                <th>Akcia</th>
+            </tr>
+            </thead>
+            <tbody>
+        <?php
         while ($rowSuroviny = mysqli_fetch_assoc($resultSur)) {
             ?>
             <tr>
                 <td><?php echo $rowSuroviny["nazov_suroviny"]; ?></td>
 
                     <?php
-                    if ($_POST["prepocitat"]=="yes")
+                    if (isset($_POST["prepocitanie"]) && $_POST["prepocitat"]=="yes")
                     {
 
                             echo "<td>" . $_POST["pocetHostu"]*$rowSuroviny["mnozstvo"]." ".$rowSuroviny["skratka"]."</td>";
@@ -110,7 +119,10 @@ if ($_GET["id"] != "") {
         <?php } ?>
         </tbody>
     </table>
+            <a href="priradenie_surovin.php?id=<?php echo $_GET["id"] ?>" class="btn btn-primary btn-lg btn-block">Priradit surovinu</a>
 
+    <?php } ?>
+<br>
             <h4><?php echo $lang["postup"];?></h4>
             <?php
 
@@ -118,7 +130,7 @@ if ($_GET["id"] != "") {
             $resultNazov = mysqli_query($conn, $queryNazov);
             while ($rowNazov = mysqli_fetch_assoc($resultNazov))
             { ?>
-                <p> <?php echo $rowNazov["postup_receptu"]; ?> </p>
+                <p style="text-align: justify"> <?php echo $rowNazov["postup_receptu"]; ?> </p>
     <?php } ?>
             </div>
 

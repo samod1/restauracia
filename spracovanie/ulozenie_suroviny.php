@@ -1,23 +1,23 @@
 <?php
 $conn="";
-require_once "configDb.php";
+require_once "../configDb.php";
 
-if ($_POST["save"] == "yes") {
+if (isset($_POST["priradit"]) && $_POST["save"] == "yes") {
 
     $id = 0;
     $id_rec = $_POST["id_rec"];
     $id_suroviny= $_POST["surovina"];
     $mnozstvo = $_POST["mnozstvo"];
-    $jednotka = $_POST["jednotka"];
 
-    $query = "INSERT INTO tbl_suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo, jednotka) VALUES (?,?,?,?,?)";
+
+    $query = "INSERT INTO tbl_suroviny_k_receptu (id_rec_sur, id_sur, id_rec, mnozstvo) VALUES (?,?,?,?)";
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, $query);
     mysqli_stmt_bind_param($stmt, 'iiis', $id,$id_suroviny, $id_rec, $mnozstvo);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     mysqli_commit($conn);
-    header("Location: zoznam_receptov.php");
+    header("Location: ../zoznam_receptov.php");
 }
 mysqli_close($conn);
 ?>
