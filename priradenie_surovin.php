@@ -122,26 +122,7 @@ if ($_GET["id"] != "") {
                         <label for="mnozstvo"><?php echo $lang["amount"];?></label>
                         <input class="form-control form-control-lg" type="text" id="mnozstvo" name="mnozstvo" placeholder="cislo zadavajte s bodkov">
                     </div>
-                    <div class="col">
-                        <label>Jednotka</label>
-                        <?php
-                            $queryJednotka="SELECT id_jednotky, jednotka FROM enum_jednotka ORDER BY id_jednotky ASC";
-                            $resultJednotka = mysqli_query($conn, $queryJednotka); // mysqli_query - vykona prikaz
-                            $pocetRiadkov = mysqli_num_rows($resultJednotka);
-                        if (!$resultJednotka) {
-                            echo "Error: Neda sa vykonat prikaz SQL: " . $query . ".<br>" . PHP_EOL;
-                            exit;
-                        }
-                        if ($pocetRiadkov == 0) {
-                            echo "Nemam co zobrazit";
-                        }
-                        ?>
-                        <select class="form-control form-control-lg" name="jednotka">
-                            <?php while ($row = mysqli_fetch_assoc($resultJednotka)) { ?>
-                            <option value="<?php echo $row["id_jednotky"]; ?>"><?php echo $row["jednotka"]; ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
+
                 </div>
                 <br>
                 <div class="row">
