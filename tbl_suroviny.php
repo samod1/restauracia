@@ -163,7 +163,7 @@ include "configDb.php";
             <label><?php echo $lang["kat_suroviny"];?></label>
             <div class="col-8">
                 <select name="kategoria" class="form-control form-control-lg">
-                    <option value="all">Vsetky</option>
+                    <option value="all"><?php echo $lang["all"]?></option>
                     <?php
                     $query="SELECT id_kategorie,nazov_kategorie FROM enum_kategoria_suroviny ORDER BY nazov_kategorie ASC";
                     $result = mysqli_query($conn,$query);
@@ -171,7 +171,7 @@ include "configDb.php";
                     { ?>
                         <option value="<?php echo $row["id_kategorie"];?>"
                                 <?php
-                                if ($_POST["kategoria"] == $row["id_kategorie"])
+                                if (isset($_POST["kategorie"]) && $_POST["kategoria"] == $row["id_kategorie"])
                                            {
                                                 echo "selected";
                                            }?>
