@@ -13,7 +13,12 @@
         exit;
     }
     if ($pocetRiadkov == 0) {
-        echo "Nemam co zobrazit";
+        ?>
+        <br>
+    <div class="alert alert-warning" role="alert">
+        <p><strong>V databaze sa nenachadzaju ziadne recepty</strong></p>
+    </div>
+<?php
     }
     else
     {
