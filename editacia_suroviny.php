@@ -65,12 +65,8 @@ if (isset($_GET["id"])  && $_GET["edituj"]=="ano")
                 while ($rowJed = mysqli_fetch_assoc($resultJed))
                 {
             ?>
-                    <option value="all" selected><?php echo $lang["all"]?></option>
-                    <option value="<?php $rowJed["id_jednotky"]?>"
+                    <option value="<?php echo $rowJed["id_jednotky"];?>"
                     <?php
-
-
-
                         if($rowJed["id_jednotky"] == $row["jednotka"])
                         {
                             echo " selected";
