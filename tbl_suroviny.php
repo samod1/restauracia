@@ -251,7 +251,7 @@ if (isset($_POST["kategorie"]) && $_POST["kategoria"] != "" && $_POST["kategoria
                                         <a class="btn btn-secondary btn-lg btn-block" href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit hmotnost</a>
                                     </div>
                                     <div class="col">
-                                        <a class="btn btn-danger btn-lg btn-block" href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina">Zmazat surovinu</a>
+                                        <a class="btn btn-danger btn-lg btn-block" href="spracovanie/zmazat.php?id=<?php echo $rowSur["id_suroviny"]?>&del=surovina">Zmazat surovinu</a>
                                     </div>
 
                                 </div>
@@ -366,7 +366,7 @@ else
                                     <a class="btn btn-secondary btn-lg btn-block" href="zmena_hmotnosti.php?id=<?php echo $rowSur["id_suroviny"];?>&zmena=yes">Zmenit hmotnost</a>
                                 </div>
                                 <div class="col">
-                                    <a class="btn btn-danger btn-lg btn-block" href="zmazat.php?id=<?php echo $rowSur["id_suroviny"];?>&del=surovina">Zmazat surovinu</a>
+                                    <a class="btn btn-danger btn-lg btn-block" href="spracovanie/zmazat.php?id=<?php echo $rowSur["id_suroviny"]?>&del=surovina">Zmazat surovinu</a>
                                 </div>
 
                             </div>
