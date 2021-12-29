@@ -218,7 +218,7 @@ if (isset($_POST["kategorie"]) && $_POST["kategoria"] != "" && $_POST["kategoria
         ?>
         <table class="table table-stripped">
             <thead>
-                <th colspan="2"><?php echo $lang["nazov"]; ?></th>
+                <th><?php echo $lang["nazov"]; ?></th>
                 <th><?php echo $lang["mnozstvo"]; ?></th>
             </thead>
 
@@ -227,8 +227,8 @@ if (isset($_POST["kategorie"]) && $_POST["kategoria"] != "" && $_POST["kategoria
             while ($rowSur = mysqli_fetch_assoc($resultSur))
             { ?>
                     <tr>
-                        <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
-                        <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
+                       <!-- <td><a data-toggle="modal" data-target="#message<?php //echo $rowSur['id_suroviny'];?>"><?php //echo $rowSur["nazov_suroviny"];?></a></td>-->
+                        <td><button type="button" class="btn btn-link" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></button></td>
                         <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
                     </tr>
 
@@ -333,7 +333,7 @@ else
       ?>
     <table class="table table-stripped">
         <thead>
-        <th colspan="2"><?php echo $lang["nazov"]; ?></th>
+        <th><?php echo $lang["nazov"]; ?></th>
         <th><?php echo $lang["mnozstvo"]; ?></th>
         </thead>
 
@@ -342,8 +342,8 @@ else
         while ($rowSur = mysqli_fetch_assoc($resultSur))
         { ?>
             <tr>
-                <td><a data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></a></td>
-                <td><button type="button" class="btn btn-info" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>">Detail</button></td>
+               <!-- <td><a data-toggle="modal" data-target="#message<?php //echo $rowSur['id_suroviny'];?>"><?php //echo $rowSur["nazov_suroviny"];?></a></td> -->
+                <td><button type="button" class="btn btn-link" data-toggle="modal" data-target="#message<?php echo $rowSur['id_suroviny'];?>"><?php echo $rowSur["nazov_suroviny"];?></button></td>
                 <td><?php echo $rowSur["mnozstvo_sklad"]." ".$rowSur["skratka"];?></td>
             </tr>
 
