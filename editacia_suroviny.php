@@ -9,12 +9,12 @@ include "widgets/navbar.php";
 ?>
 <div class="container-fluid">
 <?php
-if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
+if (isset($_GET["id"])  && $_GET["edituj"]=="ano")
 {
-    $idSuroviny = $_GET["id"];
+
     $query="SELECT kategoria_suroviny,nazov_suroviny,jednotka,nazov_kategorie,id_kategorie,katalogove_cislo,popis_suroviny,dodavatel,hmotnost_brutto,hmotnost_netto FROM tbl_suroviny 
     INNER JOIN enum_kategoria_suroviny ON enum_kategoria_suroviny.id_kategorie = tbl_suroviny.kategoria_suroviny 
-    WHERE id_suroviny=".$idSuroviny;
+    WHERE id_suroviny=".$_GET["id"];
 
     $result=mysqli_query($conn,$query);
 
@@ -27,7 +27,7 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
 ?>
     <h3>Editacia suroviny: <?php echo $row["nazov_suroviny"]?></h3>
     <form method="post" class="form-group" action="spracovanie/uprava_spracovanie.php">
-        <input type="hidden" name="idSuroviny" value="<?php echo $idSuroviny;?>">
+        <input type="hidden" name="idSuroviny" value="<?php echo $_GET["id"];?>">
 
         <label>Nazov suroviny</label>
         <input class="form-control form-control-lg" type="text" name="nazovSuroviny" value="<?php echo $row["nazov_suroviny"];?>">
@@ -65,15 +65,17 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
                 while ($rowJed = mysqli_fetch_assoc($resultJed))
                 {
             ?>
+                    <option value="all" selected><?php echo $lang["all"]?></option>
                     <option value="<?php $rowJed["id_jednotky"]?>"
                     <?php
+
+
 
                         if($rowJed["id_jednotky"] == $row["jednotka"])
                         {
                             echo " selected";
                         }
-                    ?>
-                    ><?php echo $rowJed["jednotka"]." (".$rowJed["skratka"].")";?></option>
+                    ?>><?php echo $rowJed["jednotka"]." (".$rowJed["skratka"].")";?></option>
             <?php
                 }
             ?>
@@ -111,7 +113,6 @@ if ($_GET["id"] !=="" && $_GET["edituj"]=="ano")
     </form>
 <?php
     }
-
 }
 ?>
 </div>
