@@ -387,7 +387,7 @@ else
                                 </div>
                             </div>
 
-                            <h5><?php echo $lang["surRec"]?></h5>
+
                             <div>
                                 <?php
                                 $queryRec= "SELECT nazov_receptu, id_rec FROM tbl_suroviny_k_receptu INNER JOIN tbl_recept r ON tbl_suroviny_k_receptu.id_rec = r.id_receptu WHERE id_sur=" .$rowSur["id_suroviny"];
@@ -395,13 +395,18 @@ else
                                 $pocetRiadkovRec = mysqli_num_rows($resultRec);
                                 if ($pocetRiadkovRec == 0)
                                 {
-                                    echo "<h6>".$lang["noRec"]."</h6>";
+                                   ?>
+                                    <div class="alert alert-warning" role="alert">
+                                        <strong>Pre tuto surovinu, sa v databaze nenasiel ziaden recept</strong>
+                                    </div>
+                                    <?php
                                 }
 
                                 else
                                 {
                                     while ($rowRec = mysqli_fetch_assoc($resultRec))
                                     {?>
+                                        <h5><?php echo $lang["surRec"]?></h5>
                                         <a href="detail_jedla.php?id=<?php echo $rowRec["id_rec"];?>"><?php echo $rowRec["nazov_receptu"];?></a>
                                     <?php }
                                 }
