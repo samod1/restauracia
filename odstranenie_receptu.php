@@ -2,7 +2,8 @@
 $conn="";
 include "configDb.php";
 
-if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
+if ($_GET["zmazat"] == "ano" && isset($_GET["id"]))
+{
 
     $query="SELECT id_rec_sur FROM tbl_suroviny_k_receptu WHERE id_rec=".$_GET["id"];
     $result = mysqli_query($conn,$query);
@@ -15,7 +16,7 @@ if ($_GET["zmazat"] == "ano" && $_GET["id"] != "") {
         mysqli_stmt_prepare($stmt, $query);
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
-        header('Refresh:3; url=zoznam_receptov.php', true, 202);
+        header('Refresh:3; url=zoznam_receptov.php', true, 200);
     }
 
     else

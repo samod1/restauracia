@@ -1,6 +1,6 @@
 <?php
 $conn="";
-require_once "../configDb.php";
+include "../configDb.php";
 
 if (isset($_POST["priradit"]) && $_POST["save"] == "yes") {
 
@@ -17,7 +17,7 @@ if (isset($_POST["priradit"]) && $_POST["save"] == "yes") {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
     mysqli_commit($conn);
-    header("Location: ../zoznam_receptov.php");
+    header("Location: ../detail_jedla.php?id=$id_rec");
 }
 mysqli_close($conn);
 ?>
