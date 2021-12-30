@@ -1,4 +1,5 @@
 <?php
+$stranka = "recepty";
 $conn="";
 include "config.php";
 include "configDb.php";
