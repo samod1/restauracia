@@ -14,6 +14,9 @@
                     <li class="nav-item <?php if ($stranka == "recepty") {echo " active";} ?>">
                         <a class="nav-link" href="../zoznam_receptov.php">Recepty</a>
                     </li>
+                    <li class="nav-item <?php if ($stranka == "kategorie") {echo " active";} ?>">
+                        <a class="nav-link" href="../zoznam_receptov.php">Kategorie</a>
+                    </li>
                     <li class="nav-item <?php if ($stranka == "listky") {echo " active";} ?>">
                         <a class="nav-link" href="../jedalny_listok.php">Jedalne listky</a>
                     </li>
