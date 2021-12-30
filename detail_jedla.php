@@ -33,7 +33,7 @@ if ($_GET["id"] != "") {
             <button onclick="window.print()" class="btn btn-primary"><?php echo $lang["print"];?></button>
         </div>
         <div class='col-2'>
-            <a href='odstranenie_receptu.php?<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick="return confirm('<?php echo $lang['delRecReq'];?>');"><?php echo $lang["del"];?></a>
+            <a href='odstranenie_receptu.php?id=<?php echo $_GET["id"];?>&zmazat=ano' class='btn btn-danger' onclick="return confirm('<?php echo $lang['delRecReq'];?>');"><?php echo $lang["del"];?></a>
         </div>
     </div>
 
