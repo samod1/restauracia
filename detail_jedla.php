@@ -82,7 +82,51 @@ if ($_GET["id"] != "") {
                   <strong>Pre tento recept sa nenasli ziadne suroviny.</strong>
                 </div>";?>
                 <br>
-            <a href="priradenie_surovin.php?id=<?php echo $_GET["id"] ?>" class="btn btn-primary btn-lg btn-block">Priradit prvu surovinu</a>
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#message<?php echo $_GET['id'];?>">Priradit prvu surovinu</button>
+
+            <!-- Modal pre priradenie surovin -->
+            <div class="modal fade bd-example-modal-lg" id="message<?php echo $_GET['id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Priradenie surovin k receptu</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                        <!-- Formular pre pridanie suroviny -->
+                            <form class="form-group" method="post" action="spracovanie/ulozenie_suroviny.php">
+                                <input type="hidden" name="id_rec" value="<?php echo $_GET["id"];?>">
+
+                                <label for="surovina"><?php echo $lang["recSurPl"];?></label>
+                                <select id="surovina" name="surovina" class="form-control form-control-lg">
+                                <?php
+                                        $query="SELECT id_suroviny, nazov_suroviny FROM tbl_suroviny ORDER BY nazov_suroviny ASC";
+                                        $result = mysqli_query($conn,$query);
+                                        while ($row = mysqli_fetch_assoc($result)) { ?>
+                                            <option value="<?php echo $row["id_suroviny"]?>"><?php echo $row["nazov_suroviny"]?></option>
+                                    <?php
+                                        }
+                                    ?>
+                                </select>
+                                        <label for="mnozstvo"><?php echo $lang["amount"];?></label>
+                                        <input class="form-control form-control-lg" type="text" id="mnozstvo" name="mnozstvo" placeholder="cislo zadavajte s bodkov">
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["saveSur"];?>" name="priradit">
+                                        <input type="hidden" name="save" value="yes">
+                                    </div>
+                                    <div class="col">
+                                        <input type="reset" class="btn btn-secondary btn-lg btn-block" value="<?php echo $lang["reset"];?>">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <?php
         }
         else
@@ -120,7 +164,51 @@ if ($_GET["id"] != "") {
         <?php } ?>
         </tbody>
     </table>
-            <a href="priradenie_surovin.php?id=<?php echo $_GET["id"] ?>" class="btn btn-primary btn-lg btn-block">Priradit surovinu</a>
+            <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#message<?php echo $_GET['id'];?>">Priradit surovinu</button>
+
+            <!-- Modal pre priradenie surovin -->
+            <div class="modal fade bd-example-modal-lg" id="message<?php echo $_GET['id'];?>" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Priradenie surovin k receptu</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Formular pre pridanie suroviny -->
+                            <form class="form-group" method="post" action="spracovanie/ulozenie_suroviny.php">
+                                <input type="hidden" name="id_rec" value="<?php echo $_GET["id"];?>">
+
+                                <label for="surovina"><?php echo $lang["recSurPl"];?></label>
+                                <select id="surovina" name="surovina" class="form-control form-control-lg">
+                                    <?php
+                                    $query="SELECT id_suroviny, nazov_suroviny FROM tbl_suroviny ORDER BY nazov_suroviny ASC";
+                                    $result = mysqli_query($conn,$query);
+                                    while ($row = mysqli_fetch_assoc($result)) { ?>
+                                        <option value="<?php echo $row["id_suroviny"]?>"><?php echo $row["nazov_suroviny"]?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                                <label for="mnozstvo"><?php echo $lang["amount"];?></label>
+                                <input class="form-control form-control-lg" type="text" id="mnozstvo" name="mnozstvo" placeholder="cislo zadavajte s bodkov">
+                                <br>
+                                <div class="row">
+                                    <div class="col">
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block" value="<?php echo $lang["saveSur"];?>" name="priradit">
+                                        <input type="hidden" name="save" value="yes">
+                                    </div>
+                                    <div class="col">
+                                        <input type="reset" class="btn btn-secondary btn-lg btn-block" value="<?php echo $lang["reset"];?>">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
     <?php } ?>
 <br>
@@ -138,7 +226,7 @@ if ($_GET["id"] != "") {
 
 
 <?php
-    }
+}
 ?>
 
 </div>
