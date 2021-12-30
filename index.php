@@ -3,6 +3,8 @@ include "config.php";
 $conn="";
 include "configDb.php";
 
+$stranka = "domov";
+
 $nazovSuboru= $lang["HOME"];
   include "widgets/header.php";
   $bc_nazov = $lang["HOME"];

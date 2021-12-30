@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+$stranka="listky";
 $nazovSuboru="Jidelny listek";
 include "widgets/header.php";
 $bc_nazov="Jidelny listek";

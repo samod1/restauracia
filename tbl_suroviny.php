@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+$stranka = "suroviny";
 
 $nazovSuboru= $lang["suroviny"];
 include "widgets/header.php";
