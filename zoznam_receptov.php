@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+$stranka = "recepty";
 $conn="";
 include "configDb.php";
 $nazovSuboru= $lang["RecList"];
