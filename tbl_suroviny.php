@@ -267,10 +267,10 @@ if (isset($_POST["kategorie"]) && $_POST["kategoria"] != "" && $_POST["kategoria
                                         <p><strong>Hmotnost netto: </strong><?php echo $rowSur["hmotnost_netto"],$rowSur["skratka"];?></p>
                                         <p><strong>Hmotnost brutto: </strong><?php echo $rowSur["hmotnost_brutto"],$rowSur["skratka"];?></p>
                                     </div>
-                                    <div class="col">
+                                    <!--<div class="col">
                                         <h5>Nahladovy obrazok</h5>
                                         <img src="img/br_panenka.jpg" class="img-thumbnail">
-                                    </div>
+                                    </div>-->
                                 </div>
 
                                 <h5><?php echo $lang["surRec"]?></h5>
