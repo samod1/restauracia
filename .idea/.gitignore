@@ -1,0 +1,11 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../:\Users\samko\MTF Projekty\restauracia\.idea/dataSources/
+/../../../../../../:\Users\samko\MTF Projekty\restauracia\.vscode/
+/../../../../../../:\Users\samko\MTF Projekty\restauracia\uploads/
+
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

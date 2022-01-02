@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="demo.sk" uploadOnCheckin="341058b3-7daa-465f-bdab-daddc703d8a2" remoteFilesAllowedToDisappearOnAutoupload="false" showAutoUploadSettingsWarning="false">
+    <serverData>
+      <paths name="demo.sk">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/_sub/demo" local="$PROJECT_DIR$" web="/" />
+            <mapping local="" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="samod.sk">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/samod.sk/_sub/restauracia" local="$PROJECT_DIR$" web="/" />
+            <mapping local="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myUploadOnCheckinName" value="demo.sk" />
+  </component>
+</project>
