@@ -13,7 +13,7 @@
     require_once "langs/" . $_SESSION['lang'] . ".php";
 
 /*
-
+ * dgfdsvdfsgdfgf
 $server = "db.dw082.nameserver.sk";
 $user = "restauracia_1";
 $pass = "Test1234";
