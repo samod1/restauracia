@@ -10,19 +10,50 @@ include "widgets/navbar.php";
 ?>
 <div class="container-fluid">
     <h3>Kategorie</h3>
-    <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" id="Objednavky" data-bs-toggle="tab" data-bs-target="#suroviny" type="button" role="tab" aria-controls="suroviny" aria-selected="true">Suroviny</button>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#suroviny" type="button" role="tab" aria-controls="suroviny" aria-selected="true">Suroviny</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="Objednavky" data-bs-toggle="tab" data-bs-target="#recepty" type="button" role="tab" aria-controls="recepty" aria-selected="true">Recepty</button>
+            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#recepty" type="button" role="tab" aria-controls="recepty" aria-selected="false">Recepty</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link"  data-bs-toggle="tab" data-bs-target="#jednotky" type="button" role="tab" aria-controls="jednotky" aria-selected="false">Jednotky</button>
         </li>
     </ul>
 
 
 
-    <div class="tab-content" role="presentation">
+    <div class="tab-content">
         <div class="tab-pane active" id="suroviny" role="tabpanel" aria-labelledby="suroviny">
+            <br>
+            <h4>Kategorie surovin</h4>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Vytvorit kategoriu surovin
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Vytvorit novu jednotku</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
             <?php
                 $query = "SELECT id_kategorie, nazov_kategorie FROM enum_kategoria_suroviny";
                 $result = mysqli_query($conn,$query);
@@ -110,9 +141,35 @@ include "widgets/navbar.php";
 
             ?>
         </div>
+        <div class="tab-pane" id="recepty" role="tabpanel" aria-labelledby="recepty">
+            <br>
+                <h4>Kategorie receptov</h4>
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Vytvorit kategoriu receptov
+                    </button>
 
-        <div class="tab-pane active" id="recepty" role="tabpanel" aria-labelledby="recepty">
-            <div class="tab-pane active" id="suroviny" role="tabpanel" aria-labelledby="suroviny">
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Vytvorit novu jednotku</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
                 <?php
                 $query = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu";
                 $result = mysqli_query($conn,$query);
@@ -200,7 +257,105 @@ include "widgets/navbar.php";
 
                 ?>
         </div>
-    </div>
+        <div class="tab-pane" id="jednotky" role="tabpanel" aria-labelledby="jednotky">
+                <br>
+                <h4>Čísleník jednotiek</h4>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Vytvorit novu jednotku
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Vytvorit novu jednotku</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        ...
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <table class="table table-striped">
+                    <thead>
+                    <th>Nazov jednotky</th>
+                    <th>Pocet surovin s touto jednotkou</th>
+                    <th colspan="2">Akcia</th>
+                    </thead>
+                    <tbody>
+                <?php
+                    $queryJed = "SELECT id_jednotky, jednotka, skratka FROM enum_jednotka ORDER BY id_jednotky ASC";
+                    $resultJed = mysqli_query($conn,$queryJed);
+                    while ($row = mysqli_fetch_assoc($resultJed))
+                    {
+                        $query = "SELECT id_suroviny FROM tbl_suroviny WHERE jednotka=".$row["id_jednotky"];
+                        $result = mysqli_query($conn,$query);
+                        $pocetRiadkov = mysqli_num_rows($result);
+                        ?>
+                                    <tr>
+                                        <td><?php echo $row["jednotka"]." (".$row["skratka"].")"?></td>
+                                        <td><?php echo $pocetRiadkov?></td>
+                                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $row['id_jednotky']?>">Editacia kategorie</button></td>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="message<?php echo $row["id_jednotky"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Editacia kategorie <?php echo $row["id_jednotky"]?></h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Formular editacie</p>
+                                                        <form method="post" class="form-group">
+                                                            <input type="hidden" name="id" value="<?php echo $row["id_jednotky"];?>">
+                                                            <label>Nazov kategorie</label>
+                                                            <input class="form-control form-control-lg" type="text" name="jednotka" value="<?php echo $row["jednotka"];?>">
+                                                            <br>
+                                                            <label>Skratka jednotky</label>
+                                                            <input class="form-control form-control-lg" type="text" name="skratka" value="<?php echo $row["skratka"];?>">
+                                                            <input class="btn btn-primary btn-lg btn-block" type="submit" name="sendJed" value="Zmenit udaje">
+                                                        </form>
+                                                        <?php
+                                                        if (isset($_POST["sendJed"]))
+                                                        {
+                                                            $queryEdit = "UPDATE enum_jednotka SET jednotka = ? , skratka=? WHERE id_jednotky = ? ";
+                                                            $stmt = mysqli_stmt_init($conn);
+                                                            mysqli_stmt_prepare($stmt,$queryEdit);
+                                                            mysqli_stmt_bind_param($stmt, 'ssi', $_POST["jednotka"],$_POST["skratka"],$_POST["id"]);
+                                                            mysqli_stmt_execute($stmt);
+                                                            mysqli_stmt_close($stmt);
+                                                            mysqli_commit($conn);
+                                                            header("Refresh:0; url:kategorie.php");
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavriet</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <td><a href="spracovanie/mazanie_kategorii.php?id=<?php echo $row["id_jednotky"]?>&zmazat=jednotka" class="btn btn-danger">Zmazat</a></td>
+                                    </tr>
+                        <?php
+                    }
+                ?>
+                    </tbody>
+                </table>
+            </div>
+</div>
 </div>
 <?php
     mysqli_close($conn);
