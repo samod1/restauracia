@@ -281,7 +281,7 @@ if (isset($_POST["kategorie"]) && $_POST["kategoria"] != "" && $_POST["kategoria
                                         $pocetRiadkovRec = mysqli_num_rows($resultRec);
                                         if ($pocetRiadkovRec == 0)
                                         {
-                                            echo "<h6>".$lang["noRec"]."</h6>";
+                                            echo "<div class='alert alert-warning' role='alert'> <strong>Pre tuto surovinu, sa v databaze nenasiel ziaden recept</strong> </div>";
                                         }
 
                                         else
@@ -383,8 +383,8 @@ else
                                     <p><strong>Hmotnost brutto: </strong><?php echo $rowSur["hmotnost_brutto"],$rowSur["skratka"];?></p>
                                 </div>
                                 <div class="col">
-                                    <h5>Nahladovy obrazok</h5>
-                                    <img src="img/br_panenka.jpg" class="img-thumbnail">
+                                    <!-- <h5>Nahladovy obrazok</h5>
+                                    <img src="img/br_panenka.jpg" class="img-thumbnail"> -->
                                 </div>
                             </div>
 
