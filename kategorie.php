@@ -43,7 +43,23 @@ include "widgets/navbar.php";
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    <form method="post" class="form-group">
+                                        <label>Nazov kategorie</label>
+                                        <br>
+                                        <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
+                                        <br>
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block">
+                                        <input type="hidden" name="vlozit" value="yes">
+                                        <?php
+                                        $idKat=0;
+                                        $queryKat="INSERT INTO enum_kategoria_suroviny (id_kategorie,nazov_kategorie) VALUES (?,?)";
+                                        $stmtKat = mysqli_stmt_init($conn);
+                                        mysqli_stmt_prepare($stmtKat, $queryKat);
+                                        mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
+                                        mysqli_stmt_execute($stmtKat);
+                                        mysqli_stmt_close($stmtKat);
+                                        ?>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -146,20 +162,37 @@ include "widgets/navbar.php";
                 <h4>Kategorie receptov</h4>
             <div class="row">
                 <div class="col">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#typReceptu">
                         Vytvorit kategoriu receptov
                     </button>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="typReceptu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Vytvorit novu jednotku</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Vytvorit kategoriu receptov</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    ...
+                                    <form method="post" class="form-group">
+                                        <label>Nazov kategorie</label>
+                                        <br>
+                                        <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
+                                        <br>
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block">
+
+                                        <input type="hidden" name="vlozit" value="yes">
+                                        <?php
+                                        $idKat=0;
+                                        $queryKat="INSERT INTO enum_typ_receptu (id_typu_receptu, nazov_typu_receptu) VALUES (?,?)";
+                                        $stmtKat = mysqli_stmt_init($conn);
+                                        mysqli_stmt_prepare($stmtKat, $queryKat);
+                                        mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
+                                        mysqli_stmt_execute($stmtKat);
+                                        mysqli_stmt_close($stmtKat);
+                                        ?>
+                                    </form>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -262,12 +295,12 @@ include "widgets/navbar.php";
                 <h4>Čísleník jednotiek</h4>
                 <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#jednotka">
                             Vytvorit novu jednotku
                         </button>
 
                         <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="jednotka" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -275,7 +308,27 @@ include "widgets/navbar.php";
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        ...
+                                        <form method="post" class="form-group">
+                                            <label>Nazov kategorie</label>
+
+                                            <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
+                                            <br>
+                                            <label>Skratka</label>
+                                            <input class="form-control form-control-lg" type="text" name="skratka">
+                                            <br>
+                                            <input type="submit" class="btn btn-primary btn-lg btn-block">
+
+                                            <input type="hidden" name="vlozit" value="yes">
+                                            <?php
+                                            $idKat=0;
+                                            $queryKat="INSERT INTO enum_jednotka (id_jednotky, jednotka, skratka) VALUES (?,?,?)";
+                                            $stmtKat = mysqli_stmt_init($conn);
+                                            mysqli_stmt_prepare($stmtKat, $queryKat);
+                                            mysqli_stmt_bind_param($stmtKat, 'iss', $id, $_POST["nazov_kategorie"],$_POST["skratka"]);
+                                            mysqli_stmt_execute($stmtKat);
+                                            mysqli_stmt_close($stmtKat);
+                                            ?>
+                                        </form>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -306,6 +359,7 @@ include "widgets/navbar.php";
                                         <td><?php echo $row["jednotka"]." (".$row["skratka"].")"?></td>
                                         <td><?php echo $pocetRiadkov?></td>
                                         <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $row['id_jednotky']?>">Editacia kategorie</button></td>
+
                                         <!-- Modal -->
                                         <div class="modal fade" id="message<?php echo $row["id_jednotky"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
