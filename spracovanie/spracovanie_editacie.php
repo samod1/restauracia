@@ -1,7 +1,7 @@
 <?php
 $conn = "";
 include "../configDb.php";
-if ($_POST["edit"]=="yes")
+if (isset($_POST["ulozitZmeny"]))
 {
     //definovanie premennych
     $idReceptu  = $_POST["idReceptu"];
@@ -18,7 +18,7 @@ if ($_POST["edit"]=="yes")
     mysqli_stmt_bind_param($stmt, 'sssii', $nazovReceptu, $postupReceptu,$alergeny,$cenaJedla,$idReceptu);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
-    header("Location: ../zoznam_receptov.php");
+    header("Location: ../detail_jedla.php?id=$idReceptu");
     mysqli_close($conn);
 
 

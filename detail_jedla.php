@@ -12,7 +12,7 @@ $jeden_Host="1";
 
 <?php
 if ($_GET["id"] != "") {
-    $queryNazov= "SELECT nazov_receptu FROM tbl_recept WHERE id_receptu=" .$_GET["id"];
+    $queryNazov= "SELECT nazov_receptu, postup_receptu, typ_receptu, alergeny, cena_jedla FROM tbl_recept WHERE id_receptu=" .$_GET["id"];
     $resultNazov = mysqli_query($conn, $queryNazov);
     while ($rowNazov = mysqli_fetch_assoc($resultNazov))
     { ?>
@@ -20,10 +20,63 @@ if ($_GET["id"] != "") {
 <div class='container-fluid'>
     <div class='row'>
         <div class='col-4'>
-            <h3><?php echo $lang["detailRec"]." ";?> <?php echo $rowNazov["nazov_receptu"];} ?> </h3>
+            <h3><?php echo $lang["detailRec"]." ";?> <?php echo $rowNazov["nazov_receptu"]; ?> </h3>
         </div>
         <div class='col-2'>
-            <a href='editacia_receptu.php?id=<?php echo $_GET["id"] ?>' class='btn btn-primary'><?php echo $lang["edit"];?></a>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $_GET['id']?>EDIT">Editacia receptu</button>
+                <!-- Modal -->
+                <div class="modal fade bd-example-modal-lg" id="message<?php echo $_GET["id"];?>EDIT" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editacia receptu <?php echo $rowNazov["nazov_receptu"];?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-group" method="post" action="spracovanie/spracovanie_editacie.php">
+                                    <label>Nazov receptu</label>
+                                    <input type="hidden" name="idReceptu" value="<?php echo $_GET["id"]?>">
+                                    <input class="form-control form-control-lg" type="text" name="nazovReceptu" value="<?php echo $rowNazov["nazov_receptu"]?>">
+                                    <br>
+                                    <label>Kategoria receptu</label>
+                                    <select class="form-select form-select-lg">
+                                        <?php
+                                            $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu";
+                                            $resultKat = mysqli_query($conn, $queryKat);
+                                            while ($rowKat = mysqli_fetch_assoc($resultKat))
+                                        {
+                                        ?>
+                                            <option value="<?php echo $rowKat["id_typu_receptu"]?>"
+                                            <?php if ($rowNazov["typ_receptu"] == $rowKat["id_typu_receptu"])
+                                            {
+                                                echo "selected";
+                                            }?>><?php echo $rowKat["nazov_typu_receptu"]?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <br>
+                                    <label>Postup receptu</label>
+                                    <textarea class="form-control" name="postupReceptu" rows="10"><?php echo $rowNazov["postup_receptu"];?></textarea>
+                                    <br>
+                                    <label>Alergeny</label>
+                                    <input class="form-control form-control-lg" type="text" name="alergeny" value="<?php echo $rowNazov["alergeny"];?>">
+                                    <br>
+                                    <label>Cena jedla</label>
+                                    <input class="form-control form-control-lg" type="text" name="cenaJedla" value="<?php echo $rowNazov["cena_jedla"]?>">
+                                    <br>
+                                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="ulozitZmeny" value="Ulozit zmeny">
+                                </form>
+                                <?php }?>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavriet</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
         </div>
         <div class="col-2">
             <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
@@ -137,7 +190,7 @@ if ($_GET["id"] != "") {
             <tr>
                 <th><?php echo $lang["recSur"];?></th>
                 <th><?php echo $lang["amount"];?></th>
-                <th>Akcia</th>
+                <th colspan="2">Akcia</th>
             </tr>
             </thead>
             <tbody>
@@ -160,6 +213,35 @@ if ($_GET["id"] != "") {
                     }
                 ?>
                 <td><a href="odstranenie_suroviny.php?id=<?php echo $rowSuroviny["id_rec_sur"]?>&zmazat=ano" class="btn btn-danger">Odstranit</a></td>
+                <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $rowSuroviny['id_rec_sur']?>EDIT">Editacia receptu</button></td>
+
+                <div class="modal fade" id="message<?php echo $rowSuroviny["id_rec_sur"];?>EDIT" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Editacia receptu <?php echo $rowSuroviny["nazov_suroviny"];?></h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-group" method="post" action="spracovanie/uprava_hmotnosti_v_rec.php">
+                                    <input type="hidden" name="idRec" value="<?php echo $_GET["id"];?>">
+                                    <input type="hidden" name="idRecSur" value="<?php echo $rowSuroviny["id_rec_sur"];?>">
+
+                                    <label>Hmotnost</label>
+                                    <input class="form-control form-control-lg" type="text" name="hmotnost" value="<?php echo $rowSuroviny["mnozstvo"]?>">
+                                    <br>
+                                    <input class="btn btn-primary btn-lg btn-block" type="submit" name="edit" value="Zmena hmotnosti">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zavriet</button>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
             </tr>
         <?php } ?>
         </tbody>
