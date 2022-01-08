@@ -53,7 +53,7 @@ if ($_GET["zmazat"] == "recept" && $_GET["id"]!="")
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_commit($conn);
-        header("Refresh:3; url:../kategorie.php",true, 200);
+        header("Refresh:0; url:../kategorie.php",true, 200);
     }
 
     else
@@ -68,7 +68,7 @@ if ($_GET["zmazat"] == "recept" && $_GET["id"]!="")
             </button>
         </div>
         <?php
-        header("Refresh:3; url:../kategorie.php",true, 400);
+        header("Refresh:0; url:../kategorie.php",true, 400);
     }
 
 }
@@ -88,7 +88,7 @@ if ($_GET["zmazat"] == "jednotka" && $_GET["id"]!="")
         mysqli_stmt_execute($stmt);
         mysqli_stmt_close($stmt);
         mysqli_commit($conn);
-        header("Refresh:3; url:../kategorie.php",true, 200);
+        header("Refresh:0; url:../kategorie.php",true, 200);
     }
 
     else

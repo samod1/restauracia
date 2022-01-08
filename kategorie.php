@@ -46,16 +46,16 @@ include "widgets/navbar.php";
                                     <form method="post" class="form-group">
                                         <label>Nazov kategorie</label>
                                         <br>
-                                        <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
+                                        <input class="form-control form-control-lg" type="text" name="nazov_kategorie_sur">
                                         <br>
-                                        <input type="submit" class="btn btn-primary btn-lg btn-block">
-                                        <input type="hidden" name="vlozit" value="yes">
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block" name="vlozitKatSur">
                                         <?php
-                                        $idKat=0;
+                                        if (isset($_POST["vlozitKatSur"]))
+                                        $id=0;
                                         $queryKat="INSERT INTO enum_kategoria_suroviny (id_kategorie,nazov_kategorie) VALUES (?,?)";
                                         $stmtKat = mysqli_stmt_init($conn);
                                         mysqli_stmt_prepare($stmtKat, $queryKat);
-                                        mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
+                                        mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie_sur"]);
                                         mysqli_stmt_execute($stmtKat);
                                         mysqli_stmt_close($stmtKat);
                                         ?>
@@ -178,19 +178,21 @@ include "widgets/navbar.php";
                                     <form method="post" class="form-group">
                                         <label>Nazov kategorie</label>
                                         <br>
-                                        <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
+                                        <input class="form-control form-control-lg" type="text" name="nazov_kategorie_rec">
                                         <br>
-                                        <input type="submit" class="btn btn-primary btn-lg btn-block">
+                                        <input type="submit" class="btn btn-primary btn-lg btn-block" name="vlozitKatRec">
 
-                                        <input type="hidden" name="vlozit" value="yes">
                                         <?php
-                                        $idKat=0;
-                                        $queryKat="INSERT INTO enum_typ_receptu (id_typu_receptu, nazov_typu_receptu) VALUES (?,?)";
-                                        $stmtKat = mysqli_stmt_init($conn);
-                                        mysqli_stmt_prepare($stmtKat, $queryKat);
-                                        mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie"]);
-                                        mysqli_stmt_execute($stmtKat);
-                                        mysqli_stmt_close($stmtKat);
+                                        if(isset($_POST["vlozitKatRec"]))
+                                        {
+                                            $idKat = 0;
+                                            $queryKat = "INSERT INTO enum_typ_receptu (id_typu_receptu, nazov_typu_receptu) VALUES (?,?)";
+                                            $stmtKat = mysqli_stmt_init($conn);
+                                            mysqli_stmt_prepare($stmtKat, $queryKat);
+                                            mysqli_stmt_bind_param($stmtKat, 'is', $id, $_POST["nazov_kategorie_rec"]);
+                                            mysqli_stmt_execute($stmtKat);
+                                            mysqli_stmt_close($stmtKat);
+                                        }
                                         ?>
                                     </form>
                                 </div>
@@ -231,11 +233,11 @@ include "widgets/navbar.php";
                         <tr>
                             <td><?php echo $row["nazov_typu_receptu"];?></td>
                             <td><?php echo $pocetSurovin; ?></td>
-                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $row['id_typu_receptu']?>">Editacia kategorie</button></td>
+                            <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#message<?php echo $row['id_typu_receptu']?>REC">Editacia kategorie</button></td>
                             <td><a href="spracovanie/mazanie_kategorii.php?id=<?php echo $row["id_typu_receptu"]?>&zmazat=recept" class="btn btn-danger">Zmazat</a></td>
 
                             <!-- Modal -->
-                            <div class="modal fade" id="message<?php echo $row["id_typu_receptu"];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="message<?php echo $row["id_typu_receptu"];?>REC" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -311,22 +313,24 @@ include "widgets/navbar.php";
                                         <form method="post" class="form-group">
                                             <label>Nazov kategorie</label>
 
-                                            <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
+                                            <input class="form-control form-control-lg" type="text" name="nazov_jednotky">
                                             <br>
                                             <label>Skratka</label>
                                             <input class="form-control form-control-lg" type="text" name="skratka">
                                             <br>
-                                            <input type="submit" class="btn btn-primary btn-lg btn-block">
+                                            <input type="submit" class="btn btn-primary btn-lg btn-block" name="vlozit_jednotku">
 
-                                            <input type="hidden" name="vlozit" value="yes">
                                             <?php
-                                            $idKat=0;
-                                            $queryKat="INSERT INTO enum_jednotka (id_jednotky, jednotka, skratka) VALUES (?,?,?)";
-                                            $stmtKat = mysqli_stmt_init($conn);
-                                            mysqli_stmt_prepare($stmtKat, $queryKat);
-                                            mysqli_stmt_bind_param($stmtKat, 'iss', $id, $_POST["nazov_kategorie"],$_POST["skratka"]);
-                                            mysqli_stmt_execute($stmtKat);
-                                            mysqli_stmt_close($stmtKat);
+                                            if (isset($_POST["vlozit_jednotku"]))
+                                            {
+                                                $id=0;
+                                                $queryKat="INSERT INTO enum_jednotka (id_jednotky, jednotka, skratka) VALUES (?,?,?)";
+                                                $stmtKat = mysqli_stmt_init($conn);
+                                                mysqli_stmt_prepare($stmtKat, $queryKat);
+                                                mysqli_stmt_bind_param($stmtKat, 'iss', $id, $_POST["nazov_jednotky"],$_POST["skratka"]);
+                                                mysqli_stmt_execute($stmtKat);
+                                                mysqli_stmt_close($stmtKat);
+                                            }
                                             ?>
                                         </form>
                                     </div>
