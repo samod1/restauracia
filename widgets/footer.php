@@ -9,7 +9,7 @@
         width: 100%;
     }
 </style>
-
+<?php include "../configDb.php"?>
 <div class="footer bg-dark">
     <div class="row">
         <div class="col">
@@ -21,8 +21,10 @@
         <div class="col">
             <?php
                 echo "verzia: ".exec("git log --pretty=%h -n1 HEAD");
+                echo " ".$db;
             ?>
         </div>
     </div>
+
 
 </div>
