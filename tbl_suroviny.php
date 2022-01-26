@@ -136,7 +136,7 @@ include "configDb.php";
                         </div>
                         <div class="modal-body">
                             <form method="post" class="form-group">
-                                <label>Nazev kategorie</label>
+                                <label>Nazov kategorie</label>
                                 <br>
                                 <input class="form-control form-control-lg" type="text" name="nazov_kategorie">
                                 <br>
