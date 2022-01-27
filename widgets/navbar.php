@@ -19,9 +19,9 @@
                     </li>
                   <!--  <li class="nav-item <?php if ($stranka == "listky") {echo " active";} ?>">
                         <a class="nav-link" href="../jedalny_listok.php">Jedalne listky</a>
-                    </li>
+                    </li> -->
                     <li class="nav-item <?php if ($stranka == "sklad") {echo " active";} ?>">
-                        <a class="nav-link" href="../sklad.php">Sklad</a> -->
+                        <a class="nav-link" href="../sklad.php">Sklad</a>
                     </li>
                 </ul>
             </div>
