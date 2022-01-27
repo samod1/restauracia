@@ -1,10 +1,13 @@
 <?php
 $conn ="";
+$stranka = "sklad";
 include "configDb.php";
+include "config.php";
 $nazovSuboru="Detail objednavky";
 include "widgets/header.php";
 $bc_nazov="Detail objednavky";
 include "widgets/navbar.php";
+
 
 
 if($_GET["id"]!="")
@@ -18,6 +21,7 @@ if($_GET["id"]!="")
 
         if($row["Vybavena"] == 1) {
         ?>
+                <br>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>Objednavka</strong> bola uz vybavena
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -29,7 +33,7 @@ if($_GET["id"]!="")
 
         else
         { ?>
-
+            <br>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 <strong>Objednavka</strong> este nebola vybavena.
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -59,6 +63,28 @@ if($_GET["id"]!="")
 
 <?php
     }
+    ?>
+    <h4>Produkty v objednavke</h4>
+    <?php
+    $query = "SELECT nazov_suroviny ,EAN,mnozstvo,datum_spotreby, mnozstvo FROM tbl_veci_v_prijemke INNER JOIN tbl_suroviny ON tbl_suroviny.id_suroviny = tbl_veci_v_prijemke.id_suroviny WHERE id_prijemka =".$_GET["id"];
+    $result = mysqli_query($conn,$query);
+    $pocetRiadkov = mysqli_num_rows($result);
+
+    if($pocetRiadkov != 0)
+    {
+        //todo zobrazit info o dodanom produkte
+    }
+    else
+    {
+        ?>
+        <div class="alert alert-warning" role="alert">
+            V tejto prijemke sa nenachadzaju ziadne zaznamy
+        </div>
+        <?php
+    }
+
+    ?>
+<?php
     }
 else
 {
