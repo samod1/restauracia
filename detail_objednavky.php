@@ -62,6 +62,31 @@ if($_GET["id"]!="")
 
 
 <?php
+        if ($row["Vybavena"] == 0)
+        {
+            ?>
+            <div class="col">
+                <div class="row"></div>
+                <div class="row">
+                    <form method="post" onsubmit="">
+                        <input type="hidden" name="vybavena" value="1">
+                        <input type="submit" class="btn btn-primary btn-lg" name="check" value="Oznacit objednavku ako vybavenu">
+                    </form>
+                    <?php
+                    $query = "UPDATE tbl_prijemka SET Vybavena=? WHERE ID_objednavky=".$_GET["id"];
+                    $stmt = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmt,$query);
+                    mysqli_stmt_bind_param($stmt, "i", $_POST["vybavena"]);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                    ?>
+                </div>
+                <div class="row"></div>
+            </div>
+
+                <?php
+        }
+
     }
     ?>
     <h4>Produkty v objednavke</h4>
@@ -85,26 +110,9 @@ if($_GET["id"]!="")
 
     ?>
 <?php
+
     ?>
 
-<div class="col">
-    <div class="row"></div>
-    <div class="row">
-        <form method="post" onsubmit="">
-            <input type="hidden" name="vybavena" value="1">
-            <input type="submit" class="btn btn-primary btn-lg" name="check" value="Oznacit objednavku ako vybavenu">
-        </form>
-        <?php
-            $query = "UPDATE tbl_prijemka SET Vybavena=? WHERE ID_objednavky=".$_GET["id"];
-            $stmt = mysqli_stmt_init($conn);
-            mysqli_stmt_prepare($stmt,$query);
-            mysqli_stmt_bind_param($stmt, "i", $_POST["vybavena"]);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt);
-        ?>
-    </div>
-    <div class="row"></div>
-</div>
 
 
 
