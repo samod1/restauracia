@@ -68,7 +68,7 @@ if($_GET["id"]!="")
             <div class="col">
                 <div class="row"></div>
                 <div class="row">
-                    <form method="post" onsubmit="">
+                    <form method="post" onsubmit="alert('Naozaj je prijemka spravne dodana, a su vsetky tovary dodane správne')">
                         <input type="hidden" name="vybavena" value="1">
                         <input type="submit" class="btn btn-primary btn-lg" name="check" value="Oznacit objednavku ako vybavenu">
                     </form>
