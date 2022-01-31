@@ -81,7 +81,7 @@ $nazovSuboru= $lang["HOME"];
         </div>
         <div class="col"></div>
     </div>
-    <h3>DATA SU MOCKOVANE/ Budu sa meniť na zaklade dna <?php echo $lang["TODAYS_MENU"]?></h3>
+    <h3><?php echo $lang["TODAYS_MENU"]?></h3>
     <table class="table table-stripped">
         <tbody>
             <tr>
