@@ -9,7 +9,7 @@ $bc_nazov="Detail objednavky";
 include "widgets/navbar.php";
 
 
-
+echo "<div class='container-fluid'>";
 if($_GET["id"]!="")
 {
 
@@ -43,8 +43,31 @@ if($_GET["id"]!="")
 
             <?php } ?>
 
+    <div class="row">
+        <div class="col-sm">
+            <h3>Objednávka č.<?php echo $row["Cislo_objednavky"];?></h3>
+        </div>
+    <?php
+    if ($row["Vybavena"] == 0)
+    {
+    ?>
+            <div class="col-sm"
+            <div class="col-sm">
+                <form method="post" onsubmit="alert('Naozaj je prijemka spravne dodana, a su vsetky tovary dodane správne')">
+                    <input type="hidden" name="vybavena" value="1">
+                    <input type="submit" class="btn btn-primary btn-lg" name="check" value="Oznacit objednavku ako vybavenu">
+                </form>
+                <?php
+                $query = "UPDATE tbl_prijemka SET Vybavena=? WHERE ID_objednavky=".$_GET["id"];
+                $stmt = mysqli_stmt_init($conn);
+                mysqli_stmt_prepare($stmt,$query);
+                mysqli_stmt_bind_param($stmt, "i", $_POST["vybavena"]);
+                mysqli_stmt_execute($stmt);
+                mysqli_stmt_close($stmt);
+                ?>
+            </div>
 
-    <h3>Objednávka č.<?php echo $row["Cislo_objednavky"];?></h3>
+    </div>
     <table class="table table-striped">
         <thead>
             <th>Datum Dorucenia</th>
@@ -62,29 +85,7 @@ if($_GET["id"]!="")
 
 
 <?php
-        if ($row["Vybavena"] == 0)
-        {
-            ?>
-            <div class="col">
-                <div class="row"></div>
-                <div class="row">
-                    <form method="post" onsubmit="alert('Naozaj je prijemka spravne dodana, a su vsetky tovary dodane správne')">
-                        <input type="hidden" name="vybavena" value="1">
-                        <input type="submit" class="btn btn-primary btn-lg" name="check" value="Oznacit objednavku ako vybavenu">
-                    </form>
-                    <?php
-                    $query = "UPDATE tbl_prijemka SET Vybavena=? WHERE ID_objednavky=".$_GET["id"];
-                    $stmt = mysqli_stmt_init($conn);
-                    mysqli_stmt_prepare($stmt,$query);
-                    mysqli_stmt_bind_param($stmt, "i", $_POST["vybavena"]);
-                    mysqli_stmt_execute($stmt);
-                    mysqli_stmt_close($stmt);
-                    ?>
-                </div>
-                <div class="row"></div>
-            </div>
 
-                <?php
         }
 
     }
@@ -96,15 +97,24 @@ if($_GET["id"]!="")
     $pocetRiadkov = mysqli_num_rows($result);
 
     if($pocetRiadkov != 0)
-    {
-        //todo zobrazit info o dodanom produkte
-    }
+    { ?>
+          <table class="table table-stripped">
+              <thead>
+              <tr>
+                  <th>Nazov polozky</th>
+                  <th>EAN</th>
+                  <th>Datum spotreby</th>
+              </tr>
+              </thead>
+          </table>
+    <?php }
     else
     {
         ?>
         <div class="alert alert-warning" role="alert">
             V tejto prijemke sa nenachadzaju ziadne zaznamy
         </div>
+        <button type="button" class="btn btn-primary btn-lg btn-block">Pridaj prvu polozku objednavky</button>
         <?php
     }
 
@@ -125,3 +135,5 @@ else
 mysqli_close($conn);
 include "widgets/footer.php";
 ?>
+
+</div>
