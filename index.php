@@ -90,20 +90,20 @@ $nazovSuboru= $lang["HOME"];
                 </th>
             </tr>
             <tr>
-                <th>Polivka</th>
-                <td>Kulajda</td>
+                <th>Polievka</th>
+                <td>Slepačí vývar</td>
             </tr>
             <tr>
                 <th>Menu 1</th>
-                <td>Kureci ryzecek s bramborovou kasi</td>
+                <td>Kurecí rezeň so zemiakovou kašou</td>
             </tr>
             <tr>
                 <th>Menu 2</th>
-                <td>Kureci ryzecek s bramborovou kasi</td>
+                <td>Kurecí rezeň so zemiakovou kašou</td>
             </tr>
             <tr>
                 <th>Menu 3</th>
-                <td>Kureci ryzecek s bramborovou kasi</td>
+                <td>Kurecí rezeň so zemiakovou kašou</td>
             </tr>
         </tbody>
     </table>
