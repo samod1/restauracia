@@ -44,18 +44,18 @@ if($_GET["id"]!="")
             <?php } ?>
 
     <div class="row">
-        <div class="col-sm">
+        <div class="col-md">
             <h3>Objednávka č.<?php echo $row["Cislo_objednavky"];?></h3>
         </div>
     <?php
     if ($row["Vybavena"] == 0)
     {
     ?>
-            <div class="col-sm"
-            <div class="col-sm">
+        <div class="col-md"></div>
+            <div class="col-md">
                 <form method="post" onsubmit="alert('Naozaj je prijemka spravne dodana, a su vsetky tovary dodane správne')">
                     <input type="hidden" name="vybavena" value="1">
-                    <input type="submit" class="btn btn-primary btn-lg" name="check" value="Oznacit objednavku ako vybavenu">
+                    <input type="submit" class="btn btn-primary" name="check" value="Oznacit objednavku ako vybavenu">
                 </form>
                 <?php
                 $query = "UPDATE tbl_prijemka SET Vybavena=? WHERE ID_objednavky=".$_GET["id"];
