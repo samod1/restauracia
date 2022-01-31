@@ -114,11 +114,55 @@ if($_GET["id"]!="")
         <div class="alert alert-warning" role="alert">
             V tejto prijemke sa nenachadzaju ziadne zaznamy
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block">Pridaj prvu polozku objednavky</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#message<?php echo $_GET['id']?>">Pridaj prvu polozku objednavky</button>
         <?php
     }
-
     ?>
+        <!-- Modal -->
+        <div class="modal fade bd-example-modal-lg" id="message<?php echo $_GET['id']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form method="post" class="form-group">
+                    <input type="hidden" name="id" value="<?php echo $_GET["id"]?>">
+                    <label>EAN kód</label>
+                    <input type="text" class="form-control form-control-lg" name="ean" pattern="[1-9]{11}">
+                    <br>
+                    <label>Surovina</label>
+                    <select class="form-select form-select-lg" name="surovina">
+                        <?php
+                            $query="SELECT id_suroviny,nazov_suroviny FROM tbl_suroviny";
+                            $result=mysqli_query($conn,$query);
+                            while ($row = mysqli_fetch_assoc($result))
+                                {
+                        ?>
+                        <option value="<?php echo $row["id_suroviny"]?>"><?php echo $row["nazov_suroviny"]?></option>
+                                <?php } ?>
+                    </select>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <label>Mnozstvo</label>
+                            <input type="text" class="form-control form-control-lg" name="mnozstvo">
+                        </div>
+                    </div>
+                    <br>
+                    <input type="submit" class="btn btn-primary btn-lg btn-block" name="send" value="Pridať k príjemke">
+                    <!-- TODO dorobit ukladaciu rutinu -->
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
 <?php
 
     ?>
