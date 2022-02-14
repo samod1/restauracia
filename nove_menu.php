@@ -1,6 +1,9 @@
 <?php
+
 include "config.php";
 $conn="";
+include "configDb.php";
+$stranka = "listky";
 $nazovSuboru="Novy jedalny listok";
 $bc_nazov="Novy jidelny listek";
 
@@ -36,7 +39,7 @@ include "widgets/navbar.php";
 </div>
 
 <?php
-if ($_POST["ulozit"] == "yes") {
+if ($_POST["pocetOsob"]!="" && $_POST["do"]!="" && $_POST["od"] !="" && isset($_POST["ulozit"]) != "yes") {
 
     $id = 0;
     $query = "INSERT INTO tbl_menu (id_menu,datum_od,datum_do,pocet_hosti) VALUES (?,?,?,?)";
@@ -47,5 +50,14 @@ if ($_POST["ulozit"] == "yes") {
     mysqli_stmt_close($stmt);
 }
 
+else
+{
+    ?><div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Niesu vyplnene vsetky polia formulara.</strong>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<?php
+}
+header("Location:priradenie_jedal.php");
 include "widgets/footer.php";
 ?>
