@@ -14,14 +14,15 @@
                     <li class="nav-item <?php if ($stranka == "recepty") {echo " active";} ?>">
                         <a class="nav-link" href="../zoznam_receptov.php">Recepty</a>
                     </li>
-                    <li class="nav-item <?php if ($stranka == "kategorie") {echo " active";} ?>">
-                        <a class="nav-link" href="../kategorie.php">Hodnoty čísleníkov</a>
-                    </li>
+
                     <li class="nav-item <?php if ($stranka == "listky") {echo " active";} ?>">
-                        <a class="nav-link" href="../jedalny_listok.php">Jedalne listky</a>
+                        <a class="nav-link" href="../prehlad_jedalnych_listkov.php">Jedalne listky</a>
                     </li>
                     <li class="nav-item <?php if ($stranka == "sklad") {echo " active";} ?>">
                         <a class="nav-link" href="../sklad.php">Sklad</a>
+                    </li>
+                    <li class="nav-item <?php if ($stranka == "kategorie") {echo " active";} ?>">
+                        <a class="nav-link" href="../kategorie.php">Hodnoty čísleníkov</a>
                     </li>
                 </ul>
             </div>
