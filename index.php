@@ -12,6 +12,7 @@ $nazovSuboru= $lang["HOME"];
 
 ?>
 <div class="container-fluid">
+    <br>
     <div class="row">
         <div class="col"></div>
         <div class="col-4">
@@ -54,7 +55,17 @@ $nazovSuboru= $lang["HOME"];
                 </tr>
                 <tr>
                     <th><?php echo $lang["MENU_COUNT"]?></th>
-                    <td><a href="jedalny_listok.php">2</a></td>
+                    <td><a href="prehlad_jedalnych_listkov.php"><?php
+                            $query="SELECT id_menu FROM tbl_menu";
+                            $result=mysqli_query($conn,$query);
+                            $pocetRiadkov=mysqli_num_rows($result);
+                            if ($pocetRiadkov==0)
+                            {
+                                echo "0";
+                            }
+                            else {
+                                echo "<a href='prehlad_jedalnych_listkov.php'>" . $pocetRiadkov . '</a>';
+                            }?></a></td>
 
                 </tr>
                 <tr>
@@ -72,11 +83,6 @@ $nazovSuboru= $lang["HOME"];
                         echo  "<a href='zoznam_receptov.php'>".$pocetRiadkov.'</a>';
                         }?></td>
                 </tr>
-                <tr>
-                    <th><?php echo $lang["GUEST_COUNT"]?></th>
-
-                    <td>250</td>
-                </tr>
             </table>
         </div>
         <div class="col"></div>
@@ -86,7 +92,7 @@ $nazovSuboru= $lang["HOME"];
         <tbody>
             <tr>
                 <th colspan="2" class="table-active" style="text-align: center">
-                    <?php echo $dniCZ[date('N')]; ?>
+                    <?php echo $dniSK[date('N')]; ?>
                 </th>
             </tr>
             <tr>
