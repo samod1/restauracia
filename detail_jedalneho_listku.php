@@ -1,102 +1,292 @@
 <?php
 include "config.php";
+$conn="";
+include "configDb.php";
+$stranka = "listky";
 $nazovSuboru = "Jidelny listek";
 include "widgets/header.php";
 $bc_nazov = "Jidelny listek";
 include "widgets/navbar.php";
 ?>
 <div class="container-fluid">
-    <h3>Jidelny listek</h3>
-    <h4>Datum od - datum do</h4>
-    <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
-       aria-expanded="false" aria-controls="multiCollapseExample1"><i class="fa fa-calculator"></i> Pocet osob</a>
-    <br>
+    <h3>Jedálny lístok
+        <?php
+        $query = "SELECT id_menu, datum_od, datum_do, pocet_hosti FROM tbl_menu WHERE id_menu=".$_GET["menu"]." ORDER BY id_menu ASC";
+        $result = mysqli_query($conn,$query);
+        while ($row = mysqli_fetch_assoc($result))
+        {
+            echo $row["datum_od"]. " - ".$row["datum_do"];
+        }
+
+        ?>
+    </h3>
     <div class="row">
-        <br>
-        <div class="col">
-            <div class="collapse multi-collapse" id="multiCollapseExample1">
-                <div class="card card-body">
-                    <form method="post" class="form-group">
-                        <label>Pocet hostu</label>
-                        <input class="form-control" type="number" name="pocetHostu">
-                        <br>
-                        <input type="submit" class="btn btn-primary btn-lg" value="Prepocitat">
-                    </form>
-                </div>
-            </div>
+        <div class="col-6">
+            <h4>
+                Prepokladany pocet hosti:
+                <?php
+                $query = "SELECT id_menu, datum_od, datum_do, pocet_hosti FROM tbl_menu WHERE id_menu=".$_GET["menu"]." ORDER BY id_menu ASC";
+                $result = mysqli_query($conn,$query);
+                while ($row = mysqli_fetch_assoc($result))
+                {
+                    echo $row["pocet_hosti"];
+                }
+
+                ?>
+            </h4>
         </div>
-        <div class="col"></div>
-        <div class="col">
-            <a href="#" class="btn btn-primary"><i class="fa fa-print"></i> Tlacit menu</a>
+        <div class="col-6">
+            <button onclick="window.print()" class="btn btn-primary btn-lg btn-block"><i class="fa fa-print"></i> Tlacit menu</button>
         </div>
     </div>
-    <h5>Podavane jidla</h5>
+
+    <br>
+    <h5>Podávané jedlá</h5>
     <table class="table table-stripped">
         <tbody>
-        <tr><th colspan="2" class="table-active" style="text-align: center">Pondeli</th></tr>
         <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
+            <th colspan="2" class="table-active" style="text-align: center">
+                <?php
+                    $queryDni = "SELECT den FROM enum_dni where Jazyk='SK' AND id_dna=1";
+                    $resultDni = mysqli_query($conn,$queryDni);
+                    while ($row = mysqli_fetch_assoc($resultDni))
+                    {
+                        echo $row["den"];
+                    }
+                ?>
+            </th>
         </tr>
         <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
+            <?php
+                $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+                $result = mysqli_query($conn, $query);
+                while($row = mysqli_fetch_assoc($result))
+                {
+                    if ($row["nevari_sa"] == 1)
+                    {
+                        echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                    }
+                    else
+                    {
+                        echo "<tr>";
+                        echo "<th>Polievka</th>";
+                        $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.polievka = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                        $result = mysqli_query($conn, $query);
+                        while($row = mysqli_fetch_assoc($result))
+                        {
+                            echo "<td>". $row["nazov_receptu"]."</td>";
+                        }
+                    }
+                }
+                ?>
+        </tr>
+        <tr>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Menu 1</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.menu1 = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
+        </tr>
+        <tr>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Menu 2</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.menu2 = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
+        </tr>
+        <tr>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Menu 3</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.menu3 = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
         </tr>
 
-        <tr><th colspan="2" class="table-active" style="text-align: center">Utery</th></tr>
+        <!-- Utorok -->
         <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
+            <th colspan="2" class="table-active" style="text-align: center">
+                <?php
+                $queryDni = "SELECT den FROM enum_dni where Jazyk='SK' AND id_dna=1";
+                $resultDni = mysqli_query($conn,$queryDni);
+                while ($row = mysqli_fetch_assoc($resultDni))
+                {
+                    echo $row["den"];
+                }
+                ?>
+            </th>
         </tr>
         <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
-        </tr>
-        <tr><th colspan="2" class="table-active" style="text-align: center">Streda</th></tr>
-        <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
-        </tr>
-        <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
-        </tr>
-        <tr><th colspan="2" class="table-active" style="text-align: center">Ctvrtek</th></tr>
-        <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
-        </tr>
-        <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
-        </tr>
-        <tr><th colspan="2" class="table-active" style="text-align: center">Patek</th></tr>
-        <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
-        </tr>
-        <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
-        </tr>
-        <tr><th colspan="2" class="table-active" style="text-align: center">Sobota</th></tr>
-        <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu =". $_GET['id']." AND den = 2";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Polievka</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.polievka = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
         </tr>
         <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Menu 1</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.menu1 = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
         </tr>
-        <tr><th colspan="2" class="table-active" style="text-align: center">Nedele</th></tr>
         <tr>
-            <th>Polivka</th>
-            <td>Kulajda</td>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Menu 2</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.menu2 = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
         </tr>
         <tr>
-            <th>Hlavni jidlo:</th>
-            <td> Kureci rezen s brambory a salatem</td>
+            <?php
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
+            $result = mysqli_query($conn, $query);
+            while($row = mysqli_fetch_assoc($result))
+            {
+                if ($row["nevari_sa"] == 1)
+                {
+                    echo "
+                                <tr rowspan=4>
+                                       <td colspan='1' style='text-align: center'>V tento den sa nevari</td>                                               
+                                </tr>";
+                }
+                else
+                {
+                    echo "<tr>";
+                    echo "<th>Menu 3</th>";
+                    $query = "SELECT nazov_receptu FROM tbl_jedla_menu INNER JOIN tbl_recept tr on tbl_jedla_menu.menu3 = tr.id_receptu WHERE id_menu=".$_GET["menu"]." AND den=1";
+                    $result = mysqli_query($conn, $query);
+                    while($row = mysqli_fetch_assoc($result))
+                    {
+                        echo "<td>". $row["nazov_receptu"]."</td>";
+                    }
+                }
+            }
+            ?>
         </tr>
+
         </tbody>
     </table>
 </div>
