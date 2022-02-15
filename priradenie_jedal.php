@@ -1,5 +1,6 @@
 <?php
 include "config.php";
+$stranka = "listky";
 $conn="";
 $nazovSuboru="Priradenie k menu";
 $bc_nazov="Priradenie k menu";
@@ -12,207 +13,146 @@ include "widgets/navbar.php";
 <div class="jumbotron-fluid">
     <div class="row">
         <div class="col">
+            <br>
             <h3>Priradenie jedal k menu</h3>
         </div>
 
     </div>
+        <form class="form-group" method="post">
 
-    <form class="form-group" method="post">
-        <input type="hidden" name="id_menu" value="<?php echo $_GET["menu"];?>">
+        </form>
+
+        <form class="form-group" method="post">
+            <div class="form-check">
+                <!-- TODO ak sa oznaci toto pole ako 1 tak zakazat vsetky ostatne polia -->
+                <script type="text/javascript">
+                    function enable_disable() {
+                        $("input").prop('disabled', false);
+                    }
+                </script>
+                <input class="form-check-input" id="nevarisa" type="checkbox" name="nevari_sa" onclick="checkboxClick()">
+                <label class="form-check-label" for="nevarisa">Nevari sa</label>
+            </div>
+            <label>Den v tyzdni</label>
+            <select id="input" name="den" class="form-control form-control-lg">
+                <?php
+                $query="SELECT id_dna, den FROM enum_dni WHERE Jazyk='SK'";
+                $result=mysqli_query($conn,$query);
+                while($row = mysqli_fetch_assoc($result))
+                {
+                    ?>
+                    <option value="<?php echo $row["id_dna"]?>"><?php echo $row["den"]; ?></option>
+                    <?php
+                }
+                ?>
+            </select>
+
+            <label>Menu tyzdna</label>
+            <select id="input" class="form-control form-control-lg" name="menuid">
+                <?php
+                    $query = "SELECT id_menu, datum_od, datum_do FROM tbl_menu ORDER BY id_menu";
+                    $result = mysqli_query($conn,$query);
+                    while ($row = mysqli_fetch_assoc($result))
+                    {
+                ?>
+                        <option value="<?php echo $row["id_menu"];?>"><?php echo $row["datum_od"]." - ".$row["datum_do"];?></option>
+                <?php
+                    }
+                ?>
+            </select>
+
+                    <?php
+
+           ?>
+            <br>
+            <label>Polievka</label>
+            <select name="polievka" class="form-control form-control-lg">
+                <?php
+                    $query="SELECT nazov_receptu, id_receptu FROM tbl_recept WHERE typ_receptu=8";
+                    $result= mysqli_query($conn,$query);
+                    while ($row=mysqli_fetch_assoc($result))
+                    {
+                        echo "<option value=".$row["id_receptu"].">".$row["nazov_receptu"]."</option>";
+                    }
+                ?>
+            </select>
+            <br>
+            <div class="row">
+                <div class="col-4">
+                    <label class="form-label">Menu 1</label>
+                    <select name="menu1" class="form-control form-control-lg">
+                        <?php
+                            $queryMen1="SELECT id_receptu,nazov_receptu FROM tbl_recept WHERE Denne_menu=1 AND typ_receptu !=8 ORDER BY nazov_receptu ASC";
+                            $resultMen1=mysqli_query($conn,$queryMen1);
+                            while ($rowMen1 = mysqli_fetch_assoc($resultMen1))
+                            {
+                                echo "<option value=".$rowMen1["id_receptu"].">".$rowMen1["nazov_receptu"]."</option>";
+                            }
+                        ?>
+                    </select>
+                </div>
+
+
+                <div class="col-4">
+                    <label class="form-label">Menu 2</label>
+                    <select class="form-control form-control-lg">
+                        <?php
+                        $queryMen2="SELECT id_receptu,nazov_receptu FROM tbl_recept WHERE Denne_menu=1 AND typ_receptu !=8 ORDER BY nazov_receptu ASC";
+                        $resultMen2=mysqli_query($conn,$queryMen1);
+                        while ($rowMen2 = mysqli_fetch_assoc($resultMen2))
+                        {
+                            echo "<option value=".$rowMen2["id_receptu"].">".$rowMen2["nazov_receptu"]."</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+                <div class="col-4">
+                    <label class="form-label">Menu 3</label>
+                    <select class="form-control form-control-lg">
+                        <?php
+                        $queryMen3="SELECT id_receptu,nazov_receptu FROM tbl_recept WHERE Denne_menu=1 AND typ_receptu !=8 ORDER BY nazov_receptu ASC ";
+                        $resultMen3=mysqli_query($conn,$queryMen3);
+                        while ($rowMen3 = mysqli_fetch_assoc($resultMen3))
+                        {
+                            echo "<option value=".$rowMen3["id_receptu"].">".$rowMen3["nazov_receptu"]."</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
+
+            </div>
+            <br>
+            <input name="odoslat" type="submit" class="btn btn-primary btn-lg btn-block" value="Ulozit den">
+
+        </form>
         <?php
-        $query = "SELECT id_dna, den FROM enum_dni WHERE Jazyk = 'SK' ORDER BY id_dna ASC ";  //uspodiadaj ASC od najmensieho po najvacsi
-        $result = mysqli_query($conn, $query); // mysqli_query - vykona prikaz
-        ?>
-        <label>Den v tyzdni</label>
-        <select class="form-control form-control-lg" name="den">
-            <?php
-            while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-            <option value="<?php echo $row["id_dna"] ?>" name="den"><?php echo $row["den"] ?></option>
-            <?php
+            if (isset($_POST["odoslat"]))
+            {
+                //if checked
+                if (isset($_POST["nevari_sa"]))
+                {
+                    $nevariSa = 1;
+                    $query = "INSERT INTO tbl_jedla_menu (id_menu, den, nevari_sa) VALUES (?,?,?)";
+                    $stmt = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmt, $query);
+                    mysqli_stmt_bind_param($stmt, 'iii', $_POST["menuid"],$_POST["den"],$nevariSa);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                }
+                else
+                {
+                    $nevariSa = 0;
+                    $query = "INSERT INTO tbl_jedla_menu (id_menu, den, polievka, menu1, menu2, menu3, nevari_sa) VALUES (?,?,?,?,?,?,?)";
+                    $stmt = mysqli_stmt_init($conn);
+                    mysqli_stmt_prepare($stmt, $query);
+                    mysqli_stmt_bind_param($stmt, 'iiiiii', $_POST["menuid"],$_POST["den"],$_POST["polievka"],$_POST["menu1"],$_POST["menu2"],$_POST["menu3"],$nevariSa);
+                    mysqli_stmt_execute($stmt);
+                    mysqli_stmt_close($stmt);
+                }
+
             }
-            ?>
-        </select>
-        <br>
-
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" name="nevari">
-            <label class="form-check-label" for="flexCheckDefault">Nevari sa</label>
-        </div>
-        <br>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#polievka" aria-expanded="false" aria-controls="multiCollapseExample2">Polievka</button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#menu1" aria-expanded="false" aria-controls="multiCollapseExample2">Menu 1</button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#menu2" aria-expanded="false" aria-controls="multiCollapseExample1">Menu 2</button>
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#menu3" aria-expanded="false" aria-controls="multiCollapseExample1">Menu 3</button>
-        <br>
-        <div class="row">
-            <div class="col">
-                <div class="collapse multi-collapse" id="polievka">
-                    <fieldset>
-            <legend>Polievka</legend>
-            <form method="post" class="form-group" action="ulozenie_dna.php" name="polievka">
-            <?php
-                $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC";
-                $resultKat = mysqli_query($conn,$queryKat);
-            ?>
-                <label>Kategoria receptu</label>
-                <select name="kategoria" class="form-control form-control-lg">
-                    <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
-                    {
-                    ?>
-                    <option value="<?php echo $rowKat["id_typu_receptu"]?>"><?php echo $rowKat["nazov_typu_receptu"]?></option>
-                    <?php }?>
-                </select>
-                <br>
-                <input type="submit" class="btn-primary btn-lg btn-block" value="Zobraz recepty">
-            </form>
-
-            <br>
-            <label></label>
-
-
-            <?php
-                $queryRec="SELECT id_receptu, nazov_receptu FROM tbl_recept WHERE typ_receptu=".$_POST["kategoria"];
-                $resultRec = mysqli_query($conn,$queryRec);
-                ?>
-            <select class="form-control form-control-lg" name="polievka">
-                <?php while ($rowRec = mysqli_fetch_assoc($resultRec))
-                {
-            ?>
-                <option value="<?php echo $rowRec["id_receptu"];?>"><?php echo $rowRec["nazov_receptu"];?></option>
-                <?php }?>
-            </select>
-                        <input type="submit" value="zvolRecept">
-        </fieldset>
-                </div>
-            </div>
-        <br>
-            <div class="col">
-                <div class="collapse multi-collapse" id="menu1">
-                    <fieldset>
-            <legend>menu 1</legend>
-            <form method="post" class="form-group">
-                <?php
-                $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC";
-                $resultKat = mysqli_query($conn,$queryKat);
-                ?>
-                <label>Kategoria receptu</label>
-                <select name="kategoria" class="form-control form-control-lg">
-                    <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
-                    {
-                        ?>
-                        <option value="<?php echo $rowKat["id_typu_receptu"]?>"><?php echo $rowKat["nazov_typu_receptu"]?></option>
-                    <?php }?>
-                </select>
-                <br>
-                <input type="submit" class="btn-primary btn-lg btn-block" value="Zobraz recepty">
-            </form>
-
-            <br>
-            <label></label>
-
-
-            <?php
-            $queryRec="SELECT id_receptu, nazov_receptu FROM tbl_recept WHERE typ_receptu=".$_POST["kategoria"];
-            $resultRec = mysqli_query($conn,$queryRec);
-            ?>
-            <select class="form-control form-control-lg" name="menu_1">
-                <?php while ($rowRec = mysqli_fetch_assoc($resultRec))
-                {
-                    ?>
-                    <option value="<?php echo $rowRec["id_receptu"];?>"><?php echo $rowRec["nazov_receptu"];?></option>
-                <?php }?>
-            </select>
-        </fieldset>
-                </div>
-            </div>
-        <br>
-            <div class="col">
-                <div class="collapse multi-collapse" id="menu2">
-                    <fieldset>
-            <legend>menu 2</legend>
-            <form method="post" class="form-group">
-                <?php
-                $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC";
-                $resultKat = mysqli_query($conn,$queryKat);
-                ?>
-                <label>Kategoria receptu</label>
-                <select name="kategoria" class="form-control form-control-lg">
-                    <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
-                    {
-                        ?>
-                        <option value="<?php echo $rowKat["id_typu_receptu"]?>"><?php echo $rowKat["nazov_typu_receptu"]?></option>
-                    <?php }?>
-                </select>
-                <br>
-                <input type="submit" class="btn-primary btn-lg btn-block" value="Zobraz recepty">
-            </form>
-
-            <br>
-            <label></label>
-
-
-            <?php
-            $queryRec="SELECT id_receptu, nazov_receptu FROM tbl_recept WHERE typ_receptu=".$_POST["kategoria"];
-            $resultRec = mysqli_query($conn,$queryRec);
-            ?>
-            <select class="form-control form-control-lg" name="menu_2">
-                <?php while ($rowRec = mysqli_fetch_assoc($resultRec))
-                {
-                    ?>
-                    <option value="<?php echo $rowRec["id_receptu"];?>"><?php echo $rowRec["nazov_receptu"];?></option>
-                <?php }?>
-            </select>
-        </fieldset>
-                </div>
-            </div>
-        <br>
-            <div class="col">
-                <div class="collapse multi-collapse" id="menu3">
-                    <fieldset>
-            <legend>menu 3</legend>
-            <form method="post" class="form-group">
-                <?php
-                $queryKat = "SELECT id_typu_receptu, nazov_typu_receptu FROM enum_typ_receptu ORDER BY id_typu_receptu ASC";
-                $resultKat = mysqli_query($conn,$queryKat);
-                ?>
-                <label>Kategoria receptu</label>
-                <select name="kategoria" class="form-control form-control-lg">
-                    <?php while ($rowKat = mysqli_fetch_assoc($resultKat))
-                    {
-                        ?>
-                        <option value="<?php echo $rowKat["id_typu_receptu"]?>"><?php echo $rowKat["nazov_typu_receptu"]?></option>
-                    <?php }?>
-                </select>
-                <br>
-                <input type="submit" class="btn-primary btn-lg btn-block" value="Zobraz recepty">
-            </form>
-
-            <br>
-            <label></label>
-
-
-            <?php
-            $queryRec="SELECT id_receptu, nazov_receptu FROM tbl_recept WHERE typ_receptu=".$_POST["kategoria"];
-            $resultRec = mysqli_query($conn,$queryRec);
-            ?>
-            <select class="form-control form-control-lg" name="menu_3">
-                <?php while ($rowRec = mysqli_fetch_assoc($resultRec))
-                {
-                    ?>
-                    <option value="<?php echo $rowRec["id_receptu"];?>"><?php echo $rowRec["nazov_receptu"];?></option>
-                <?php }?>
-            </select>
-        </fieldset>
-                </div>
-            </div>
-        </div>
-        <br>
-        <input class="btn btn-primary btn-lg btn-block" type="submit" name="ulozit">
-         <input type="hidden" name="send" value="yes">
-    </form>
-    <br>
-
+        ?>
 </div>
 <?php
     include "widgets/footer.php"
