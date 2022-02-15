@@ -71,16 +71,16 @@ $nazovSuboru= $lang["HOME"];
                 <tr>
                     <th><?php echo $lang["RECIEPE_COUNT"]?></th>
                     <td><?php
-                        $query="SELECT id_receptu FROM tbl_recept";
-                        $result= mysqli_query($conn,$query);
-                        $pocetRiadkov=mysqli_num_rows($result);
-                        if ($pocetRiadkov==0)
+                        $queryRecCount="SELECT id_receptu FROM tbl_recept";
+                        $resultRecCount= mysqli_query($conn,$queryRecCount);
+                        $pocetRiadkovRec=mysqli_num_rows($resultRecCount);
+                        if ($pocetRiadkovRec==0)
                         {
                             echo "0";
                         }
                         else
                         {
-                        echo  "<a href='zoznam_receptov.php'>".$pocetRiadkov.'</a>';
+                        echo  "<a href='zoznam_receptov.php'>".$pocetRiadkovRec.'</a>';
                         }?></td>
                 </tr>
             </table>
