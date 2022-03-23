@@ -36,13 +36,26 @@ include "widgets/navbar.php";
             </h4>
         </div>
         <div class="col-6">
-            <button onclick="window.print()" class="btn btn-primary btn-lg btn-block"><i class="fa fa-print"></i> Tlacit menu</button>
+            <script type="text/javascript">
+                function printDiv(divName) {
+                    var printContents = document.getElementById(divName).innerHTML;
+                    var originalContents = document.body.innerHTML;
+
+                    document.body.innerHTML = printContents;
+
+                    window.print();
+
+                    document.body.innerHTML = originalContents;
+                }
+            </script>
+            <input type="button" onclick="printDiv(print)" class="btn btn-primary btn-lg btn-block" value="Tlacit menu">
         </div>
     </div>
 
     <br>
     <h5>Podávané jedlá</h5>
-    <table class="table table-stripped">
+    <div id="print">
+    <table id="menuTlac" class="table table-stripped">
         <tbody>
         <tr>
             <th colspan="2" class="table-active" style="text-align: center">
@@ -169,7 +182,7 @@ include "widgets/navbar.php";
         <tr>
             <th colspan="2" class="table-active" style="text-align: center">
                 <?php
-                $queryDni = "SELECT den FROM enum_dni where Jazyk='SK' AND id_dna=1";
+                $queryDni = "SELECT den FROM enum_dni where Jazyk='SK' AND id_dna=2";
                 $resultDni = mysqli_query($conn,$queryDni);
                 while ($row = mysqli_fetch_assoc($resultDni))
                 {
@@ -180,7 +193,7 @@ include "widgets/navbar.php";
         </tr>
         <tr>
             <?php
-            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu =". $_GET['id']." AND den = 2";
+            $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu =". $_GET['menu']." AND den = 2";
             $result = mysqli_query($conn, $query);
             while($row = mysqli_fetch_assoc($result))
             {
@@ -226,7 +239,7 @@ include "widgets/navbar.php";
                     $result = mysqli_query($conn, $query);
                     while($row = mysqli_fetch_assoc($result))
                     {
-                        echo "<td>". $row["nazov_receptu"]."</td>";
+                        echo "<td>". $row["nazov_receptu"]."</td></tr>";
                     }
                 }
             }
@@ -258,7 +271,7 @@ include "widgets/navbar.php";
                 }
             }
             ?>
-        </tr>
+                </tr>
         <tr>
             <?php
             $query = "SELECT nevari_sa FROM tbl_jedla_menu WHERE id_menu = 1 AND den = 1";
@@ -289,6 +302,7 @@ include "widgets/navbar.php";
 
         </tbody>
     </table>
+    </div>
 </div>
 <?php
 include "widgets/footer.php";
