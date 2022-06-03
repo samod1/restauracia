@@ -11,3 +11,5 @@ $conn = mysqli_connect($server,$user,$pass,$db);
 }
 echo "Pripojenie prebehlo uspesne.";*/
 ?>
+
+/*konfiguracia DB */
